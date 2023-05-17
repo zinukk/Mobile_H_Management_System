@@ -7,9 +7,9 @@ const Layout = ({ children }: layoutType) => {
 
 const LayoutWrapStyle = styled.div`
   margin: 0 auto;
+  padding-bottom: 7vh;
   max-width: 430px;
   height: 100vh;
-  border: 1px solid black;
 `;
 
 export default Layout;
