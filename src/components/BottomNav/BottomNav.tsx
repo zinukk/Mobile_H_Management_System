@@ -64,6 +64,7 @@ const StFlexBox = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  gap: 5px;
 `;
 
 const StName = styled.p<{ isSame: boolean }>`
