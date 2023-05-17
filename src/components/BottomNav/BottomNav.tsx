@@ -46,11 +46,10 @@ const StBottomNav = styled.nav`
   transform: translate(-50%, 0%);
   width: 430px;
   height: 8vh;
-  border-top: ${({ theme }) => `1px solid ${theme.color.gray400}`};
-  box-shadow: rgba(0, 0, 0, 0) 0px 54px 55px, rgba(0, 0, 0, 0.1) 0px -12px 30px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 12px;
 `;
 
-const StBody = styled.div`
+const StBody = styled.main`
   padding: 0 70px;
   margin: 0 auto;
   width: 430px;
