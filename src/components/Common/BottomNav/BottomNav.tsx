@@ -46,11 +46,12 @@ const StBottomNav = styled.nav`
   transform: translate(-50%, 0%);
   width: 430px;
   height: 8vh;
+  background: ${({ theme }) => theme.color.white};
   box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 12px;
 `;
 
 const StBody = styled.main`
-  padding: 0 70px;
+  padding: 0 50px;
   margin: 0 auto;
   width: 430px;
   display: flex;
@@ -65,6 +66,7 @@ const StFlexBox = styled.div`
   align-items: center;
   flex-direction: column;
   gap: 5px;
+  cursor: pointer;
 `;
 
 const StName = styled.p<{ isSame: boolean }>`

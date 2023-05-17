@@ -3,8 +3,27 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import LogoIcon from '../public/assets/icons/icon_logo.png';
 import LogoText from '../public/assets/images/image_logo.png';
+import Statistics from '@src/components/Home/Statistics/Statistics';
+import homeAPI from '@src/api/home';
+import { IServing } from '@src/types/home';
 
-const Home = () => {
+export async function getServerSideProps() {
+  const serving = await homeAPI.getServing();
+
+  return {
+    props: {
+      serving: serving,
+    },
+  };
+}
+
+interface IProps {
+  serving: IServing;
+}
+
+const Home = ({ serving }: IProps) => {
+  console.log(serving);
+
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
       <StHome>
@@ -14,7 +33,9 @@ const Home = () => {
             <StImage src={LogoText} width={200} height={51} alt="로고 텍스트" />
           </StLogo>
         </StHeader>
-        <StBody></StBody>
+        <StBody>
+          <Statistics serving={serving.all} />
+        </StBody>
         <StFooter></StFooter>
       </StHome>
     </motion.div>
@@ -26,8 +47,10 @@ const StHome = styled.div`
 `;
 
 const StHeader = styled.header`
+  margin-bottom: 20px;
   padding: 5px 0;
   width: 100%;
+  background: ${({ theme }) => theme.color.white};
   border-bottom: ${({ theme }) => `1px solid ${theme.color.gray300}`};
 `;
 
@@ -43,6 +66,7 @@ const StImage = styled(Image)`
 `;
 
 const StBody = styled.main`
+  padding: 0 20px;
   width: 100%;
 `;
 

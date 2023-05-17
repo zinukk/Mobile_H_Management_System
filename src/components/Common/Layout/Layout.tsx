@@ -10,6 +10,7 @@ const LayoutWrapStyle = styled.div`
   padding-bottom: 7vh;
   max-width: 430px;
   height: 100vh;
+  background: ${({ theme }) => theme.color.background};
 `;
 
 export default Layout;

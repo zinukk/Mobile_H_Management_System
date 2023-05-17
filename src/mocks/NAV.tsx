@@ -1,4 +1,4 @@
-import { Nav } from '@src/components/BottomNav/types';
+import { Nav } from '@src/components/Common/BottomNav/types';
 import { AiOutlineHome, AiFillHome } from 'react-icons/ai';
 import { MdErrorOutline, MdError } from 'react-icons/md';
 import { AiOutlineRobot, AiFillRobot } from 'react-icons/ai';
