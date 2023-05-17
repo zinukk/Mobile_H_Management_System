@@ -5,9 +5,9 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { RecoilRoot } from 'recoil';
 import global from 'styles/global';
 import theme from 'styles/theme';
-import Layout from '@src/components/Layout/Layout';
-import BottomNav from '@src/components/BottomNav/BottomNav';
-import TopNav from '@src/components/TopNav';
+import Layout from '@src/components/Common/Layout/Layout';
+import BottomNav from '@src/components/Common/BottomNav/BottomNav';
+import TopNav from '@src/components/Common/TopNav';
 
 const App = ({ Component, pageProps }: AppProps) => {
   const [queryClient] = useState(() => new QueryClient());
