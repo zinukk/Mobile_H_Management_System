@@ -1,11 +1,11 @@
 import { motion } from 'framer-motion';
 
-const Home = () => {
+const Store = () => {
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-      홈화면
+      매장페이지
     </motion.div>
   );
 };
 
-export default Home;
+export default Store;
