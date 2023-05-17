@@ -1,1 +1,1 @@
-Next + Ts + Recoil + ReactQuery + Emotion + Eslint + Prettier 설정
+Next + Ts + Recoil + ReactQuery + Emotion + Eslint + Prettier
