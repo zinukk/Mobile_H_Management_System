@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import React from 'react';
 import { RiArrowDownSFill, RiArrowUpSFill } from 'react-icons/ri';
 
 interface IProps {
