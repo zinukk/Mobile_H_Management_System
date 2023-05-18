@@ -23,3 +23,9 @@ export type IDateTab = {
   주간: JSX.Element;
   월간: JSX.Element;
 };
+
+export type IErrorStatus = {
+  id: number;
+  status: string;
+  color: string;
+};

@@ -6,24 +6,27 @@ import LogoText from '../public/assets/images/image_logo.png';
 import Statistics from '@src/components/Home/Statistics/Statistics';
 import homeAPI from '@src/api/home';
 import { IServing } from '@src/types/home';
+import StoreList from '@src/components/Home/StoreList/StoreList';
 
 export async function getServerSideProps() {
   const serving = await homeAPI.getServing();
 
+  const stores = await homeAPI.getStores();
+
   return {
     props: {
       serving: serving,
+      stores: stores,
     },
   };
 }
 
 interface IProps {
   serving: IServing;
+  stores: IResponse;
 }
 
-const Home = ({ serving }: IProps) => {
-  console.log(serving);
-
+const Home = ({ serving, stores }: IProps) => {
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
       <StHome>
@@ -35,15 +38,18 @@ const Home = ({ serving }: IProps) => {
         </StHeader>
         <StBody>
           <Statistics serving={serving.all} />
+          <StoreList stores={stores.stores} />
         </StBody>
-        <StFooter></StFooter>
       </StHome>
     </motion.div>
   );
 };
 
 const StHome = styled.div`
+  padding-bottom: 10vh;
   width: 100%;
+  background: ${({ theme }) => theme.color.background};
+  overflow: scroll;
 `;
 
 const StHeader = styled.header`
@@ -67,10 +73,6 @@ const StImage = styled(Image)`
 
 const StBody = styled.main`
   padding: 0 20px;
-  width: 100%;
-`;
-
-const StFooter = styled.footer`
   width: 100%;
 `;
 

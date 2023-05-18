@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
-import { IoArrowBack } from 'react-icons/io5';
+import { MdArrowBackIos } from 'react-icons/md';
 
 interface IProps {
   text: string;
@@ -18,7 +18,7 @@ const TopNav = ({ text }: IProps) => {
       <StBody>
         <StTitle>{text}</StTitle>
         <StIcon>
-          <IoArrowBack onClick={handleBackClick} size={30} />
+          <MdArrowBackIos onClick={handleBackClick} size={25} />
         </StIcon>
       </StBody>
     </StTopNav>
