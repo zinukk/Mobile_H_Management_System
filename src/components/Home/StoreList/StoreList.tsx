@@ -1,7 +1,5 @@
 import styled from '@emotion/styled';
-import React, { useState } from 'react';
-import Title from '../../Common/Title';
-import { useRouter } from 'next/router';
+import { useState } from 'react';
 import { ERROR_STATUS } from '@src/mocks/ERROR_STATUS';
 import { IErrorStatus } from '@src/types/home';
 import Store from './Store';
@@ -13,23 +11,23 @@ interface IProps {
 const StoreList = ({ stores }: IProps) => {
   const [showMore, setShowMore] = useState<boolean>(false);
 
-  const router = useRouter();
-
   const end = showMore ? 6 : 3;
 
-  const pageHandler = () => {
-    router.push('/store');
-  };
+  const buttonText = showMore ? '접기' : '더 보기 ';
 
-  const organizedStores = stores.map((store: IStore) => ({
+  const organizedStores = stores.slice(0, end).map((store: IStore) => ({
     ...store,
     total: parseInt(store.error) + parseInt(store.serving) + parseInt(store.stay) + parseInt(store.refair),
   }));
 
+  const lengthHandler = () => {
+    setShowMore(!showMore);
+  };
+
   return (
     <StStoreList>
       <StHeader>
-        <Title title="전체 매장" event={pageHandler} />
+        <StTitle>전체 매장</StTitle>
         <StStatusBox>
           {ERROR_STATUS.map(({ id, status, color }: IErrorStatus) => (
             <StFlexBox key={id}>
@@ -40,36 +38,39 @@ const StoreList = ({ stores }: IProps) => {
         </StStatusBox>
       </StHeader>
       <StBody>
-        {organizedStores.slice(0, end).map((store: IStore, idx: number) => (
+        {organizedStores.map((store: IStore, idx: number) => (
           <Store key={idx} store={store} />
         ))}
       </StBody>
-      <StFooter
-        onClick={() => {
-          setShowMore(!showMore);
-        }}>
-        {showMore ? '접기' : '더 보기 '}
-      </StFooter>
+      <StFooter onClick={lengthHandler}>{buttonText}</StFooter>
     </StStoreList>
   );
 };
 
 const StStoreList = styled.div`
-  margin-top: 50px;
+  margin-top: 60px;
   width: 100%;
 `;
 
 const StHeader = styled.header`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
 `;
 
+const StTitle = styled.h1`
+  color: ${({ theme }) => theme.color.gray700};
+  font-size: 18px;
+  font-weight: 600;
+`;
+
 const StStatusBox = styled.div`
-  margin-top: 20px;
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
   align-items: center;
-  width: 100%;
-  gap: 10px;
+  height: 30px;
+  gap: 20px;
 `;
 
 const StFlexBox = styled.div`
@@ -111,6 +112,7 @@ const StFooter = styled.button`
   background: ${({ theme }) => theme.color.white};
   border: none;
   border-radius: 30px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   cursor: pointer;
 
   :hover {

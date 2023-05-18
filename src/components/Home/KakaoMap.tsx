@@ -70,7 +70,7 @@ const KakaoMap = ({ stores }: IProps) => {
 };
 
 const StKakaoMap = styled.div`
-  margin-top: 50px;
+  margin-top: 40px;
   width: 100%;
 `;
 
