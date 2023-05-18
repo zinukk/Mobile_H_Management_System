@@ -3,9 +3,9 @@ import useOnClickOutside from '@src/hooks/useOnClickOutside';
 import React, { useRef, useState } from 'react';
 
 interface IProps {
-  selected: any;
-  list: any;
-  event: any;
+  selected: string;
+  list: IDropDownList[];
+  event: (arg1: number | string, arg2: string) => void;
 }
 
 const DropDown = ({ selected, list, event }: IProps) => {
@@ -27,8 +27,8 @@ const DropDown = ({ selected, list, event }: IProps) => {
         {selected}
       </StSelected>
       <StSelect isOpen={isOpen}>
-        {list.map(({ id, option }: any) => (
-          <StOption key={id} onClick={event}>
+        {list.map(({ id, option }: IDropDownList) => (
+          <StOption key={id} onClick={() => event(id, option)}>
             {option}
           </StOption>
         ))}

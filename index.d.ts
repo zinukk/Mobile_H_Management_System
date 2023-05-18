@@ -122,3 +122,8 @@ interface IStore {
   wifi_id: string;
   wifi_pw: string;
 }
+
+interface IDropDownList {
+  id: number;
+  option: string;
+}
