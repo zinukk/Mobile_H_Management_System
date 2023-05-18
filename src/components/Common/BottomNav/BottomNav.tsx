@@ -48,6 +48,7 @@ const StBottomNav = styled.nav`
   height: 8vh;
   background: ${({ theme }) => theme.color.white};
   box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 12px;
+  z-index: 100;
 `;
 
 const StBody = styled.main`

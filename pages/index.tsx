@@ -7,6 +7,7 @@ import Statistics from '@src/components/Home/Statistics/Statistics';
 import homeAPI from '@src/api/home';
 import { IServing } from '@src/types/home';
 import StoreList from '@src/components/Home/StoreList/StoreList';
+import KakaoMap from '@src/components/Home/KakaoMap';
 
 export async function getServerSideProps() {
   const serving = await homeAPI.getServing();
@@ -39,6 +40,7 @@ const Home = ({ serving, stores }: IProps) => {
         <StBody>
           <Statistics serving={serving.all} />
           <StoreList stores={stores.stores} />
+          <KakaoMap stores={stores.stores} />
         </StBody>
       </StHome>
     </motion.div>
