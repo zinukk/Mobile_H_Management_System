@@ -1,7 +1,7 @@
 import client from './client';
 import API from './apis';
 
-const storesAPI = {
+const storeAPI = {
   getStores: (storeId?: string | number) => {
     if (storeId) {
       return client.get(`${API.getStores}/${storeId}`);
@@ -11,4 +11,4 @@ const storesAPI = {
   },
 };
 
-export default storesAPI;
+export default storeAPI;
