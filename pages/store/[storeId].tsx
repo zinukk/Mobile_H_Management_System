@@ -41,6 +41,8 @@ const StoreDetail = ({ stores }: IProps) => {
 
   const servingCount = stores.week;
 
+  const robots = stores.robot_counts[0];
+
   return (
     <StStoreDetail>
       <StHeader>
@@ -49,7 +51,7 @@ const StoreDetail = ({ stores }: IProps) => {
       <StBody>
         <StoreInfo store={store} />
         <PeakTime servingCount={servingCount} />
-        <AvailableRobot />
+        <AvailableRobot robots={robots} />
       </StBody>
     </StStoreDetail>
   );
@@ -57,7 +59,9 @@ const StoreDetail = ({ stores }: IProps) => {
 
 const StStoreDetail = styled.div`
   padding: 8vh 20px;
+  padding-bottom: 10vh;
   width: 100%;
+  background: ${({ theme }) => theme.color.background};
 `;
 
 const StHeader = styled.header`
