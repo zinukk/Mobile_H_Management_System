@@ -1,6 +1,8 @@
 import styled from '@emotion/styled';
 import storeAPI from '@src/api/store';
 import TopNav from '@src/components/Common/TopNav';
+import AvailableRobot from '@src/components/Store/AvailableRobot';
+import PeakTime from '@src/components/Store/PeakTime';
 import StoreInfo from '@src/components/Store/StoreInfo';
 import { IStoreDetail } from '@src/types/store';
 import React from 'react';
@@ -37,7 +39,9 @@ interface IProps {
 const StoreDetail = ({ stores }: IProps) => {
   const store = stores.stores[0];
 
-  console.log(store);
+  const servingCount = stores.week;
+
+  const robots = stores.robot_counts[0];
 
   return (
     <StStoreDetail>
@@ -46,6 +50,8 @@ const StoreDetail = ({ stores }: IProps) => {
       </StHeader>
       <StBody>
         <StoreInfo store={store} />
+        <PeakTime servingCount={servingCount} />
+        <AvailableRobot robots={robots} />
       </StBody>
     </StStoreDetail>
   );
@@ -53,7 +59,9 @@ const StoreDetail = ({ stores }: IProps) => {
 
 const StStoreDetail = styled.div`
   padding: 8vh 20px;
+  padding-bottom: 10vh;
   width: 100%;
+  background: ${({ theme }) => theme.color.background};
 `;
 
 const StHeader = styled.header`
