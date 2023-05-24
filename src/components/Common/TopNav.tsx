@@ -23,25 +23,24 @@ const StTopNav = styled.nav`
   right: 0;
   transform: translate(-50%, 0%);
   width: 430px;
-  height: 7vh;
+  height: 8vh;
   background: white;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
   z-index: 10;
 `;
 
 const StHeader = styled.header`
-  margin-bottom: 20px;
-  padding: 5px 0;
+  position: relative;
   width: 100%;
-  background: ${({ theme }) => theme.color.white};
-  border-bottom: ${({ theme }) => `1px solid ${theme.color.gray300}`};
+  height: 8vh;
 `;
 
 const StLogo = styled.div`
-  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
-  justify-content: center;
-  align-items: center;
 `;
 
 const StImage = styled(Image)`

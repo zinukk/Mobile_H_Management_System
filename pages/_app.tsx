@@ -17,8 +17,6 @@ const App = ({ Component, pageProps }: AppProps) => {
 
   const pageDepth = pathname.split('/').length;
 
-  console.log(pageDepth);
-
   return (
     <QueryClientProvider client={queryClient}>
       <RecoilRoot>
