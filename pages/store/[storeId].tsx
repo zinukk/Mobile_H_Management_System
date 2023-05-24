@@ -44,9 +44,7 @@ const StoreDetail = ({ stores }: IProps) => {
 
   return (
     <StStoreDetail>
-      <StHeader>
-        <TopNav text={store.map_name} />
-      </StHeader>
+      <StHeader></StHeader>
       <StBody>
         <StoreInfo store={store} />
         <PeakTime servingCount={servingCount} />

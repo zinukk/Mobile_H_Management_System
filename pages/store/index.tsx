@@ -45,40 +45,37 @@ const Store = ({ stores }: IProps) => {
   };
 
   return (
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-      <StStore>
-        <StHeader>
-          <StTitle>전체 매장</StTitle>
-          <DropDown selected={storeName} list={dropdownList} event={pageHandler} />
-        </StHeader>
-        <StBody>
-          {stores.stores.map(({ map_id: storeId, map_name: storeName, descirbe, img_src }) => (
-            <StStoreInfo key={storeId} onClick={() => pageHandler(storeId, storeName)}>
-              <StInfoBox>
-                <StFlexBox>
-                  <Image src={img_src} width={75} height={50} alt="매장 로고" />
-                  <StColumnBox>
-                    <StStoreName>{storeName}</StStoreName>
-                    <StDescribe>{descirbe}</StDescribe>
-                  </StColumnBox>
-                </StFlexBox>
-                <StIcon />
-              </StInfoBox>
-              <StDevider />
-              <StImgBox>
-                <StMapImg src={`/assets/images/map/map-background-${storeId}-monitoring.png`} alt="매장이미지" fill />
-              </StImgBox>
-            </StStoreInfo>
-          ))}
-        </StBody>
-      </StStore>
-    </motion.div>
+    <StStore>
+      <StHeader>
+        <StTitle>전체 매장</StTitle>
+        <DropDown selected={storeName} list={dropdownList} event={pageHandler} />
+      </StHeader>
+      <StBody>
+        {stores.stores.map(({ map_id: storeId, map_name: storeName, descirbe, img_src }) => (
+          <StStoreInfo key={storeId} onClick={() => pageHandler(storeId, storeName)}>
+            <StInfoBox>
+              <StFlexBox>
+                <Image src={img_src} width={75} height={50} alt="매장 로고" />
+                <StColumnBox>
+                  <StStoreName>{storeName}</StStoreName>
+                  <StDescribe>{descirbe}</StDescribe>
+                </StColumnBox>
+              </StFlexBox>
+              <StIcon />
+            </StInfoBox>
+            <StDevider />
+            <StImgBox>
+              <StMapImg src={`/assets/images/map/map-background-${storeId}-monitoring.png`} alt="매장이미지" fill />
+            </StImgBox>
+          </StStoreInfo>
+        ))}
+      </StBody>
+    </StStore>
   );
 };
 
 const StStore = styled.div`
-  padding: 0 20px;
-  padding-bottom: 10vh;
+  padding: 10vh 20px;
   width: 100%;
   background: ${({ theme }) => theme.color.background};
 `;

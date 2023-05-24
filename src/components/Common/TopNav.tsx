@@ -1,26 +1,17 @@
+import Image from 'next/image';
+import LogoIcon from 'public/assets/icons/icon_logo.png';
+import LogoText from 'public/assets/images/image_logo.png';
 import styled from '@emotion/styled';
-import { useRouter } from 'next/router';
-import { MdArrowBackIos } from 'react-icons/md';
 
-interface IProps {
-  text: string;
-}
-
-const TopNav = ({ text }: IProps) => {
-  const router = useRouter();
-
-  const handleBackClick = () => {
-    router.back();
-  };
-
+const TopNav = () => {
   return (
     <StTopNav>
-      <StBody>
-        <StTitle>{text}</StTitle>
-        <StIcon>
-          <MdArrowBackIos onClick={handleBackClick} size={25} />
-        </StIcon>
-      </StBody>
+      <StHeader>
+        <StLogo>
+          <StImage src={LogoIcon} width={51} height={51} alt="로고 아이콘" />
+          <StImage src={LogoText} width={200} height={51} alt="로고 텍스트" />
+        </StLogo>
+      </StHeader>
     </StTopNav>
   );
 };
@@ -35,27 +26,26 @@ const StTopNav = styled.nav`
   height: 7vh;
   background: white;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  z-index: 10;
 `;
 
-const StBody = styled.main`
-  position: relative;
+const StHeader = styled.header`
+  margin-bottom: 20px;
+  padding: 5px 0;
   width: 100%;
-  height: 7vh;
+  background: ${({ theme }) => theme.color.white};
+  border-bottom: ${({ theme }) => `1px solid ${theme.color.gray300}`};
 `;
 
-const StTitle = styled.p`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 20px;
+const StLogo = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
-const StIcon = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 10%;
-  transform: translate(-50%, -50%);
+const StImage = styled(Image)`
+  filter: invert(35%) sepia(74%) saturate(451%) hue-rotate(201deg) brightness(86%) contrast(90%);
 `;
 
 export default TopNav;

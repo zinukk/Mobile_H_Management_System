@@ -8,15 +8,23 @@ import theme from 'styles/theme';
 import Layout from '@src/components/Common/Layout/Layout';
 import BottomNav from '@src/components/Common/BottomNav/BottomNav';
 import TopNav from '@src/components/Common/TopNav';
+import { useRouter } from 'next/router';
 
 const App = ({ Component, pageProps }: AppProps) => {
+  const { pathname } = useRouter();
+
   const [queryClient] = useState(() => new QueryClient());
+
+  const pageDepth = pathname.split('/').length;
+
+  console.log(pageDepth);
 
   return (
     <QueryClientProvider client={queryClient}>
       <RecoilRoot>
         <ThemeProvider theme={theme}>
           <Layout>
+            {pageDepth === 2 ? <TopNav /> : null}
             <Global styles={global} />
             <Component {...pageProps} />
             <BottomNav />
