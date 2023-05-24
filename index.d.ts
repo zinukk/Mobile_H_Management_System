@@ -124,6 +124,6 @@ interface IStore {
 }
 
 interface IDropDownList {
-  id: number;
+  id: string;
   option: string;
 }

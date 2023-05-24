@@ -5,7 +5,7 @@ import React, { useRef, useState } from 'react';
 interface IProps {
   selected: string;
   list: IDropDownList[];
-  event: (arg1: number | string, arg2: string) => void;
+  event: (arg1: string, arg2: string) => void;
 }
 
 const DropDown = ({ selected, list, event }: IProps) => {

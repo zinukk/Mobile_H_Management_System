@@ -1,21 +1,25 @@
-import styled from '@emotion/styled';
 import Image from 'next/image';
+import { IStoreInfo } from '@src/types/store';
+import styled from '@emotion/styled';
 
 interface IProps {
   store: IStore;
 }
 
 const StoreInfo = ({ store }: IProps) => {
-  const { img_src, map_name, descirbe, map_id, login, start_node, wifi_id, wifi_pw, home } = store;
+  const { img_src, map_name, descirbe, map_id, login, start_node, start_dir, wifi_id, wifi_pw, home } = store;
 
-  const STORE_INFO = [
-    { id: 1, title: 'Map_id', description: map_id },
-    { id: 2, title: 'Login', description: login },
-    { id: 3, title: 'Start_node', description: start_node },
-    { id: 4, title: 'Wifi_id', description: wifi_id },
-    { id: 5, title: 'Wifi_pw', description: wifi_pw },
-    { id: 6, title: 'Home', description: home },
-  ];
+  const storeInfo = { map_id, login: login.split(',').join(', '), start_node, start_dir, wifi_id, wifi_pw, home };
+
+  const isValid = (data: string) => {
+    return data ? data : 'No data';
+  };
+
+  const STORE_INFO: IStoreInfo[] = Object.entries(storeInfo).map(([key, value], index) => ({
+    id: index,
+    title: key.charAt(0).toUpperCase() + key.slice(1).replace('_', ' '),
+    description: isValid(value),
+  }));
 
   return (
     <StStoreInfo>
@@ -96,6 +100,7 @@ const StDetailInfo = styled.div`
   display: flex;
   width: 100%;
   gap: 10px;
+  word-wrap: break-word;
 `;
 
 const StTitle = styled.p`
@@ -106,6 +111,7 @@ const StTitle = styled.p`
 const StDescription = styled.p`
   color: ${({ theme }) => theme.color.gray900};
   font-size: 18px;
+  word-wrap: break-word;
 `;
 
 export default StoreInfo;

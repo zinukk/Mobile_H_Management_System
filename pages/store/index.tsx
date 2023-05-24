@@ -1,12 +1,13 @@
-import styled from '@emotion/styled';
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 import Image from 'next/image';
+import { motion } from 'framer-motion';
+import { MdArrowForwardIos } from 'react-icons/md';
+import { useRecoilState, useResetRecoilState } from 'recoil';
 import homeAPI from '@src/api/home';
 import DropDown from '@src/components/Common/DropDown';
 import { storeNameState } from '@src/store/storeNameState';
-import { motion } from 'framer-motion';
-import { useRouter } from 'next/router';
-import { useRecoilState } from 'recoil';
-import { MdArrowForwardIos } from 'react-icons/md';
+import styled from '@emotion/styled';
 
 export async function getServerSideProps() {
   const stores = await homeAPI.getStores();
@@ -23,13 +24,22 @@ interface IProps {
 }
 
 const Store = ({ stores }: IProps) => {
-  const [storeName, setStoreName] = useRecoilState(storeNameState);
-
   const router = useRouter();
 
-  console.log(stores);
+  const [storeName, setStoreName] = useRecoilState(storeNameState);
 
-  const pageHandler = (storeId: number | string, storeName: string) => {
+  const resetStoreName = useResetRecoilState(storeNameState);
+
+  useEffect(() => {
+    resetStoreName();
+  }, []);
+
+  const dropdownList: IDropDownList[] = stores.stores.map(({ map_name: storeName, map_id: storeId }) => ({
+    id: storeId,
+    option: storeName,
+  }));
+
+  const pageHandler = (storeId: string, storeName: string) => {
     setStoreName(storeName);
     router.push(`/store/${storeId}`);
   };
@@ -39,16 +49,16 @@ const Store = ({ stores }: IProps) => {
       <StStore>
         <StHeader>
           <StTitle>전체 매장</StTitle>
-          <DropDown selected={storeName} list={DROP_DOWN_LIST} event={pageHandler} />
+          <DropDown selected={storeName} list={dropdownList} event={pageHandler} />
         </StHeader>
         <StBody>
-          {stores.stores.map(({ map_id, map_name, descirbe, img_src }) => (
-            <StStoreInfo key={map_id} onClick={() => pageHandler(map_id, map_name)}>
+          {stores.stores.map(({ map_id: storeId, map_name: storeName, descirbe, img_src }) => (
+            <StStoreInfo key={storeId} onClick={() => pageHandler(storeId, storeName)}>
               <StInfoBox>
                 <StFlexBox>
                   <Image src={img_src} width={75} height={50} alt="매장 로고" />
                   <StColumnBox>
-                    <StStoreName>{map_name}</StStoreName>
+                    <StStoreName>{storeName}</StStoreName>
                     <StDescribe>{descirbe}</StDescribe>
                   </StColumnBox>
                 </StFlexBox>
@@ -56,7 +66,7 @@ const Store = ({ stores }: IProps) => {
               </StInfoBox>
               <StDevider />
               <StImgBox>
-                <StMapImg src={`/assets/images/map/map-background-${map_id}-monitoring.png`} alt="매장이미지" fill />
+                <StMapImg src={`/assets/images/map/map-background-${storeId}-monitoring.png`} alt="매장이미지" fill />
               </StImgBox>
             </StStoreInfo>
           ))}
@@ -65,15 +75,6 @@ const Store = ({ stores }: IProps) => {
     </motion.div>
   );
 };
-
-const DROP_DOWN_LIST = [
-  { id: 1, option: '향동 노리 배달쿡' },
-  { id: 2, option: '연신내 더피플버거' },
-  { id: 3, option: '차세대 융합 기술 연구원' },
-  { id: 4, option: '오산 공유주방' },
-  { id: 5, option: '더티 프라이' },
-  { id: 6, option: '노원 발란' },
-];
 
 const StStore = styled.div`
   padding: 0 20px;
