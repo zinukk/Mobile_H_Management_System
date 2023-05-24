@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
 import { MdArrowForwardIos } from 'react-icons/md';
 import { useRecoilState, useResetRecoilState } from 'recoil';
 import homeAPI from '@src/api/home';

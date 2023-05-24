@@ -1,5 +1,5 @@
 import storeAPI from '@src/api/store';
-import TopNav from '@src/components/Common/TopNav';
+import DetailNav from '@src/components/Common/DetailNav';
 import AvailableRobot from '@src/components/Store/AvailableRobot';
 import PeakTime from '@src/components/Store/PeakTime';
 import StoreInfo from '@src/components/Store/StoreInfo';
@@ -44,7 +44,9 @@ const StoreDetail = ({ stores }: IProps) => {
 
   return (
     <StStoreDetail>
-      <StHeader></StHeader>
+      <StHeader>
+        <DetailNav title={store.map_name} />
+      </StHeader>
       <StBody>
         <StoreInfo store={store} />
         <PeakTime servingCount={servingCount} />
@@ -55,7 +57,7 @@ const StoreDetail = ({ stores }: IProps) => {
 };
 
 const StStoreDetail = styled.div`
-  padding: 8vh 20px;
+  padding: 10vh 20px;
   padding-bottom: 10vh;
   width: 100%;
   background: ${({ theme }) => theme.color.background};
