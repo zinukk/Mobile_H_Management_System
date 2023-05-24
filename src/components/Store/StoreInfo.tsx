@@ -11,8 +11,8 @@ const StoreInfo = ({ store }: IProps) => {
 
   const storeInfo = { map_id, login: login.split(',').join(', '), start_node, start_dir, wifi_id, wifi_pw, home };
 
-  const isValid = (data: string) => {
-    return data ? data : 'No data';
+  const isValid = (value: string) => {
+    return value ? value : 'No data';
   };
 
   const STORE_INFO: IStoreInfo[] = Object.entries(storeInfo).map(([key, value], index) => ({

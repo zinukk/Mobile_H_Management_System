@@ -1,7 +1,7 @@
-import styled from '@emotion/styled';
-import { IDateTab, IServingByDate } from '@src/types/home';
 import { useState } from 'react';
+import { IDateTab, IServingByDate } from '@src/types/home';
 import StatisticsInfo from './StatisticsInfo';
+import styled from '@emotion/styled';
 
 interface IProps {
   serving: IServingByDate;

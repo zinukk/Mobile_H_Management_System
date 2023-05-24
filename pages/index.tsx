@@ -1,13 +1,13 @@
-import styled from '@emotion/styled';
-import { motion } from 'framer-motion';
 import Image from 'next/image';
-import LogoIcon from '../public/assets/icons/icon_logo.png';
-import LogoText from '../public/assets/images/image_logo.png';
+import LogoIcon from 'public/assets/icons/icon_logo.png';
+import LogoText from 'public/assets/images/image_logo.png';
 import Statistics from '@src/components/Home/Statistics/Statistics';
 import homeAPI from '@src/api/home';
-import { IServing } from '@src/types/home';
 import StoreList from '@src/components/Home/StoreList/StoreList';
 import KakaoMap from '@src/components/Home/KakaoMap';
+import { IServing } from '@src/types/home';
+import { motion } from 'framer-motion';
+import styled from '@emotion/styled';
 
 export async function getServerSideProps() {
   const serving = await homeAPI.getServing();
@@ -28,6 +28,8 @@ interface IProps {
 }
 
 const Home = ({ serving, stores }: IProps) => {
+  console.log(stores);
+
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
       <StHome>

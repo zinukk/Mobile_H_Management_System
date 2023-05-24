@@ -1,5 +1,5 @@
-import styled from '@emotion/styled';
 import { RiArrowDownSFill, RiArrowUpSFill } from 'react-icons/ri';
+import styled from '@emotion/styled';
 
 interface IProps {
   data: IStatistics;
@@ -17,35 +17,21 @@ const StatisticsInfo = ({ data }: IProps) => {
     performance_before,
   } = data;
 
+  const createStatisticsInfo = (id: number, title: string, unit: string, currentValue: string, prevValue: string) => {
+    return {
+      id,
+      title,
+      unit,
+      currentValue,
+      prevValue,
+    };
+  };
+
   const STATISTICS_INFO = [
-    {
-      id: 1,
-      title: '서빙횟수',
-      unit: '',
-      currentValue: serving_count,
-      prevValue: serving_count_before,
-    },
-    {
-      id: 2,
-      title: '이동거리',
-      unit: 'km',
-      currentValue: move_distance,
-      prevValue: move_distance_before,
-    },
-    {
-      id: 3,
-      title: '서빙평균시간',
-      unit: 'm',
-      currentValue: avg_serving_time,
-      prevValue: avg_serving_time_before,
-    },
-    {
-      id: 4,
-      title: '주행효율',
-      unit: '%',
-      currentValue: performance,
-      prevValue: performance_before,
-    },
+    createStatisticsInfo(1, '서빙횟수', '', serving_count, serving_count_before),
+    createStatisticsInfo(2, '이동거리', 'km', move_distance, move_distance_before),
+    createStatisticsInfo(3, '서빙평균시간', 'm', avg_serving_time, avg_serving_time_before),
+    createStatisticsInfo(4, '주행효율', '%', performance, performance_before),
   ];
 
   const calcComparedPrev = (cur: string, prev: string) => {
