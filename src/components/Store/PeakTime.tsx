@@ -1,7 +1,7 @@
-import styled from '@emotion/styled';
 import { IServedCounts } from '@src/types/store';
 import { Line } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Tooltip } from 'chart.js';
+import styled from '@emotion/styled';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip);
 
@@ -12,9 +12,9 @@ interface IProps {
 const PeakTime = ({ servingCount }: IProps) => {
   const isValid: boolean = servingCount.length !== 0;
 
-  const times = servingCount.map(({ hours }) => `${hours}시`);
+  const times: Array<string> = servingCount.map(({ hours }) => `${hours}시`);
 
-  const counts = servingCount.map(({ avg_cnt }) => avg_cnt);
+  const counts: Array<string> = servingCount.map(({ avg_cnt }) => avg_cnt);
 
   const options = {
     responsive: true,
