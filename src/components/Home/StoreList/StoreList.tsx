@@ -1,28 +1,42 @@
-import styled from '@emotion/styled';
 import { useState } from 'react';
-import { ERROR_STATUS } from '@src/mocks/ERROR_STATUS';
 import { IErrorStatus } from '@src/types/home';
 import Store from './Store';
+import styled from '@emotion/styled';
 
 interface IProps {
   stores: IStore[];
 }
 
 const StoreList = ({ stores }: IProps) => {
-  const [showMore, setShowMore] = useState<boolean>(false);
+  const [isOpen, setisOpen] = useState<boolean>(false);
 
-  const end = showMore ? 6 : 3;
+  const end = isOpen ? 6 : 3;
 
-  const buttonText = showMore ? '접기' : '더 보기 ';
+  const buttonText = isOpen ? '접기' : '더 보기 ';
 
   const organizedStores = stores.slice(0, end).map((store: IStore) => ({
     ...store,
     total: parseInt(store.error) + parseInt(store.serving) + parseInt(store.stay) + parseInt(store.refair),
   }));
 
-  const lengthHandler = () => {
-    setShowMore(!showMore);
+  const openHandler = () => {
+    setisOpen(!isOpen);
   };
+
+  const createErrorStatus = (id: number, status: string, color: string) => {
+    return {
+      id,
+      status,
+      color,
+    };
+  };
+
+  const ERROR_STATUS: IErrorStatus[] = [
+    createErrorStatus(0, '에러', 'main'),
+    createErrorStatus(1, '서빙', 'sub'),
+    createErrorStatus(2, '대기', 'stroke'),
+    createErrorStatus(3, '수리', 'light'),
+  ];
 
   return (
     <StStoreList>
@@ -42,7 +56,7 @@ const StoreList = ({ stores }: IProps) => {
           <Store key={idx} store={store} />
         ))}
       </StBody>
-      <StFooter onClick={lengthHandler}>{buttonText}</StFooter>
+      <StFooter onClick={openHandler}>{buttonText}</StFooter>
     </StStoreList>
   );
 };

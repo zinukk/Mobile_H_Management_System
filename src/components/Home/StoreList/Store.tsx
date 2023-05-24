@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import Image from 'next/image';
-import React from 'react';
 
 interface IProps {
   store: IStore;
@@ -9,17 +8,37 @@ interface IProps {
 const Store = ({ store }: IProps) => {
   const { img_src, map_name, stay, refair, total, serving_count, error_count, performance } = store;
 
+  const createStatus = (id: number, color: string, count: number) => {
+    return {
+      id,
+      color,
+      count,
+    };
+  };
+
   const STATUS = [
-    { id: 0, color: 'main', count: parseInt(error_count) },
-    { id: 1, color: 'sub', count: parseInt(serving_count) },
-    { id: 2, color: 'stroke', count: parseInt(refair) },
-    { id: 3, color: 'light', count: parseInt(stay) },
+    createStatus(0, 'main', parseInt(error_count)),
+    createStatus(1, 'sub', parseInt(serving_count)),
+    createStatus(2, 'stroke', parseInt(refair)),
+    createStatus(3, 'light', parseInt(stay)),
   ];
 
+  const isValid = (data: null | string) => {
+    return data ? data : '측정불가';
+  };
+
+  const createStatistics = (id: number, title: string, count: string) => {
+    return {
+      id,
+      title,
+      count,
+    };
+  };
+
   const STATISTICS = [
-    { id: 0, title: '서빙횟수', count: serving_count },
-    { id: 1, title: '에러횟수', count: error_count },
-    { id: 2, title: '주행효율', count: performance ? performance : '측정불가' },
+    createStatistics(0, '서빙횟수', isValid(serving_count)),
+    createStatistics(1, '에러횟수', isValid(error_count)),
+    createStatistics(2, '주행효율', isValid(performance)),
   ];
 
   const widthHandler = (count: number, total: number) => {
