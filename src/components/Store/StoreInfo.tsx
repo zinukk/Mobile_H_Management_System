@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { IStoreInfo } from '@src/types/store';
 import styled from '@emotion/styled';
+import Title from '../Common/Title';
 
 interface IProps {
   store: IStore;
@@ -24,6 +25,9 @@ const StoreInfo = ({ store }: IProps) => {
   return (
     <StStoreInfo>
       <StHeader>
+        <Title title="매장 정보" />
+      </StHeader>
+      <StBody>
         <StFlexBox>
           <Image src={img_src} width={75} height={50} alt="매장 로고" />
           <StColumnBox>
@@ -31,9 +35,7 @@ const StoreInfo = ({ store }: IProps) => {
             <StDescribe>{descirbe}</StDescribe>
           </StColumnBox>
         </StFlexBox>
-      </StHeader>
-      <StDevider />
-      <StBody>
+        <StDevider />
         {STORE_INFO.map(({ id, title, description }) => (
           <StDetailInfo key={id}>
             <StTitle>{title}</StTitle>
@@ -46,14 +48,22 @@ const StoreInfo = ({ store }: IProps) => {
 };
 
 const StStoreInfo = styled.div`
-  padding: 15px;
   width: 100%;
-  background: ${({ theme }) => theme.color.white};
-  border-radius: 5px;
 `;
 
 const StHeader = styled.header`
+  margin-bottom: 20px;
   width: 100%;
+`;
+
+const StBody = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  width: 100%;
+  background: ${({ theme }) => theme.color.white};
+  border-radius: 5px;
+  gap: 20px;
 `;
 
 const StFlexBox = styled.div`
@@ -83,17 +93,9 @@ const StDescribe = styled.h4`
 `;
 
 const StDevider = styled.hr`
-  margin: 10px auto;
+  margin: 0 auto;
   width: 100%;
   border: ${({ theme }) => `0.1px solid ${theme.color.gray400}`};
-`;
-
-const StBody = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-top: 20px;
-  width: 100%;
-  gap: 20px;
 `;
 
 const StDetailInfo = styled.div`

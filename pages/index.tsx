@@ -40,7 +40,7 @@ const Home = ({ serving, stores }: IProps) => {
 };
 
 const StHome = styled.div`
-  padding: 10vh 20px;
+  padding: 11vh 20px;
   width: 100%;
   background: ${({ theme }) => theme.color.background};
   overflow: scroll;

@@ -8,6 +8,7 @@ import homeAPI from '@src/api/home';
 import DropDown from '@src/components/Common/DropDown';
 import { storeNameState } from '@src/store/storeNameState';
 import styled from '@emotion/styled';
+import Title from '@src/components/Common/Title';
 
 export async function getServerSideProps() {
   const stores = await homeAPI.getStores();
@@ -47,7 +48,7 @@ const Store = ({ stores }: IProps) => {
   return (
     <StStore>
       <StHeader>
-        <StTitle>전체 매장</StTitle>
+        <Title title="전체 매장" />
         <DropDown selected={storeName} list={dropdownList} event={pageHandler} />
       </StHeader>
       <StBody>
@@ -84,13 +85,8 @@ const StHeader = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 10px;
   width: 100%;
-`;
-
-const StTitle = styled.h1`
-  color: ${({ theme }) => theme.color.gray700};
-  font-size: 18px;
-  font-weight: 600;
 `;
 
 const StBody = styled.main`
