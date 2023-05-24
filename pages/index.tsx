@@ -28,55 +28,25 @@ interface IProps {
 }
 
 const Home = ({ serving, stores }: IProps) => {
-  console.log(stores);
-
   return (
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-      <StHome>
-        <StHeader>
-          <StLogo>
-            <StImage src={LogoIcon} width={51} height={51} alt="로고 아이콘" />
-            <StImage src={LogoText} width={200} height={51} alt="로고 텍스트" />
-          </StLogo>
-        </StHeader>
-        <StBody>
-          <Statistics serving={serving.all} />
-          <StoreList stores={stores.stores} />
-          <KakaoMap stores={stores.stores} />
-        </StBody>
-      </StHome>
-    </motion.div>
+    <StHome>
+      <StBody>
+        <Statistics serving={serving.all} />
+        <StoreList stores={stores.stores} />
+        <KakaoMap stores={stores.stores} />
+      </StBody>
+    </StHome>
   );
 };
 
 const StHome = styled.div`
-  padding-bottom: 10vh;
+  padding: 10vh 20px;
   width: 100%;
   background: ${({ theme }) => theme.color.background};
   overflow: scroll;
 `;
 
-const StHeader = styled.header`
-  margin-bottom: 20px;
-  padding: 5px 0;
-  width: 100%;
-  background: ${({ theme }) => theme.color.white};
-  border-bottom: ${({ theme }) => `1px solid ${theme.color.gray300}`};
-`;
-
-const StLogo = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const StImage = styled(Image)`
-  filter: invert(35%) sepia(74%) saturate(451%) hue-rotate(201deg) brightness(86%) contrast(90%);
-`;
-
 const StBody = styled.main`
-  padding: 0 20px;
   width: 100%;
 `;
 
