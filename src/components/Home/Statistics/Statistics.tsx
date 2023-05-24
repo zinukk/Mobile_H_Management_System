@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { IDateTab, IServingByDate } from '@src/types/home';
 import StatisticsInfo from './StatisticsInfo';
 import styled from '@emotion/styled';
+import Title from '@src/components/Common/Title';
 
 interface IProps {
   serving: IServingByDate;
@@ -25,7 +26,7 @@ const Statistics = ({ serving }: IProps) => {
   return (
     <StStatistics>
       <StHeader>
-        <StTitle>통계 자료</StTitle>
+        <Title title="통계 자료" />
         <StTabBox>
           {Object.keys(DATE_TAB).map((cur, idx) => (
             <StTabBtn
@@ -52,22 +53,12 @@ const StHeader = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
-`;
-
-const StTitle = styled.h1`
   margin-bottom: 20px;
-  color: ${({ theme }) => theme.color.gray700};
-  font-size: 18px;
-  font-weight: 600;
+  width: 100%;
 `;
 
 const StTabBox = styled.div`
   display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  margin-bottom: 20px;
-  height: 30px;
   gap: 20px;
 `;
 
@@ -81,6 +72,10 @@ const StTabBtn = styled.button<{ isCurrentTab: boolean }>`
   font-size: 12px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   cursor: pointer;
+
+  :hover {
+    background: ${({ theme, isCurrentTab }) => !isCurrentTab && theme.color.gray100};
+  }
 `;
 
 const StBody = styled.div`

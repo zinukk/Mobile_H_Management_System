@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Map, MapMarker, CustomOverlayMap } from 'react-kakao-maps-sdk';
 import { IMap } from '@src/types/home';
 import styled from '@emotion/styled';
+import Title from '../Common/Title';
 
 interface IProps {
   stores: IStore[];
@@ -19,7 +20,9 @@ const KakaoMap = ({ stores }: IProps) => {
 
   return (
     <StKakaoMap>
-      <StHeader>매장 위치</StHeader>
+      <StHeader>
+        <Title title="매장 위치" />
+      </StHeader>
       <StBody>
         <Map
           center={{
@@ -74,11 +77,9 @@ const StKakaoMap = styled.div`
   width: 100%;
 `;
 
-const StHeader = styled.h1`
+const StHeader = styled.header`
   margin-bottom: 20px;
-  color: ${({ theme }) => theme.color.gray700};
-  font-size: 18px;
-  font-weight: 600;
+  width: 100%;
 `;
 
 const StBody = styled.main`

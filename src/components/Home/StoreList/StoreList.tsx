@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { IErrorStatus } from '@src/types/home';
+import Title from '@src/components/Common/Title';
 import Store from './Store';
 import styled from '@emotion/styled';
 
@@ -41,7 +42,7 @@ const StoreList = ({ stores }: IProps) => {
   return (
     <StStoreList>
       <StHeader>
-        <StTitle>전체 매장</StTitle>
+        <Title title="전체 매장" />
         <StStatusBox>
           {ERROR_STATUS.map(({ id, status, color }: IErrorStatus) => (
             <StFlexBox key={id}>

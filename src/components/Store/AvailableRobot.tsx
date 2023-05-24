@@ -1,6 +1,7 @@
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
 import styled from '@emotion/styled';
+import Title from '../Common/Title';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -42,6 +43,9 @@ const AvailableRobot = ({ robots }: IProps) => {
 
   return (
     <StAvailableRobot>
+      <StHeader>
+        <Title title="로봇 상태" />
+      </StHeader>
       <StBody>
         <Doughnut data={data} options={options} />
       </StBody>
@@ -50,16 +54,22 @@ const AvailableRobot = ({ robots }: IProps) => {
 };
 
 const StAvailableRobot = styled.div`
-  margin-top: 10px;
-  padding: 15px;
+  margin-top: 30px;
   width: 100%;
-  background: ${({ theme }) => theme.color.white};
-  border-radius: 5px;
+`;
+
+const StHeader = styled.header`
+  margin-bottom: 20px;
+  width: 100%;
 `;
 
 const StBody = styled.main`
+  display: flex;
+  justify-content: center;
   padding: 30px;
   width: 100%;
+  background: ${({ theme }) => theme.color.white};
+  border-radius: 5px;
 `;
 
 export default AvailableRobot;
