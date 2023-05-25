@@ -4,7 +4,7 @@ import LogoText from 'public/assets/images/image_logo.png';
 import Statistics from '@src/components/Home/Statistics/Statistics';
 import homeAPI from '@src/api/home';
 import StoreList from '@src/components/Home/StoreList/StoreList';
-import KakaoMap from '@src/components/Home/KakaoMap';
+import KakaoMap from '@src/components/Store/KakaoMap';
 import { IServing } from '@src/types/home';
 import { motion } from 'framer-motion';
 import styled from '@emotion/styled';
@@ -33,7 +33,6 @@ const Home = ({ serving, stores }: IProps) => {
       <StBody>
         <Statistics serving={serving.all} />
         <StoreList stores={stores.stores} />
-        <KakaoMap stores={stores.stores} />
       </StBody>
     </StHome>
   );

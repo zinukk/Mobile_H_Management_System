@@ -20,9 +20,6 @@ const KakaoMap = ({ stores }: IProps) => {
 
   return (
     <StKakaoMap>
-      <StHeader>
-        <Title title="매장 위치" />
-      </StHeader>
       <StBody>
         <Map
           center={{
@@ -73,18 +70,12 @@ const KakaoMap = ({ stores }: IProps) => {
 };
 
 const StKakaoMap = styled.div`
-  margin-top: 40px;
-  width: 100%;
-`;
-
-const StHeader = styled.header`
-  margin-bottom: 20px;
   width: 100%;
 `;
 
 const StBody = styled.main`
   width: 100%;
-  height: 300px;
+  height: 200px;
   background: ${({ theme }) => theme.color.white};
   border-radius: 5px;
 `;

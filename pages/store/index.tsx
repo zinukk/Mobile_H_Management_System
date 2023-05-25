@@ -8,6 +8,7 @@ import DropDown from '@src/components/Common/DropDown';
 import { storeNameState } from '@src/store/storeNameState';
 import styled from '@emotion/styled';
 import Title from '@src/components/Common/Title';
+import KakaoMap from '@src/components/Store/KakaoMap';
 
 export async function getServerSideProps() {
   const stores = await homeAPI.getStores();
@@ -51,6 +52,7 @@ const Store = ({ stores }: IProps) => {
         <DropDown selected={storeName} list={dropdownList} event={pageHandler} />
       </StHeader>
       <StBody>
+        <KakaoMap stores={stores.stores} />
         {stores.stores.map(({ map_id: storeId, map_name: storeName, descirbe, img_src }) => (
           <StStoreInfo key={storeId} onClick={() => pageHandler(storeId, storeName)}>
             <StInfoBox>
