@@ -8,11 +8,8 @@ const homeAPI = {
   getStores: () => {
     return client.get(`${API.getStores}`);
   },
-  getErrorStatus: () => {
-    return client.get(`${API.getErrorStatus}`);
-  },
-  getAllErrors: () => {
-    return client.get(`${API.getAllErrors}`);
+  getRecentErrors: () => {
+    return client.get(`${API.getRecentErrors}`);
   },
   postDates: (data: any) => {
     return client.post(`${API.postDates}`, data);
