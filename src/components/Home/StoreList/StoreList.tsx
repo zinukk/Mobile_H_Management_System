@@ -74,12 +74,6 @@ const StHeader = styled.header`
   width: 100%;
 `;
 
-const StTitle = styled.h1`
-  color: ${({ theme }) => theme.color.gray700};
-  font-size: 18px;
-  font-weight: 600;
-`;
-
 const StStatusBox = styled.div`
   display: flex;
   justify-content: flex-start;

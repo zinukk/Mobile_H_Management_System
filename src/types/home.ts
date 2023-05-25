@@ -24,6 +24,24 @@ export type IDateTab = {
   월간: JSX.Element;
 };
 
+export type IRecentErrors = {
+  error_notice: IErrorNotice[];
+};
+
+export type IRiskDegreeList = {
+  id: number;
+  degree: string;
+  count: number;
+};
+
+export type IRiskDegree = {
+  [key: string]: number;
+  all: number;
+  minor: number;
+  major: number;
+  critical: number;
+};
+
 export type IErrorStatus = {
   id: number;
   status: string;

@@ -1,23 +1,22 @@
-import Image from 'next/image';
-import LogoIcon from 'public/assets/icons/icon_logo.png';
-import LogoText from 'public/assets/images/image_logo.png';
 import Statistics from '@src/components/Home/Statistics/Statistics';
 import homeAPI from '@src/api/home';
 import StoreList from '@src/components/Home/StoreList/StoreList';
-import KakaoMap from '@src/components/Store/KakaoMap';
-import { IServing } from '@src/types/home';
-import { motion } from 'framer-motion';
+import { IRecentErrors, IServing } from '@src/types/home';
 import styled from '@emotion/styled';
+import RecentError from '@src/components/Home/RecentError/RecentError';
 
 export async function getServerSideProps() {
   const serving = await homeAPI.getServing();
 
   const stores = await homeAPI.getStores();
 
+  const errors = await homeAPI.getRecentErrors();
+
   return {
     props: {
       serving: serving,
       stores: stores,
+      errors: errors,
     },
   };
 }
@@ -25,14 +24,18 @@ export async function getServerSideProps() {
 interface IProps {
   serving: IServing;
   stores: IResponse;
+  errors: IRecentErrors;
 }
 
-const Home = ({ serving, stores }: IProps) => {
+const Home = ({ serving, stores, errors }: IProps) => {
+  console.log(errors);
+
   return (
     <StHome>
       <StBody>
         <Statistics serving={serving.all} />
         <StoreList stores={stores.stores} />
+        <RecentError errors={errors.error_notice} />
       </StBody>
     </StHome>
   );
