@@ -33,6 +33,8 @@ const RecentError = () => {
 
   const refetchTime = () => {
     const present: number = new Date().getTime();
+    const presentHour: number = new Date().getHours();
+    const isNightTime: boolean = presentHour >= 2 && presentHour < 6;
     const firstErrorTime: number = new Date(recentErrors && recentErrors[0] && recentErrors[0].created_at).getTime();
     const secondErrorTime: number = new Date(recentErrors && recentErrors[1] && recentErrors[1].created_at).getTime();
     const gap: number = firstErrorTime - secondErrorTime;
@@ -43,6 +45,8 @@ const RecentError = () => {
       600000: 20000,
       1200000: 30000,
     };
+
+    if (isNightTime) return 600000;
 
     if (present - firstErrorTime > 300000) return 30000;
 
@@ -69,6 +73,8 @@ const RecentError = () => {
       staleTime: 30000,
     },
   );
+
+  console.log(refetchTime());
 
   return (
     <StRecentError>
