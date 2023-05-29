@@ -1,14 +1,22 @@
+import { useRef } from 'react';
+import { useQuery } from 'react-query';
+import { useRecoilState } from 'recoil';
+import homeAPI from '@src/api/home';
 import Title from '@src/components/Common/Title';
 import RiskDegree from './RiskDegree';
-import { IRiskDegree, IRiskDegreeList } from '@src/types/home';
+import useInfiniteScroll from '@src/hooks/useInfiniteScroll';
+import RecentErrorList from './RecentErrorList';
+import { IRiskDegree, IRiskDegreeList, ITimeMap } from '@src/types/home';
+import { recentErrorsState } from '@src/store/recentErrors';
 import styled from '@emotion/styled';
 
-interface IProps {
-  errors: IErrorNotice[];
-}
+const RecentError = () => {
+  const [recentErrors, setRecentErrors] = useRecoilState(recentErrorsState);
+  const observerRef = useRef<HTMLDivElement>(null);
 
-const RecentError = ({ errors }: IProps) => {
-  const riskDegree: IRiskDegree = errors.reduce(
+  const { data, isLoading } = useInfiniteScroll(recentErrors, observerRef);
+
+  const riskDegree: IRiskDegree = data.reduce(
     (acc: IRiskDegree, { risk_degree }) => {
       acc['all'] = acc['all'] + 1;
       acc[risk_degree] = acc[risk_degree] + 1;
@@ -22,6 +30,45 @@ const RecentError = ({ errors }: IProps) => {
     degree,
     count,
   }));
+
+  const refetchTime = () => {
+    const present: number = new Date().getTime();
+    const firstErrorTime: number = new Date(recentErrors && recentErrors[0] && recentErrors[0].created_at).getTime();
+    const secondErrorTime: number = new Date(recentErrors && recentErrors[1] && recentErrors[1].created_at).getTime();
+    const gap: number = firstErrorTime - secondErrorTime;
+
+    const timeMap: ITimeMap = {
+      60000: 5000,
+      300000: 10000,
+      600000: 20000,
+      1200000: 30000,
+    };
+
+    if (present - firstErrorTime > 300000) return 30000;
+
+    for (const timeRange in timeMap) {
+      if (gap <= Number(timeRange)) {
+        return timeMap[timeRange];
+      }
+    }
+
+    return 30000;
+  };
+
+  const fetchedData = useQuery(
+    ['recentErrors'],
+    async () => {
+      const data = homeAPI.getRecentErrors();
+      return data;
+    },
+    {
+      onSuccess: (data: { error_notice: IErrorNotice[] }) => {
+        setRecentErrors(data.error_notice);
+      },
+      refetchInterval: refetchTime(),
+      staleTime: 30000,
+    },
+  );
 
   return (
     <StRecentError>
@@ -38,6 +85,7 @@ const RecentError = ({ errors }: IProps) => {
       </StHeader>
       <StBody>
         <RiskDegree riskDegreeList={riskDegreeList} />
+        <RecentErrorList data={data} isLoading={isLoading} observerRef={observerRef} />
       </StBody>
     </StRecentError>
   );

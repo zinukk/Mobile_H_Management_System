@@ -54,3 +54,7 @@ export type IMap = {
   store_lat: string;
   store_lng: string;
 };
+
+export type ITimeMap = {
+  [index: number]: number;
+};
