@@ -40,9 +40,9 @@ const Store = ({ stores }: IProps) => {
     option: storeName,
   }));
 
-  const pageHandler = (storeId: string, storeName: string) => {
-    setStoreName(storeName);
-    router.push(`/store/${storeId}`);
+  const pageHandler = (option: string, id: string) => {
+    setStoreName(option);
+    router.push(`/store/${id}`);
   };
 
   return (
@@ -54,7 +54,7 @@ const Store = ({ stores }: IProps) => {
       <StBody>
         <KakaoMap stores={stores.stores} />
         {stores.stores.map(({ map_id: storeId, map_name: storeName, descirbe, img_src }) => (
-          <StStoreInfo key={storeId} onClick={() => pageHandler(storeId, storeName)}>
+          <StStoreInfo key={storeId} onClick={() => pageHandler(storeName, storeId)}>
             <StInfoBox>
               <StFlexBox>
                 <Image src={img_src} width={75} height={50} alt="매장 로고" />

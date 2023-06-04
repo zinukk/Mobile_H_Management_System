@@ -8,16 +8,22 @@ interface IProps {
   state: string;
   battery: string;
   serial_number: string;
+  robot_state: string;
   ROBOT_TYPE: IRobotType[];
 }
 
-const RobotCard = ({ k_map_name, serving_count, distance, state, battery, serial_number, ROBOT_TYPE }: IProps) => {
+const RobotCard = ({
+  k_map_name,
+  serving_count,
+  distance,
+  state,
+  battery,
+  serial_number,
+  ROBOT_TYPE,
+  robot_state,
+}: IProps) => {
   const getColorById = (id: string) => {
     return ROBOT_TYPE.filter((robot) => robot.id === id)[0].color;
-  };
-
-  const getStateById = (id: string) => {
-    return ROBOT_TYPE.filter((robot) => robot.id === id)[0].state;
   };
 
   return (
@@ -25,7 +31,7 @@ const RobotCard = ({ k_map_name, serving_count, distance, state, battery, serial
       <StHeader>
         <StStore>{k_map_name}</StStore>
         <StGapBox>
-          <StState color={getColorById(state)}>{getStateById(state)}</StState>
+          <StState color={getColorById(state)}>{robot_state}</StState>
           <StImg src={`/assets/icons/robot/robot_state_${state}.png`} alt="로봇이미지" />
         </StGapBox>
       </StHeader>
@@ -44,7 +50,7 @@ const RobotCard = ({ k_map_name, serving_count, distance, state, battery, serial
         <StBatteryBox>
           <StBatteryBar width={Number(battery) > 0 ? Number(battery) : 0} />
         </StBatteryBox>
-        <StBatteryPercent>{battery}%</StBatteryPercent>
+        <StBatteryPercent>{Math.sign(Number(battery)) === -1 ? 0 : battery}%</StBatteryPercent>
       </StFooter>
     </StRobotCard>
   );

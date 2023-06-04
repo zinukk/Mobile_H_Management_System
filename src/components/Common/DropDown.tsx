@@ -21,14 +21,21 @@ const DropDown = ({ selected, list, event }: IProps) => {
     setisOpen(false);
   });
 
+  const filteredList = list.filter((cur) => cur.option !== selected);
+
   return (
     <StDropdown ref={ref}>
       <StSelected isOpen={isOpen} onClick={dropdownHandler}>
         {selected}
       </StSelected>
       <StSelect isOpen={isOpen}>
-        {list.map(({ id, option }: IDropDownList) => (
-          <StOption key={id} onClick={() => event(id, option)}>
+        {filteredList.map(({ id, option }: IDropDownList) => (
+          <StOption
+            key={id}
+            onClick={() => {
+              event(option, id);
+              setisOpen(false);
+            }}>
             {option}
           </StOption>
         ))}
@@ -53,7 +60,7 @@ const StSelected = styled.button<{ isOpen: boolean }>`
   border-bottom-left-radius: ${({ isOpen }) => (isOpen ? '0px' : '5px')};
   border-bottom-right-radius: ${({ isOpen }) => (isOpen ? '0px' : '5px')};
   font-size: 11px;
-  z-index: 2;
+  z-index: 20;
   cursor: pointer;
 
   :hover {
@@ -74,7 +81,7 @@ const StSelect = styled.div<{ isOpen: boolean }>`
   translate: ${({ isOpen }) => (isOpen ? '0' : '0 -30px')};
   transition: 0.4s;
   overflow: hidden;
-  z-index: 1;
+  z-index: 20;
 `;
 
 const StOption = styled.button`
@@ -87,6 +94,7 @@ const StOption = styled.button`
   border-bottom: ${({ theme }) => `0.1px solid ${theme.color.white}`};
   cursor: pointer;
   font-size: 10px;
+  z-index: 20;
 
   :hover {
     background: ${({ theme }) => theme.color.main};

@@ -26,7 +26,7 @@ const StTopNav = styled.nav`
   height: 8vh;
   background: white;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-  z-index: 10;
+  z-index: 100;
 `;
 
 const StHeader = styled.header`

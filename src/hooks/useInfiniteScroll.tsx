@@ -1,18 +1,18 @@
 import { RefObject, useEffect, useState } from 'react';
 
-const useInfiniteScroll = (initialData: IErrorNotice[], ref: RefObject<HTMLDivElement>) => {
+const useInfiniteScroll = (initialData: any, ref: RefObject<HTMLDivElement>) => {
   const [isLoading, setisLoading] = useState<boolean>(false);
-  const [data, setData] = useState<IErrorNotice[]>([]);
+  const [data, setData] = useState([]);
 
   useEffect(() => {
-    setData(initialData.slice(0, 20));
+    setData(initialData.slice(0, 10));
   }, [initialData]);
 
   const loadMoreData = () => {
     setisLoading(true);
 
     setTimeout(() => {
-      const updatedData = initialData.slice(0, data.length + 20);
+      const updatedData = initialData.slice(0, data.length + 15);
       setData(updatedData);
       setisLoading(false);
     }, 500);
