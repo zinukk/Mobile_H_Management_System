@@ -1,7 +1,7 @@
 import Statistics from '@src/components/Home/Statistics/Statistics';
 import homeAPI from '@src/api/home';
 import StoreList from '@src/components/Home/StoreList/StoreList';
-import { IRecentErrors, IServing } from '@src/types/home';
+import { IServing } from '@src/types/home';
 import styled from '@emotion/styled';
 import RecentError from '@src/components/Home/RecentError/RecentError';
 
@@ -10,13 +10,10 @@ export async function getServerSideProps() {
 
   const stores = await homeAPI.getStores();
 
-  const errors = await homeAPI.getRecentErrors();
-
   return {
     props: {
       serving: serving,
       stores: stores,
-      errors: errors,
     },
   };
 }
@@ -24,18 +21,15 @@ export async function getServerSideProps() {
 interface IProps {
   serving: IServing;
   stores: IResponse;
-  errors: IRecentErrors;
 }
 
-const Home = ({ serving, stores, errors }: IProps) => {
-  console.log(errors);
-
+const Home = ({ serving, stores }: IProps) => {
   return (
     <StHome>
       <StBody>
         <Statistics serving={serving.all} />
         <StoreList stores={stores.stores} />
-        <RecentError errors={errors.error_notice} />
+        <RecentError />
       </StBody>
     </StHome>
   );
