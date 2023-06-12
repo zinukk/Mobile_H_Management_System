@@ -7,13 +7,14 @@ import { IDates } from '@src/types/error';
 
 interface IProps {
   event: (arg: IDates) => void;
+  storeId: number;
   startDate: Date;
   endDate: Date;
   setStartDate: Dispatch<SetStateAction<Date>>;
   setEndDate: Dispatch<SetStateAction<Date>>;
 }
 
-const Calendar = ({ event, startDate, setStartDate, endDate, setEndDate }: IProps) => {
+const Calendar = ({ event, storeId, startDate, setStartDate, endDate, setEndDate }: IProps) => {
   const startDateHandler = (date: Date) => {
     setStartDate(date);
   };
@@ -30,9 +31,10 @@ const Calendar = ({ event, startDate, setStartDate, endDate, setEndDate }: IProp
     return year + '-' + month + '-' + day;
   };
 
-  const dates = {
+  const data = {
     start_date: convertDate(startDate),
     end_date: convertDate(endDate),
+    map_id: storeId,
   };
 
   return (
@@ -58,7 +60,7 @@ const Calendar = ({ event, startDate, setStartDate, endDate, setEndDate }: IProp
       />
       <StSubmitBtn
         onClick={() => {
-          event(dates);
+          event(data);
         }}>
         검색
       </StSubmitBtn>
@@ -67,25 +69,32 @@ const Calendar = ({ event, startDate, setStartDate, endDate, setEndDate }: IProp
 };
 
 const StCalendar = styled.div`
+  margin-top: 10px;
   display: flex;
   width: 100%;
 `;
 
 const StCustomDatePicker = styled(DatePicker)`
-  width: 100px;
-  height: 25px;
+  padding: 0 5px;
+  width: 120px;
+  height: 30px;
   color: ${({ theme }) => theme.color.white};
-  background: ${({ theme }) => theme.color.stroke};
+  background: ${({ theme }) => theme.color.sub};
   border: none;
   border-radius: 5px;
   font-size: 11px;
   text-align: center;
   cursor: pointer;
+
+  :hover {
+    background: ${({ theme }) => theme.color.main};
+  }
 `;
 
 const StSubmitBtn = styled.button`
-  width: 100px;
-  height: 25px;
+  padding: 0 5px;
+  width: 120px;
+  height: 30px;
   color: ${({ theme }) => theme.color.white};
   background: ${({ theme }) => theme.color.main};
   border-radius: 5px;
