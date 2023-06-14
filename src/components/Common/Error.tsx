@@ -1,11 +1,32 @@
 import styled from '@emotion/styled';
 import { IErrorState } from '@src/types/error';
+import { useRouter } from 'next/router';
 import { MdArrowForwardIos } from 'react-icons/md';
 
-const Error = ({ error_msg, created_at, k_map_name, risk_degree, error_id, error_type }: IErrorState) => {
+const Error = ({
+  error_msg,
+  created_at,
+  k_map_name,
+  risk_degree,
+  error_id,
+  error_type,
+  map_id,
+  robot_id,
+}: IErrorState) => {
+  const router = useRouter();
+
+  const requestData = { created_at, error_id, error_type, map_id, robot_id };
+
+  const pageHandler = () => {
+    router.push({
+      pathname: `/error/${error_id}`,
+      query: requestData,
+    });
+  };
+
   return (
-    <StError>
-      <StHeader color={risk_degree}></StHeader>
+    <StError onClick={pageHandler}>
+      <StHeader color={risk_degree} />
       <StBody>
         <StErrorMessage>{error_msg ? error_msg.split(',').join(', ') : '확인되지 않은 에러입니다.'}</StErrorMessage>
         <StFlexBox>
