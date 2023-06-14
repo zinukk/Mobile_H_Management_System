@@ -48,3 +48,9 @@ export type IErrorInfo = {
   recent_table: string;
   robot_path: string;
 };
+
+export type IConstantErrorInfo = {
+  id: number;
+  title: string;
+  description: string;
+};
