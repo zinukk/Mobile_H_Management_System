@@ -2,9 +2,10 @@ import { RefObject } from 'react';
 import Error from '@src/components/Common/Error';
 import Spinner from '@src/components/Common/Spinner';
 import styled from '@emotion/styled';
+import { IErrorState } from '@src/types/error';
 
 interface IProps {
-  data: IErrorNotice[];
+  data: IErrorState[];
   isLoading: boolean;
   observerRef: RefObject<HTMLDivElement>;
 }
@@ -13,7 +14,7 @@ const RecentErrorList = ({ data, isLoading, observerRef }: IProps) => {
   return (
     <StRecentErrorList>
       <StBody>
-        {data.map((cur, idx) => (
+        {data.map((cur: IErrorState, idx) => (
           <Error key={idx} {...cur} />
         ))}
         {isLoading && (

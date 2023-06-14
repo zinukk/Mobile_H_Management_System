@@ -1,14 +1,15 @@
 import styled from '@emotion/styled';
+import { IErrorState } from '@src/types/error';
 import { MdArrowForwardIos } from 'react-icons/md';
 
-const Error = ({ error_msg, created_at, k_map_name, risk_degree, error_id }: IErrorNotice) => {
+const Error = ({ error_msg, created_at, k_map_name, risk_degree, error_id, error_type }: IErrorState) => {
   return (
     <StError>
       <StHeader color={risk_degree}></StHeader>
       <StBody>
-        <StErrorMessage>{error_msg.split(',').join(', ')}</StErrorMessage>
+        <StErrorMessage>{error_msg ? error_msg.split(',').join(', ') : '확인되지 않은 에러입니다.'}</StErrorMessage>
         <StFlexBox>
-          <StStoreName>{k_map_name}</StStoreName>
+          <StStoreName>{k_map_name ? k_map_name : error_type}</StStoreName>
           <StTime>{created_at}</StTime>
         </StFlexBox>
       </StBody>
@@ -43,7 +44,7 @@ const StError = styled.div`
 const StHeader = styled.header<{ color: string }>`
   width: 5%;
   height: 70px;
-  background: ${({ theme, color }) => theme.color[color]};
+  background: ${({ theme, color }) => (color ? theme.color[color] : theme.color.stroke)};
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
 `;
