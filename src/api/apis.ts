@@ -6,7 +6,7 @@ const API = {
   getRobots: '/api/monitoring-system/robot?state=',
   getErrorList: '/api/monitoring-system/error-statistic',
   postErrorDates: '/api/monitoring-system/error-statistic',
-  postErrorDetail: '/api/monitoring-system/error-detail',
+  getErrorDetail: '/api/monitoring-system/error-detail',
 };
 
 export default API;

@@ -74,8 +74,6 @@ const RecentError = () => {
     },
   );
 
-  console.log(refetchTime());
-
   return (
     <StRecentError>
       <StHeader>

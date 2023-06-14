@@ -1,6 +1,6 @@
 import client from './client';
 import API from './apis';
-import { IDates } from '@src/types/error';
+import { IDates, IErrorState } from '@src/types/error';
 
 const errorAPI = {
   getErrorList: () => {
@@ -9,8 +9,8 @@ const errorAPI = {
   postErrorDates: (data: IDates) => {
     return client.post(`${API.postErrorDates}`, data);
   },
-  postErrorDetail: (data: any) => {
-    return client.post(`${API.postErrorDetail}`, data);
+  getErrorDetail: (data: IErrorState) => {
+    return client.post(`${API.getErrorDetail}`, data);
   },
 };
 
