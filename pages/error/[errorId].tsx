@@ -16,12 +16,9 @@ const ErrorDetail = () => {
 
   const requestData = router.query as ParsedUrlQuery & IErrorState;
 
-  const {
-    mutate: postErrorState,
-    data,
-    isLoading,
-  } = useMutation<IErrorDetail, AxiosError, IErrorState>('errorDetail', (data: IErrorState) =>
-    errorAPI.getErrorDetail(data),
+  const { mutate: postErrorState, data } = useMutation<IErrorDetail, AxiosError, IErrorState>(
+    'errorDetail',
+    (data: IErrorState) => errorAPI.getErrorDetail(data),
   );
 
   useEffect(() => {
@@ -39,7 +36,7 @@ const ErrorDetail = () => {
   return (
     <StErrorDetail>
       <StBody>
-        <ErrorInfo />
+        <ErrorInfo errorInfo={errorInfo} />
         <ServingErrorCount />
         <RelatedErrors />
         <SolutionList />
@@ -49,7 +46,9 @@ const ErrorDetail = () => {
 };
 
 const StErrorDetail = styled.div`
+  padding: 10vh 20px;
   width: 100%;
+  background: ${({ theme }) => theme.color.background};
 `;
 
 const StHeader = styled.header`
