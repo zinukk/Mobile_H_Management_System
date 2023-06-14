@@ -7,6 +7,7 @@ import Calendar from '@src/components/Common/Calendar';
 import DropDown from '@src/components/Common/DropDown';
 import { IDates, IServeErrorCount } from '@src/types/error';
 import ServingErrorChart from '@src/components/Error/ServingErrorChart';
+import ErrorList from '@src/components/Error/ErrorList';
 
 export async function getServerSideProps() {
   const stores = await homeAPI.getStores();
@@ -85,6 +86,7 @@ const Error = ({ stores, errors }: IProps) => {
       </StHeader>
       <StBody>
         <ServingErrorChart serveErrorCount={serveErrorCount} />
+        <ErrorList errorList={errorList} />
       </StBody>
     </StError>
   );
