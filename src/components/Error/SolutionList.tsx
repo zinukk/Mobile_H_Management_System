@@ -1,6 +1,7 @@
 import Title from '../Common/Title';
 import { ISolution } from '@src/types/error';
 import styled from '@emotion/styled';
+import Null from '../Common/Null';
 
 interface IProps {
   solutionList: ISolution[];
@@ -13,7 +14,10 @@ const SolutionList = ({ solutionList }: IProps) => {
         <Title title="해당 에러와 관련된 해결 방법" />
       </StHeader>
       <StBody>
-        {solutionList &&
+        {solutionList && solutionList.length === 0 ? (
+          <Null />
+        ) : (
+          solutionList &&
           solutionList.map(({ error_id, manager, content }) => (
             <StSolution key={error_id}>
               <StFlexBox>
@@ -29,7 +33,8 @@ const SolutionList = ({ solutionList }: IProps) => {
                 <StDescription>{error_id}</StDescription>
               </StFlexBox>
             </StSolution>
-          ))}
+          ))
+        )}
       </StBody>
     </StSolutionList>
   );
@@ -45,12 +50,14 @@ const StHeader = styled.div`
 `;
 
 const StBody = styled.div`
+  position: relative;
   padding: 20px;
   margin-top: 20px;
   display: flex;
   flex-direction: column;
   gap: 10px;
   width: 100%;
+  min-height: 100px;
   max-height: 300px;
   background: ${({ theme }) => theme.color.white};
   border-radius: 5px;
