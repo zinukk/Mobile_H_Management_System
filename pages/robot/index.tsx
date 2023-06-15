@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import homeAPI from '@src/api/home';
 import robotAPI from '@src/api/robot';
 import DropDown from '@src/components/Common/DropDown';
+import Null from '@src/components/Common/Null';
 import Spinner from '@src/components/Common/Spinner';
 import Title from '@src/components/Common/Title';
 import RobotCard from '@src/components/Robot/RobotCard';
@@ -146,7 +147,7 @@ const Robot = ({ robots, stores }: IProps) => {
         {data.length !== 0 ? (
           data.map((cur: IRobotState, idx: number) => <RobotCard key={idx} {...cur} ROBOT_TYPE={ROBOT_TYPE} />)
         ) : (
-          <StNull>해당 조건에 맞는 로봇이 존재하지 않습니다</StNull>
+          <Null />
         )}
         {isLoading && (
           <StSpinnerBox>
@@ -188,17 +189,6 @@ const StBody = styled.main`
   flex-direction: column;
   width: 100%;
   gap: 10px;
-`;
-
-const StNull = styled.p`
-  width: 100%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  translate: -50%;
-  color: ${({ theme }) => theme.color.gray500};
-  font-size: 20px;
-  text-align: center;
 `;
 
 const StSpinnerBox = styled.div`

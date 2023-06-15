@@ -1,8 +1,9 @@
 import { IServedCounts } from '@src/types/store';
 import { Line } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Tooltip } from 'chart.js';
-import styled from '@emotion/styled';
 import Title from '../Common/Title';
+import Null from '../Common/Null';
+import styled from '@emotion/styled';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip);
 
@@ -54,9 +55,7 @@ const PeakTime = ({ servingCount }: IProps) => {
       <StHeader>
         <Title title="피크 타임" />
       </StHeader>
-      <StBody>
-        {isValid ? <Line data={data} options={options} /> : <StNoResult>데이터가 존재하지 않습니다</StNoResult>}
-      </StBody>
+      <StBody>{isValid ? <Line data={data} options={options} /> : <Null />}</StBody>
     </StPeakTime>
   );
 };
@@ -79,16 +78,6 @@ const StBody = styled.main`
   min-height: 100px;
   background: ${({ theme }) => theme.color.white};
   border-radius: 5px;
-`;
-
-const StNoResult = styled.p`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: ${({ theme }) => theme.color.gray500};
-  font-size: 16px;
-  font-weight: 600;
 `;
 
 export default PeakTime;
