@@ -1,19 +1,13 @@
 import Title from '../Common/Title';
 import { IConstantData, IErrorInfo } from '@src/types/error';
-import { IStoreNameObj } from '@src/types/robot';
 import styled from '@emotion/styled';
 
 interface IProps {
-  errorInfo?: IErrorInfo;
+  errorInfo: IErrorInfo;
 }
 
 const ErrorInfo = ({ errorInfo }: IProps) => {
-  if (!errorInfo) {
-    return null;
-  }
-
   const finalTarget: string = errorInfo && errorInfo.robot_path.split(',')[0].split('!').join(' , ');
-  const organizedPath = errorInfo && errorInfo.robot_path.split(',').join(' , ');
 
   const createErrorInfo = (id: number, title: string, description: string) => {
     return { id, title, description };
@@ -24,7 +18,7 @@ const ErrorInfo = ({ errorInfo }: IProps) => {
     createErrorInfo(1, '최근 목적지', errorInfo && errorInfo.recent_table + '번 테이블'),
     createErrorInfo(2, '현재 배터리', errorInfo && errorInfo.battery + '%'),
     createErrorInfo(3, '최근 Final Traget', finalTarget),
-    createErrorInfo(4, '최근 경로', organizedPath),
+    createErrorInfo(4, '최근 경로', errorInfo && errorInfo.robot_path),
   ];
 
   return (
@@ -62,10 +56,12 @@ const StBody = styled.main`
   width: 100%;
   background: ${({ theme }) => theme.color.white};
   border-radius: 5px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 `;
 
 const StFlexBox = styled.div`
   width: 100%;
+  word-break: break-all;
 `;
 
 const StTitle = styled.span`

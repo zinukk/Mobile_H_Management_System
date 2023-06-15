@@ -1,25 +1,32 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { useMutation } from 'react-query';
+import { MutationFunction, useMutation } from 'react-query';
 import { ParsedUrlQuery } from 'querystring';
-import { AxiosError } from 'axios';
-import { IErrorDetail, IErrorState, ISolution } from '@src/types/error';
+import { IErrorState } from '@src/types/error';
 import errorAPI from '@src/api/error';
+import Spinner from '@src/components/Common/Spinner';
 import ErrorInfo from '@src/components/Error/ErrorInfo';
 import Count from '@src/components/Error/Count';
 import SolutionList from '@src/components/Error/SolutionList';
 import RelatedErrors from '@src/components/Error/RelatedErrors';
 import styled from '@emotion/styled';
+import DetailNav from '@src/components/Common/DetailNav';
 
 const ErrorDetail = () => {
   const router = useRouter();
 
   const requestData = router.query as ParsedUrlQuery & IErrorState;
 
-  const { mutate: postErrorState, data } = useMutation<IErrorDetail, AxiosError, IErrorState>(
-    'errorDetail',
-    (data: IErrorState) => errorAPI.getErrorDetail(data),
-  );
+  const mutationFn: MutationFunction<any, IErrorState> = async (data: IErrorState) => {
+    const response = await errorAPI.getErrorDetail(data);
+    return response;
+  };
+
+  const {
+    mutate: postErrorState,
+    data: errorDetail,
+    isLoading,
+  } = useMutation(mutationFn, { mutationKey: 'errorDetail' });
 
   useEffect(() => {
     if (Object.keys(requestData).length !== 0) {
@@ -27,16 +34,20 @@ const ErrorDetail = () => {
     }
   }, [requestData]);
 
-  const errorContent = data && data.error_content;
-  const errorCount = data && data.error_count;
-  const errorInfo = data && data.error_info;
-  const relatedErrors = data && data.error_list;
-  const solutionList: ISolution[] = data && data.error_solve_list;
+  const errorCount = errorDetail && errorDetail.error_count;
+  const errorInfo = errorDetail && errorDetail.error_info;
+  const relatedErrors = errorDetail && errorDetail.error_list;
+  const solutionList = errorDetail && errorDetail.error_solve_list;
+
+  if (isLoading) return <Spinner />;
 
   return (
     <StErrorDetail>
+      <StHeader>
+        <DetailNav title={'Error id : ' + requestData.error_id} />
+      </StHeader>
       <StBody>
-        <ErrorInfo errorInfo={errorInfo} />
+        <ErrorInfo errorInfo={errorInfo && errorInfo} />
         <Count
           type="error"
           week={errorCount && errorCount.week_error_count}
@@ -47,8 +58,8 @@ const ErrorDetail = () => {
           week={errorCount && errorCount.week_serving_count}
           month={errorCount && errorCount.month_serving_count}
         />
-        <RelatedErrors relatedErrors={relatedErrors} />
-        <SolutionList solutionList={solutionList} />
+        <RelatedErrors relatedErrors={relatedErrors && relatedErrors} />
+        <SolutionList solutionList={solutionList && solutionList} />
       </StBody>
     </StErrorDetail>
   );
@@ -65,10 +76,6 @@ const StHeader = styled.header`
 `;
 
 const StBody = styled.main`
-  width: 100%;
-`;
-
-const StFooter = styled.footer`
   width: 100%;
 `;
 

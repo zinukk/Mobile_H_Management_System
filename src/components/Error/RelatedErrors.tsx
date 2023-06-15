@@ -1,14 +1,12 @@
-import styled from '@emotion/styled';
 import { IErrorState } from '@src/types/error';
-import React from 'react';
 import Title from '../Common/Title';
+import styled from '@emotion/styled';
 
 interface IProps {
   relatedErrors: IErrorState[];
 }
 
 const RelatedErrors = ({ relatedErrors }: IProps) => {
-  console.log(relatedErrors);
   return (
     <StRelatedErrors>
       <StHeader>
@@ -56,13 +54,14 @@ const StBody = styled.main`
   height: 300px;
   background: ${({ theme }) => theme.color.white};
   border-radius: 5px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   overflow: scroll;
 `;
 
 const StErrorBox = styled.div`
   padding: 10px;
   width: 100%;
-  background: ${({ theme }) => theme.color.white};
+  background: ${({ theme }) => theme.color.gray100};
   border: ${({ theme }) => `1px solid ${theme.color.gray400}`};
   border-radius: 5px;
   gap: 10px;
