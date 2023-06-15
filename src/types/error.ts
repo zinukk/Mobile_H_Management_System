@@ -54,3 +54,14 @@ export type IConstantData = {
   title: string;
   description: string;
 };
+
+export type ISolution = {
+  content: string;
+  created_at: string;
+  error_id: string;
+  error_type: string;
+  is_solved: null | string;
+  manager: string;
+  map_id: string;
+  robot_id: string;
+};
