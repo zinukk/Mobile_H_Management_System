@@ -15,8 +15,6 @@ const ErrorList = ({ errorList }: IProps) => {
 
   const { data, isLoading } = useInfiniteScroll(errorList, observerRef);
 
-  console.log(data);
-
   return (
     <StErrorList>
       <StHeader>
