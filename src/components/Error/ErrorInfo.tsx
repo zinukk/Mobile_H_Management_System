@@ -1,5 +1,5 @@
 import Title from '../Common/Title';
-import { IConstantErrorInfo, IErrorInfo } from '@src/types/error';
+import { IConstantData, IErrorInfo } from '@src/types/error';
 import { IStoreNameObj } from '@src/types/robot';
 import styled from '@emotion/styled';
 
@@ -15,25 +15,12 @@ const ErrorInfo = ({ errorInfo }: IProps) => {
   const finalTarget: string = errorInfo && errorInfo.robot_path.split(',')[0].split('!').join(' , ');
   const organizedPath = errorInfo && errorInfo.robot_path.split(',').join(' , ');
 
-  const convertStoreName = (storeId: string) => {
-    const storeObj: IStoreNameObj = {
-      '1': '항동 노리 배달쿡',
-      '2': '연신내 더피플버거',
-      '3': '오산 공유주방',
-      '4': '차세대 융합 기술 연구원',
-      '5': '더티 프라이',
-      '6': '노원 발란',
-    };
-
-    return storeObj[storeId];
-  };
-
   const createErrorInfo = (id: number, title: string, description: string) => {
     return { id, title, description };
   };
 
-  const ERROR_INFO: IConstantErrorInfo[] = [
-    createErrorInfo(0, '발생한 매장', convertStoreName(errorInfo && errorInfo.map_existence)),
+  const ERROR_INFO: IConstantData[] = [
+    createErrorInfo(0, '에러가 발생한 Map Node', errorInfo && errorInfo.map_existence),
     createErrorInfo(1, '최근 목적지', errorInfo && errorInfo.recent_table + '번 테이블'),
     createErrorInfo(2, '현재 배터리', errorInfo && errorInfo.battery + '%'),
     createErrorInfo(3, '최근 Final Traget', finalTarget),

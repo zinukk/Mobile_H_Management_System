@@ -49,7 +49,7 @@ export type IErrorInfo = {
   robot_path: string;
 };
 
-export type IConstantErrorInfo = {
+export type IConstantData = {
   id: number;
   title: string;
   description: string;

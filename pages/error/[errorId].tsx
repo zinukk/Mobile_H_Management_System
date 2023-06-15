@@ -6,7 +6,7 @@ import { AxiosError } from 'axios';
 import { IErrorDetail, IErrorState } from '@src/types/error';
 import errorAPI from '@src/api/error';
 import ErrorInfo from '@src/components/Error/ErrorInfo';
-import ServingErrorCount from '@src/components/Error/ServingErrorCount';
+import Count from '@src/components/Error/Count';
 import SolutionList from '@src/components/Error/SolutionList';
 import RelatedErrors from '@src/components/Error/RelatedErrors';
 import styled from '@emotion/styled';
@@ -37,7 +37,16 @@ const ErrorDetail = () => {
     <StErrorDetail>
       <StBody>
         <ErrorInfo errorInfo={errorInfo} />
-        <ServingErrorCount />
+        <Count
+          type="error"
+          week={errorCount && errorCount.week_error_count}
+          month={errorCount && errorCount.month_error_count}
+        />
+        <Count
+          type="serving"
+          week={errorCount && errorCount.week_serving_count}
+          month={errorCount && errorCount.month_serving_count}
+        />
         <RelatedErrors />
         <SolutionList />
       </StBody>
