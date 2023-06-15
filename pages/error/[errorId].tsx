@@ -30,7 +30,7 @@ const ErrorDetail = () => {
   const errorContent = data && data.error_content;
   const errorCount = data && data.error_count;
   const errorInfo = data && data.error_info;
-  const errorList = data && data.error_list;
+  const relatedErrors = data && data.error_list;
   const errorSolveList = data && data.error_solve_list;
 
   return (
@@ -47,7 +47,7 @@ const ErrorDetail = () => {
           week={errorCount && errorCount.week_serving_count}
           month={errorCount && errorCount.month_serving_count}
         />
-        <RelatedErrors />
+        <RelatedErrors relatedErrors={relatedErrors} />
         <SolutionList />
       </StBody>
     </StErrorDetail>
