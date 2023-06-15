@@ -27,7 +27,7 @@ export type IErrorDetail = {
   error_count: IErrorCount;
   error_info: IErrorInfo;
   error_list: IErrorState[];
-  error_solve_list: IErrorState[];
+  error_solve_list: ISolution[];
 };
 
 export type IErrorContent = {

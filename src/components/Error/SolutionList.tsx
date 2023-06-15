@@ -1,5 +1,5 @@
 import Title from '../Common/Title';
-import { IConstantData, ISolution } from '@src/types/error';
+import { ISolution } from '@src/types/error';
 import styled from '@emotion/styled';
 
 interface IProps {
@@ -51,16 +51,17 @@ const StBody = styled.div`
   flex-direction: column;
   gap: 10px;
   width: 100%;
-  height: 300px;
+  max-height: 300px;
   background: ${({ theme }) => theme.color.white};
   border-radius: 5px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   overflow: scroll;
 `;
 
 const StSolution = styled.div`
   padding: 10px;
   width: 100%;
-  background: ${({ theme }) => theme.color.white};
+  background: ${({ theme }) => theme.color.gray100};
   border: ${({ theme }) => `1px solid ${theme.color.gray400}`};
   border-radius: 5px;
   gap: 10px;

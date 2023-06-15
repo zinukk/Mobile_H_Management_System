@@ -4,15 +4,11 @@ import styled from '@emotion/styled';
 
 interface IProps {
   type: string;
-  week?: string;
-  month?: string;
+  week: string;
+  month: string;
 }
 
 const Count = ({ type, week, month }: IProps) => {
-  if (!week || !month) {
-    return null;
-  }
-
   const createCountInfo = (id: number, title: string, description: string) => {
     return { id, title, description };
   };
@@ -22,11 +18,9 @@ const Count = ({ type, week, month }: IProps) => {
   return (
     <StCount>
       <StHeader>
-        <Title title={type === 'error' ? '에러 정보' : '서빙 정보'} />
+        <Title title={type === 'error' ? '최근 에러 횟수' : '최근 서빙 횟수'} />
       </StHeader>
       <StBody>
-        <StSubTitle>{type === 'error' ? '최근 에러 횟수' : '최근 서빙 횟수'}</StSubTitle>
-        <StDevider />
         <StFlexBox>
           {COUNT_INFO.map(({ id, title, description }) => (
             <StCountBox key={id}>
@@ -58,6 +52,7 @@ const StBody = styled.main`
   width: 100%;
   background: ${({ theme }) => theme.color.white};
   border-radius: 5px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 `;
 
 const StDevider = styled.hr`

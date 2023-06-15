@@ -51,6 +51,7 @@ const StTitle = styled.p`
   transform: translate(-50%, -50%);
   color: ${({ theme }) => theme.color.gray700};
   font-size: 20px;
+  font-weight: 600;
 `;
 
 const StIcon = styled.div`
@@ -58,6 +59,7 @@ const StIcon = styled.div`
   top: 50%;
   left: 10%;
   transform: translate(-50%, -50%);
+  cursor: pointer;
 `;
 
 export default DetailNav;
