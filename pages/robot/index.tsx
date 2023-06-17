@@ -124,6 +124,10 @@ const Robot = ({ robots, stores }: IProps) => {
   const filterByRobotState = (option: string) => {
     robotStateHandler(option);
 
+    if (storeName === '전체매장' && option === '전체로봇') {
+      return robotListHandler(copiedRobotList);
+    }
+
     if (storeName !== '전체매장' && option === '전체로봇')
       return robotListHandler(copiedRobotList.filter((robot) => robot.k_map_name === storeName));
 
