@@ -1,12 +1,15 @@
 import styled from '@emotion/styled';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 interface IProps {
   store: IStore;
 }
 
 const Store = ({ store }: IProps) => {
-  const { img_src, map_name, stay, refair, total, serving_count, error_count, performance } = store;
+  const router = useRouter();
+
+  const { img_src, map_name, map_id, stay, refair, total, serving_count, error_count, performance } = store;
 
   const createStatus = (id: number, color: string, count: number) => {
     return {
@@ -41,12 +44,19 @@ const Store = ({ store }: IProps) => {
     createStatistics(2, '주행효율', isValid(performance)),
   ];
 
+  const pageHandler = (storeId: string) => {
+    router.push(`/store/${storeId}`);
+  };
+
   const widthHandler = (count: number, total: number) => {
     return (count / total) * 100;
   };
 
   return (
-    <StStore>
+    <StStore
+      onClick={() => {
+        pageHandler(map_id);
+      }}>
       <StBody>
         <StStoreInfo>
           <Image src={img_src} width={60} height={40} alt="매장이미지" />
