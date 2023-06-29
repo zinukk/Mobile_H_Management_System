@@ -1,9 +1,9 @@
-import Statistics from '@src/components/Home/Statistics/Statistics';
-import homeAPI from '@src/api/home';
-import StoreList from '@src/components/Home/StoreList/StoreList';
 import { IServing } from '@src/types/home';
-import styled from '@emotion/styled';
+import homeAPI from '@src/api/home';
+import Statistics from '@src/components/Home/Statistics/Statistics';
+import StoreList from '@src/components/Home/StoreList/StoreList';
 import RecentError from '@src/components/Home/RecentError/RecentError';
+import styled from '@emotion/styled';
 
 export async function getServerSideProps() {
   const serving = await homeAPI.getServing();

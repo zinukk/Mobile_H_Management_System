@@ -9,9 +9,9 @@ interface IProps {
 }
 
 const Statistics = ({ serving }: IProps) => {
-  const { day, week, month } = serving;
-
   const [tab, setTab] = useState<string>('일간');
+
+  const { day, week, month } = serving;
 
   const tabHandler = (tab: string) => {
     setTab(tab);
