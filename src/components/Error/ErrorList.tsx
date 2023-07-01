@@ -1,33 +1,35 @@
-import styled from '@emotion/styled';
-import React, { useRef } from 'react';
+import { useRef } from 'react';
+import { IErrorState } from '@src/types/error';
 import Title from '../Common/Title';
 import useInfiniteScroll from '@src/hooks/useInfiniteScroll';
 import Error from '../Common/Error';
 import Spinner from '../Common/Spinner';
-import { IErrorState } from '@src/types/error';
+import styled from '@emotion/styled';
 
 interface IProps {
   errorList: IErrorNotice[];
+  mutateLoading: boolean;
 }
 
-const ErrorList = ({ errorList }: IProps) => {
+const ErrorList = ({ errorList, mutateLoading }: IProps) => {
   const observerRef = useRef<HTMLDivElement>(null);
 
-  const { data, isLoading } = useInfiniteScroll(errorList, observerRef);
+  const { data, isLoading: scrollLoading } = useInfiniteScroll(errorList, observerRef);
 
   return (
     <StErrorList>
       <StHeader>
         <Title title="에러 리스트" />
-        <StLength>{data.length + ' / ' + errorList.length}</StLength>
       </StHeader>
       <StBody>
-        {data.length !== 0 ? (
-          data.map((cur: IErrorState, idx) => <Error key={idx} {...cur} />)
+        {mutateLoading ? (
+          <Spinner />
+        ) : data.length !== 0 ? (
+          data.map((cur: IErrorState, idx: number) => <Error key={idx} {...cur} />)
         ) : (
           <StNull>조건에 맞는 에러가 존재하지 않습니다</StNull>
         )}
-        {isLoading && (
+        {scrollLoading && (
           <StSpinnerBox>
             <Spinner />
           </StSpinnerBox>
