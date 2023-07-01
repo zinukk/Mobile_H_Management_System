@@ -14,7 +14,7 @@ const RecentError = () => {
   const [recentErrors, setRecentErrors] = useRecoilState(recentErrorsState);
   const observerRef = useRef<HTMLDivElement>(null);
 
-  const { data, isLoading } = useInfiniteScroll(recentErrors, observerRef);
+  const { data, isLoading: scrollLoading } = useInfiniteScroll(recentErrors, observerRef);
 
   const riskDegree: IRiskDegree = data.reduce(
     (acc: IRiskDegree, { risk_degree }) => {
@@ -59,7 +59,7 @@ const RecentError = () => {
     return 30000;
   };
 
-  const fetchedData = useQuery(
+  const { isLoading: fetchLoading } = useQuery(
     ['recentErrors'],
     async () => {
       const data = homeAPI.getRecentErrors();
@@ -89,7 +89,7 @@ const RecentError = () => {
       </StHeader>
       <StBody>
         <RiskDegree riskDegreeList={riskDegreeList} />
-        <RecentErrorList data={data} isLoading={isLoading} observerRef={observerRef} />
+        <RecentErrorList data={data} isLoading={scrollLoading} observerRef={observerRef} />
       </StBody>
     </StRecentError>
   );
@@ -134,8 +134,10 @@ const StDegree = styled.p`
 `;
 
 const StBody = styled.main`
+  position: relative;
   margin-top: 30px;
   width: 100%;
+  min-height: 300px;
 `;
 
 export default RecentError;

@@ -1,17 +1,17 @@
 import { useState } from 'react';
 import { IDateTab, IServingByDate } from '@src/types/home';
+import Title from '@src/components/Common/Title';
 import StatisticsInfo from './StatisticsInfo';
 import styled from '@emotion/styled';
-import Title from '@src/components/Common/Title';
 
 interface IProps {
   serving: IServingByDate;
 }
 
 const Statistics = ({ serving }: IProps) => {
-  const { day, week, month } = serving;
-
   const [tab, setTab] = useState<string>('일간');
+
+  const { day, week, month } = serving;
 
   const tabHandler = (tab: string) => {
     setTab(tab);
@@ -28,14 +28,14 @@ const Statistics = ({ serving }: IProps) => {
       <StHeader>
         <Title title="통계 자료" />
         <StTabBox>
-          {Object.keys(DATE_TAB).map((cur, idx) => (
+          {Object.keys(DATE_TAB).map((tabName, idx) => (
             <StTabBtn
               key={idx}
-              isCurrentTab={tab === cur}
+              isCurrentTab={tab === tabName}
               onClick={() => {
-                tabHandler(cur);
+                tabHandler(tabName);
               }}>
-              {cur}
+              {tabName}
             </StTabBtn>
           ))}
         </StTabBox>

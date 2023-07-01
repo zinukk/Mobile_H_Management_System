@@ -1,9 +1,10 @@
-import Statistics from '@src/components/Home/Statistics/Statistics';
-import homeAPI from '@src/api/home';
-import StoreList from '@src/components/Home/StoreList/StoreList';
+import dynamic from 'next/dynamic';
 import { IServing } from '@src/types/home';
+import homeAPI from '@src/api/home';
+import Statistics from '@src/components/Home/Statistics/Statistics';
+import StoreList from '@src/components/Home/StoreList/StoreList';
+import Spinner from '@src/components/Common/Spinner';
 import styled from '@emotion/styled';
-import RecentError from '@src/components/Home/RecentError/RecentError';
 
 export async function getServerSideProps() {
   const serving = await homeAPI.getServing();
@@ -22,6 +23,10 @@ interface IProps {
   serving: IServing;
   stores: IResponse;
 }
+
+const RecentError = dynamic(() => import('@src/components/Home/RecentError/RecentError'), {
+  loading: () => <Spinner />,
+});
 
 const Home = ({ serving, stores }: IProps) => {
   return (
