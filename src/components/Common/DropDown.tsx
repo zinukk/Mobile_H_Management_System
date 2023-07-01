@@ -51,7 +51,7 @@ const StDropdown = styled.div`
 const StSelected = styled.button<{ isOpen: boolean }>`
   position: relative;
   padding: 0 5px;
-  width: 120px;
+  width: 115px;
   height: 30px;
   background: ${({ theme, isOpen }) => (isOpen ? theme.color.main : theme.color.sub)};
   color: ${({ theme }) => theme.color.white};
@@ -72,7 +72,7 @@ const StSelect = styled.div<{ isOpen: boolean }>`
   position: absolute;
   top: 30px;
   left: 0px;
-  width: 120px;
+  width: 115px;
   border-radius: 5px;
   border-top-left-radius: ${({ isOpen }) => (isOpen ? '0px' : '5px')};
   border-top-right-radius: ${({ isOpen }) => (isOpen ? '0px' : '5px')};
@@ -86,7 +86,7 @@ const StSelect = styled.div<{ isOpen: boolean }>`
 
 const StOption = styled.button`
   padding: 0 5px;
-  width: 120px;
+  width: 115px;
   height: 30px;
   background: ${({ theme }) => theme.color.sub};
   color: ${({ theme }) => theme.color.white};

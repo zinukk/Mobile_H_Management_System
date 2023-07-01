@@ -1,7 +1,4 @@
-import styled from '@emotion/styled';
 import { IServeErrorCount } from '@src/types/error';
-import React from 'react';
-import Title from '../Common/Title';
 import {
   Chart as ChartJS,
   LinearScale,
@@ -15,6 +12,9 @@ import {
   BarController,
 } from 'chart.js';
 import { Chart } from 'react-chartjs-2';
+import Title from '../Common/Title';
+import Spinner from '../Common/Spinner';
+import styled from '@emotion/styled';
 
 ChartJS.register(
   LinearScale,
@@ -30,9 +30,10 @@ ChartJS.register(
 
 interface IProps {
   serveErrorCount: IServeErrorCount;
+  mutateLoading: boolean;
 }
 
-const ServingErrorChart = ({ serveErrorCount }: IProps) => {
+const ServingErrorChart = ({ serveErrorCount, mutateLoading }: IProps) => {
   const data = {
     labels: serveErrorCount && serveErrorCount.date,
     datasets: [
@@ -57,11 +58,9 @@ const ServingErrorChart = ({ serveErrorCount }: IProps) => {
   return (
     <StServingErrorChart>
       <StHeader>
-        <Title title="서빙 별 에러 발생 횟수" />
+        <Title title="서빙 시 에러 발생 횟수" />
       </StHeader>
-      <StBody>
-        <Chart type="bar" data={data} />
-      </StBody>
+      <StBody>{mutateLoading ? <Spinner /> : <Chart type="bar" data={data} />}</StBody>
     </StServingErrorChart>
   );
 };
@@ -76,8 +75,17 @@ const StHeader = styled.header`
 `;
 
 const StBody = styled.main`
-  padding-top: 20px;
+  position: relative;
+  margin-top: 20px;
+  padding: 20px;
   width: 100%;
+  min-height: 220px;
+  background: ${({ theme }) => theme.color.white};
+  border-radius: 5px;
+  overflow: scroll;
+  :last-child {
+    margin-bottom: 0;
+  }
 `;
 
 export default ServingErrorChart;

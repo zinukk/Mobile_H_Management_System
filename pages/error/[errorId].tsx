@@ -4,13 +4,13 @@ import { MutationFunction, useMutation } from 'react-query';
 import { ParsedUrlQuery } from 'querystring';
 import { IErrorState } from '@src/types/error';
 import errorAPI from '@src/api/error';
+import DetailNav from '@src/components/Common/DetailNav';
 import Spinner from '@src/components/Common/Spinner';
 import ErrorInfo from '@src/components/Error/ErrorInfo';
 import Count from '@src/components/Error/Count';
 import SolutionList from '@src/components/Error/SolutionList';
 import RelatedErrors from '@src/components/Error/RelatedErrors';
 import styled from '@emotion/styled';
-import DetailNav from '@src/components/Common/DetailNav';
 
 const ErrorDetail = () => {
   const router = useRouter();

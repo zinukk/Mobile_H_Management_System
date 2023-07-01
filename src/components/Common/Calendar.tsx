@@ -5,11 +5,13 @@ import 'react-datepicker/dist/react-datepicker.css';
 import styled from '@emotion/styled';
 
 interface IProps {
-  date: Date;
+  type: string;
+  startDate: Date;
   setDate: Dispatch<SetStateAction<Date>>;
+  endDate: Date;
 }
 
-const Calendar = ({ date, setDate }: IProps) => {
+const Calendar = ({ type, startDate, endDate, setDate }: IProps) => {
   const dateHandler = (date: Date) => {
     setDate(date);
   };
@@ -20,7 +22,9 @@ const Calendar = ({ date, setDate }: IProps) => {
         locale={ko}
         dateFormat="yyyy.MM.dd (eee)"
         showPopperArrow={false}
-        selected={date}
+        selected={type === 'start' ? startDate : endDate}
+        minDate={type === 'end' ? startDate : null}
+        maxDate={new Date()}
         onChange={(date: Date) => {
           dateHandler(date);
         }}
@@ -31,13 +35,13 @@ const Calendar = ({ date, setDate }: IProps) => {
 
 const StContainer = styled.div`
   .react-datepicker__input-container {
-    width: 120px;
+    width: 115px;
   }
 `;
 
 const StCalendar = styled(DatePicker)`
   padding: 0 5px;
-  width: 120px;
+  width: 115px;
   height: 30px;
   color: ${({ theme }) => theme.color.white};
   background: ${({ theme }) => theme.color.sub};

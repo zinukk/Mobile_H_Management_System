@@ -1,7 +1,7 @@
 import Title from '../Common/Title';
 import { ISolution } from '@src/types/error';
-import styled from '@emotion/styled';
 import Null from '../Common/Null';
+import styled from '@emotion/styled';
 
 interface IProps {
   solutionList: ISolution[];
