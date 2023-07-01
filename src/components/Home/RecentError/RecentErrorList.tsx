@@ -1,8 +1,8 @@
 import { RefObject } from 'react';
+import { IErrorState } from '@src/types/error';
 import Error from '@src/components/Common/Error';
 import Spinner from '@src/components/Common/Spinner';
 import styled from '@emotion/styled';
-import { IErrorState } from '@src/types/error';
 
 interface IProps {
   data: IErrorState[];
