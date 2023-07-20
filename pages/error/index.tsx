@@ -9,6 +9,7 @@ import DropDown from '@src/components/Common/DropDown';
 import ServingErrorChart from '@src/components/Error/ServingErrorChart';
 import ErrorList from '@src/components/Error/ErrorList';
 import styled from '@emotion/styled';
+import Modal from '@src/components/Common/Modal';
 
 export async function getServerSideProps() {
   const stores = await homeAPI.getStores();
@@ -33,15 +34,26 @@ interface IProps {
 
 const Error = ({ stores, errors }: IProps) => {
   const date = new Date();
+
   const year = date.getFullYear();
+
   const month = date.getMonth();
+
   const day = date.getDate();
+
   const [errorList, setErrorList] = useState<IErrorNotice[]>(errors.error_notice);
+
   const [serveErrorCount, setServeErrorCount] = useState<IServeErrorCount>(errors.serve_error_count);
+
   const [startDate, setStartDate] = useState<Date>(new Date(year, month, day - 6));
+
   const [endDate, setEndDate] = useState<Date>(new Date());
+
   const [storeName, setStoreName] = useState<string>('전체매장');
+
   const [storeId, setStoreId] = useState<number>(0);
+
+  const [isOpen, setisOpen] = useState<boolean>(false);
 
   const dropdownList: IDropDownList[] = stores.stores.map(({ map_name: storeName, map_id: storeId }) => ({
     id: storeId,
@@ -69,6 +81,10 @@ const Error = ({ stores, errors }: IProps) => {
     storeIdHandler(id);
   };
 
+  const closeModalHandler = () => {
+    setisOpen(false);
+  };
+
   const { mutate: postDates, isLoading: mutateLoading } = useMutation((data: IDates) => errorAPI.postErrorDates(data), {
     onSuccess: ({ error_notice, serve_error_count }: any) => {
       errorListHandler(error_notice);
@@ -77,6 +93,8 @@ const Error = ({ stores, errors }: IProps) => {
   });
 
   const postDateHandler = () => {
+    if (storeId === 0) return setisOpen(true);
+
     const dateData: IDates = {
       start_date: convertDate(startDate),
       end_date: convertDate(endDate),
@@ -87,7 +105,7 @@ const Error = ({ stores, errors }: IProps) => {
   };
 
   return (
-    <StError>
+    <StError isOpen={isOpen}>
       <StHeader>
         <StFilterBox>
           <DropDown selected={storeName} list={dropdownList} event={dropdownHandler} />
@@ -100,14 +118,17 @@ const Error = ({ stores, errors }: IProps) => {
         <ServingErrorChart serveErrorCount={serveErrorCount} mutateLoading={mutateLoading} />
         <ErrorList errorList={errorList} mutateLoading={mutateLoading} />
       </StBody>
+      {isOpen && <Modal text="검색하실 매장을 선택해주세요" event={closeModalHandler} />}
     </StError>
   );
 };
 
-const StError = styled.div`
+const StError = styled.div<{ isOpen: boolean }>`
   padding: 10vh 20px;
   width: 100%;
   background: ${({ theme }) => theme.color.background};
+  height: ${({ isOpen }) => (isOpen ? '100vh' : null)};
+  overflow: ${({ isOpen }) => (isOpen ? 'hidden' : null)};
 `;
 
 const StHeader = styled.header`
@@ -135,10 +156,6 @@ const StSubmitBtn = styled.button`
   font-size: 11px;
   z-index: 20;
   cursor: pointer;
-
-  :hover {
-    background: ${({ theme }) => theme.color.main};
-  }
 `;
 
 const StBody = styled.main`
