@@ -1,9 +1,9 @@
-import styled from '@emotion/styled';
+import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useRecoilState } from 'recoil';
 import { navState } from '@src/store/navState';
-import { useEffect } from 'react';
 import { NAV } from '@src/mocks/NAV';
+import styled from '@emotion/styled';
 
 const BottomNav = () => {
   const router = useRouter();

@@ -5,8 +5,8 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { RecoilRoot } from 'recoil';
 import global from 'styles/global';
 import theme from 'styles/theme';
-import Layout from '@src/components/Common/Layout/Layout';
-import BottomNav from '@src/components/Common/BottomNav/BottomNav';
+import Layout from '@src/components/Common/Layout';
+import BottomNav from '@src/components/Common/BottomNav';
 import TopNav from '@src/components/Common/TopNav';
 import { useRouter } from 'next/router';
 
