@@ -1,10 +1,10 @@
-import { Nav } from '@src/components/Common/BottomNav/types';
 import { AiOutlineHome, AiFillHome } from 'react-icons/ai';
 import { MdErrorOutline, MdError } from 'react-icons/md';
 import { AiOutlineRobot, AiFillRobot } from 'react-icons/ai';
 import { IoStorefrontOutline, IoStorefrontSharp } from 'react-icons/io5';
+import { INav } from '@src/types/common';
 
-export const NAV: Nav[] = [
+export const NAV: INav[] = [
   {
     id: 0,
     name: '홈',
