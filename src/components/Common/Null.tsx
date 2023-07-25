@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import React from 'react';
 
 const Null = () => {
   return <StNull>No Result</StNull>;

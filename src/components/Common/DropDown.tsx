@@ -1,6 +1,6 @@
-import styled from '@emotion/styled';
+import { useRef, useState } from 'react';
 import useOnClickOutside from '@src/hooks/useOnClickOutside';
-import React, { useRef, useState } from 'react';
+import styled from '@emotion/styled';
 
 interface IProps {
   selected: string;

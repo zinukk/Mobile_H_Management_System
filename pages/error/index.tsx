@@ -8,8 +8,8 @@ import Calendar from '@src/components/Common/Calendar';
 import DropDown from '@src/components/Common/DropDown';
 import ServingErrorChart from '@src/components/Error/ServingErrorChart';
 import ErrorList from '@src/components/Error/ErrorList';
-import styled from '@emotion/styled';
 import Modal from '@src/components/Common/Modal';
+import styled from '@emotion/styled';
 
 export async function getServerSideProps() {
   const stores = await homeAPI.getStores();

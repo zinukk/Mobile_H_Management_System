@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import type { AppProps } from 'next/app';
+import { useRouter } from 'next/router';
 import { Global, ThemeProvider } from '@emotion/react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { RecoilRoot } from 'recoil';
 import global from 'styles/global';
 import theme from 'styles/theme';
 import Layout from '@src/components/Common/Layout';
-import BottomNav from '@src/components/Common/BottomNav';
 import TopNav from '@src/components/Common/TopNav';
-import { useRouter } from 'next/router';
+import BottomNav from '@src/components/Common/BottomNav';
 
 const App = ({ Component, pageProps }: AppProps) => {
   const { pathname } = useRouter();

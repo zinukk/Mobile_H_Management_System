@@ -8,8 +8,8 @@ const TopNav = () => {
     <StTopNav>
       <StHeader>
         <StLogo>
-          <StImage src={LogoIcon} width={51} height={51} alt="로고 아이콘" />
-          <StImage src={LogoText} width={200} height={51} alt="로고 텍스트" />
+          <StImage src={LogoIcon} width={51} height={51} alt="로고 아이콘" priority />
+          <StImage src={LogoText} width={200} height={51} alt="로고 텍스트" priority />
         </StLogo>
       </StHeader>
     </StTopNav>

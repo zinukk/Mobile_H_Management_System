@@ -1,7 +1,7 @@
-import styled from '@emotion/styled';
-import { IErrorState } from '@src/types/error';
 import { useRouter } from 'next/router';
 import { MdArrowForwardIos } from 'react-icons/md';
+import { IErrorState } from '@src/types/error';
+import styled from '@emotion/styled';
 
 const Error = ({
   error_msg,
