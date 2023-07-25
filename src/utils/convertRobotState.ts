@@ -1,6 +1,8 @@
 import { IRobotStateObj } from '@src/types/common';
 
 export const convertRobotState = (robotState: string) => {
+  if (robotState === null) return '정보없음';
+
   const robotStateObj: IRobotStateObj = {
     '1': '에러',
     '2': '이동중',

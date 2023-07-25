@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { IRobotType } from '@src/types/robot';
+import Image from 'next/image';
 
 interface IProps {
   k_map_name: string;
@@ -23,20 +24,27 @@ const RobotCard = ({
   robot_state,
 }: IProps) => {
   const getColorById = (id: string) => {
+    if (id === null) return '#000';
+
     return ROBOT_TYPE.filter((robot) => robot.id === id)[0].color;
   };
 
   return (
     <StRobotCard>
       <StHeader>
-        <StStore>{k_map_name}</StStore>
+        <StStore>{k_map_name ? k_map_name : '정보없음'}</StStore>
         <StGapBox>
           <StState color={getColorById(state)}>{robot_state}</StState>
-          <StImg src={`/assets/icons/robot/robot_state_${state}.png`} alt="로봇이미지" />
+          <StImg
+            src={`/assets/icons/robot/icon_robot_state_${state ? state : 6}.png`}
+            alt="로봇이미지"
+            width={50}
+            height={50}
+          />
         </StGapBox>
       </StHeader>
       <StBody>
-        <StSerialNumber>S/N. {serial_number}</StSerialNumber>
+        <StSerialNumber>S/N. {serial_number ? serial_number : 'virtual'}</StSerialNumber>
         <StGapBox>
           <StGray>서빙횟수</StGray>
           <StBlack>{serving_count ? serving_count : 0}회</StBlack>
@@ -87,7 +95,7 @@ const StState = styled.p<{ color: string | undefined }>`
   font-weight: 600;
 `;
 
-const StImg = styled.img`
+const StImg = styled(Image)`
   width: 25px;
   height: 25px;
 `;
