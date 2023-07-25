@@ -26,11 +26,3 @@ export type IRobotType = {
   option: string;
   color: string | undefined;
 };
-
-export type IStoreNameObj = {
-  [index: string]: string;
-};
-
-export type IRobotStateObj = {
-  [index: string]: string;
-};

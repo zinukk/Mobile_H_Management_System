@@ -1,4 +1,7 @@
-import styled from '@emotion/styled';
+import { useRef, useState } from 'react';
+import { IRobotState, IRobotType } from '@src/types/robot';
+import { convertRobotState } from '@src/utils/convertRobotState';
+import { convertStoreName } from '@src/utils/convertStoreName';
 import homeAPI from '@src/api/home';
 import robotAPI from '@src/api/robot';
 import DropDown from '@src/components/Common/DropDown';
@@ -7,44 +10,17 @@ import Spinner from '@src/components/Common/Spinner';
 import Title from '@src/components/Common/Title';
 import RobotCard from '@src/components/Robot/RobotCard';
 import useInfiniteScroll from '@src/hooks/useInfiniteScroll';
-import { IRobotState, IRobotStateObj, IRobotType, IStoreNameObj } from '@src/types/robot';
-import { useRef, useState } from 'react';
+import styled from '@emotion/styled';
 
 export async function getServerSideProps() {
   const stores = await homeAPI.getStores();
 
   const robots: any = await robotAPI.getRobots();
 
-  const changeStoreName = (storeName: string) => {
-    const storeNameObj: IStoreNameObj = {
-      '노리배달쿡 항동점': '항동 노리 배달쿡',
-      '더피플버거 연신내점': '연신내 더피플버거',
-      '배달쿡공유주방 오산점': '오산 공유주방',
-      차세대융합인증원: '차세대 융합 기술 연구원',
-      신도림: '더티프라이',
-      노원_발란: '노원 발란',
-    };
-
-    return storeNameObj[storeName];
-  };
-
-  const changeRobotState = (robotState: string) => {
-    const robotStateObj: IRobotStateObj = {
-      '1': '에러',
-      '2': '이동중',
-      '3': '대기중',
-      '4': '충전중',
-      '5': '수리중',
-      '6': '정보없음',
-    };
-
-    return robotStateObj[robotState];
-  };
-
   const organizedRobots = robots.robot.map((robot: IRobotState) => ({
     ...robot,
-    k_map_name: changeStoreName(robot.k_map_name),
-    robot_state: changeRobotState(robot.robot_state),
+    k_map_name: convertStoreName(robot.k_map_name),
+    robot_state: convertRobotState(robot.robot_state),
   }));
 
   return {
