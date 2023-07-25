@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Map, MapMarker, CustomOverlayMap } from 'react-kakao-maps-sdk';
 import { IMap } from '@src/types/home';
 import styled from '@emotion/styled';
-import Title from '../Common/Title';
 
 interface IProps {
   stores: IStore[];

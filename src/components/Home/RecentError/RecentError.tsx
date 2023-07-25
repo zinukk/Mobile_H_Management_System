@@ -1,13 +1,13 @@
 import { useRef } from 'react';
 import { useQuery } from 'react-query';
 import { useRecoilState } from 'recoil';
+import { IRiskDegree, IRiskDegreeList, ITimeMap } from '@src/types/home';
+import { recentErrorsState } from '@src/store/recentErrors';
 import homeAPI from '@src/api/home';
 import Title from '@src/components/Common/Title';
 import RiskDegree from './RiskDegree';
 import useInfiniteScroll from '@src/hooks/useInfiniteScroll';
 import RecentErrorList from './RecentErrorList';
-import { IRiskDegree, IRiskDegreeList, ITimeMap } from '@src/types/home';
-import { recentErrorsState } from '@src/store/recentErrors';
 import styled from '@emotion/styled';
 
 const RecentError = () => {

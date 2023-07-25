@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { IStoreInfo } from '@src/types/store';
-import styled from '@emotion/styled';
 import Title from '../Common/Title';
+import styled from '@emotion/styled';
 
 interface IProps {
   store: IStore;
