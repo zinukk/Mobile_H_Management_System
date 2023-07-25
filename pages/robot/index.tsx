@@ -19,8 +19,8 @@ export async function getServerSideProps() {
 
   const organizedRobots = robots.robot.map((robot: IRobotState) => ({
     ...robot,
-    k_map_name: convertStoreName(robot.k_map_name),
-    robot_state: convertRobotState(robot.robot_state),
+    k_map_name: convertStoreName(robot.k_map_name) || null,
+    robot_state: convertRobotState(robot.robot_state) || null,
   }));
 
   return {
@@ -47,6 +47,8 @@ const Robot = ({ robots, stores }: IProps) => {
 
   const { data, isLoading } = useInfiniteScroll(robotList, observerRef);
 
+  const copiedRobotList = [...robots];
+
   const storeNameList: IDropDownList[] = [
     { id: '0', option: '전체매장' },
     ...stores.stores.map(({ map_name, map_id }) => ({
@@ -54,8 +56,6 @@ const Robot = ({ robots, stores }: IProps) => {
       option: map_name,
     })),
   ];
-
-  const copiedRobotList = [...robots];
 
   const createRobotType = (id: string, option: string, color?: string) => {
     return {
@@ -67,12 +67,12 @@ const Robot = ({ robots, stores }: IProps) => {
 
   const ROBOT_TYPE: IRobotType[] = [
     createRobotType('0', '전체로봇'),
-    createRobotType('1', '에러', '#DA376E'),
-    createRobotType('2', '이동중', '#299D38'),
-    createRobotType('3', '대기중', '#D9AC37'),
-    createRobotType('4', '충전중', '#D9AC37'),
-    createRobotType('5', '수리중', '#406DFA'),
-    createRobotType('6', '정보없음'),
+    createRobotType('1', '에러', '#c82d34'),
+    createRobotType('2', '이동중', '#6ed449'),
+    createRobotType('3', '대기중', '#3c3473'),
+    createRobotType('4', '충전중', '#ef742b'),
+    createRobotType('5', '수리중', '#3f5af5'),
+    createRobotType('6', '정보없음', '#000'),
   ];
 
   const storeNameHandler = (storeName: string) => {
