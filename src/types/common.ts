@@ -11,3 +11,11 @@ export type INav = {
 export type ILayout = {
   children: ReactNode;
 };
+
+export type IStoreNameObj = {
+  [index: string]: string;
+};
+
+export type IRobotStateObj = {
+  [index: string]: string;
+};
