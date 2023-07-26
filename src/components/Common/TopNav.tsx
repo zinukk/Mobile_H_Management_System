@@ -8,8 +8,8 @@ const TopNav = () => {
     <StTopNav>
       <StHeader>
         <StLogo>
-          <StImage src={LogoIcon} width={51} height={51} alt="로고 아이콘" priority />
-          <StImage src={LogoText} width={200} height={51} alt="로고 텍스트" priority />
+          <Image src={LogoIcon} width={26.75} height={31.25} alt="로고 아이콘" priority />
+          <Image src={LogoText} width={240} height={21.75} alt="로고 텍스트" priority />
         </StLogo>
       </StHeader>
     </StTopNav>
@@ -41,10 +41,8 @@ const StLogo = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   display: flex;
-`;
-
-const StImage = styled(Image)`
-  filter: invert(35%) sepia(74%) saturate(451%) hue-rotate(201deg) brightness(86%) contrast(90%);
+  align-items: center;
+  gap: 10px;
 `;
 
 export default TopNav;
