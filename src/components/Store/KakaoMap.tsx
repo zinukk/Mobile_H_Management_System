@@ -2,13 +2,20 @@ import { useState } from 'react';
 import { Map, MapMarker, CustomOverlayMap } from 'react-kakao-maps-sdk';
 import { IMap } from '@src/types/home';
 import styled from '@emotion/styled';
+import { useRouter } from 'next/router';
 
 interface IProps {
   stores: IStore[];
 }
 
 const KakaoMap = ({ stores }: IProps) => {
+  const router = useRouter();
+
   const [isOpen, setisOpen] = useState<boolean>(false);
+
+  const pageHandler = (mapId: string) => {
+    router.push(`/store/${mapId}`);
+  };
 
   const [info, setInfo] = useState<IMap>({
     map_id: '',
@@ -37,6 +44,7 @@ const KakaoMap = ({ stores }: IProps) => {
                 clickable={true}
                 onMouseOver={() => {
                   setisOpen(true);
+                  console.log('호버');
                   setInfo({ map_id, map_name, store_lat, store_lng });
                 }}
                 onMouseOut={() => {
@@ -46,6 +54,7 @@ const KakaoMap = ({ stores }: IProps) => {
                   lat: Number(store_lat),
                   lng: Number(store_lng),
                 }}
+                onClick={() => pageHandler(map_id)}
               />
               {isOpen && info.map_id === map_id && (
                 <CustomOverlayMap
