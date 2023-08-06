@@ -1,14 +1,14 @@
+import Image from 'next/image';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import Image from 'next/image';
 import { MdArrowForwardIos } from 'react-icons/md';
 import { useRecoilState, useResetRecoilState } from 'recoil';
+import { storeNameState } from '@src/store/storeNameState';
 import homeAPI from '@src/api/home';
 import DropDown from '@src/components/Common/DropDown';
-import { storeNameState } from '@src/store/storeNameState';
-import styled from '@emotion/styled';
 import Title from '@src/components/Common/Title';
 import KakaoMap from '@src/components/Store/KakaoMap';
+import styled from '@emotion/styled';
 
 export async function getServerSideProps() {
   const stores = await homeAPI.getStores();
@@ -67,7 +67,7 @@ const Store = ({ stores }: IProps) => {
             </StInfoBox>
             <StDevider />
             <StImgBox>
-              <StMapImg src={`/assets/images/map/map-background-${storeId}-monitoring.png`} alt="매장이미지" fill />
+              <StMapImg src={`/assets/images/map/map-background-${storeId}-monitoring.webp`} alt="매장이미지" fill />
             </StImgBox>
           </StStoreInfo>
         ))}

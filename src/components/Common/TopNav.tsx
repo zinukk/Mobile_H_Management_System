@@ -1,6 +1,6 @@
 import Image from 'next/image';
-import LogoIcon from 'public/assets/icons/nav/icon_logo.png';
-import LogoText from 'public/assets/images/nav/image_logo.png';
+import LogoIcon from 'public/assets/icons/nav/icon-logo.webp';
+import LogoText from 'public/assets/images/nav/image-logo.webp';
 import styled from '@emotion/styled';
 
 const TopNav = () => {
