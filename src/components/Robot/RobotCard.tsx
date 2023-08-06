@@ -36,7 +36,7 @@ const RobotCard = ({
         <StGapBox>
           <StState color={getColorById(state)}>{robot_state}</StState>
           <StImg
-            src={`/assets/icons/robot/icon_robot_state_${state ? state : 6}.png`}
+            src={`/assets/icons/robot/icon-robot-state-${state ? state : 6}.webp`}
             alt="로봇이미지"
             width={50}
             height={50}

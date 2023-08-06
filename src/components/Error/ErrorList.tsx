@@ -66,13 +66,6 @@ const StBody = styled.main`
   }
 `;
 
-const StLength = styled.p`
-  margin-left: 10px;
-  color: ${({ theme }) => theme.color.gray500};
-  font-size: 14px;
-  font-weight: 600;
-`;
-
 const StNull = styled.p`
   position: absolute;
   top: 50%;

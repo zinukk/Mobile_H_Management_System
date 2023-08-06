@@ -55,12 +55,6 @@ const StBody = styled.main`
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 `;
 
-const StDevider = styled.hr`
-  margin: 1vw 0;
-  width: 100%;
-  border: ${({ theme }) => `0.5px solid ${theme.color.gray400}`};
-`;
-
 const StPeriod = styled.p`
   margin-top: 5px;
   color: ${({ theme }) => theme.color.gray700};
@@ -69,10 +63,6 @@ const StPeriod = styled.p`
 const StDescription = styled.p`
   color: ${({ theme }) => theme.color.main};
   font-weight: 600;
-`;
-
-const StSubTitle = styled.p`
-  color: ${({ theme }) => theme.color.gray700};
 `;
 
 const StFlexBox = styled.div`
