@@ -5,7 +5,6 @@ import { ParsedUrlQuery } from 'querystring';
 import { IErrorState } from '@src/types/error';
 import errorAPI from '@src/api/error';
 import DetailNav from '@src/components/Common/DetailNav';
-import Spinner from '@src/components/Common/Spinner';
 import ErrorInfo from '@src/components/Error/ErrorInfo';
 import Count from '@src/components/Error/Count';
 import SolutionList from '@src/components/Error/SolutionList';
@@ -22,11 +21,7 @@ const ErrorDetail = () => {
     return response;
   };
 
-  const {
-    mutate: postErrorState,
-    data: errorDetail,
-    isLoading,
-  } = useMutation(mutationFn, { mutationKey: 'errorDetail' });
+  const { mutate: postErrorState, data: errorDetail } = useMutation(mutationFn, { mutationKey: 'errorDetail' });
 
   useEffect(() => {
     if (Object.keys(requestData).length !== 0) {
@@ -38,8 +33,6 @@ const ErrorDetail = () => {
   const errorInfo = errorDetail && errorDetail.error_info;
   const relatedErrors = errorDetail && errorDetail.error_list;
   const solutionList = errorDetail && errorDetail.error_solve_list;
-
-  if (isLoading) return <Spinner />;
 
   return (
     <StErrorDetail>
