@@ -22,6 +22,7 @@ const StSpinner = styled.div`
   height: var(--uib-size);
   width: var(--uib-size);
   animation: spin78236 calc(var(--uib-speed) * 2.5) infinite linear;
+  z-index: 1000;
 `;
 
 const StDot = styled.div`
