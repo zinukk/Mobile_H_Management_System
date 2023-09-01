@@ -19,3 +19,7 @@ export type IStoreNameObj = {
 export type IRobotStateObj = {
   [index: string]: string;
 };
+
+export type IErrorCodeObject = {
+  [index: string]: string;
+};
