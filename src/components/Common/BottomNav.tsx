@@ -53,7 +53,7 @@ const BottomNav = () => {
     {
       id: 3,
       name: '에러',
-      path: '/error',
+      path: '/robotError',
       active: <MdError size={25} color="#5655a5" />,
       disabled: <MdErrorOutline size={25} />,
     },

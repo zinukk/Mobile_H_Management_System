@@ -1,8 +1,8 @@
 import client from './client';
 import API from './apis';
-import { IDates, IErrorState } from '@src/types/error';
+import { IDates, IErrorState } from '@src/types/robotError';
 
-const errorAPI = {
+const robotErrorAPI = {
   getErrorList: () => {
     return client.get(`${API.getErrorList}`);
   },
@@ -14,4 +14,4 @@ const errorAPI = {
   },
 };
 
-export default errorAPI;
+export default robotErrorAPI;

@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { MdArrowForwardIos } from 'react-icons/md';
-import { IErrorState } from '@src/types/error';
+import { IErrorState } from '@src/types/robotError';
 import styled from '@emotion/styled';
 
 const Error = ({
@@ -19,7 +19,7 @@ const Error = ({
 
   const pageHandler = () => {
     router.push({
-      pathname: `/error/${error_id}`,
+      pathname: `/robotError/${error_id}`,
       query: requestData,
     });
   };

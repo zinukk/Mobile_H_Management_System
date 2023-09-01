@@ -1,4 +1,4 @@
-import { IServeErrorCount } from '@src/types/error';
+import { IServeErrorCount } from '@src/types/robotError';
 import {
   Chart as ChartJS,
   LinearScale,

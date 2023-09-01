@@ -1,5 +1,5 @@
 import Title from '../Common/Title';
-import { IConstantData, IErrorInfo } from '@src/types/error';
+import { IConstantData, IErrorInfo } from '@src/types/robotError';
 import styled from '@emotion/styled';
 
 interface IProps {
