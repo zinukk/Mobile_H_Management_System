@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { useMutation } from 'react-query';
 import { convertDate } from '@src/utils/convertDate';
-import { IDates, IServeErrorCount } from '@src/types/error';
-import errorAPI from '@src/api/error';
+import { IDates, IServeErrorCount } from '@src/types/robotError';
+import errorAPI from '@src/api/robotError';
 import homeAPI from '@src/api/home';
 import Calendar from '@src/components/Common/Calendar';
 import DropDown from '@src/components/Common/DropDown';
-import ServingErrorChart from '@src/components/Error/ServingErrorChart';
-import ErrorList from '@src/components/Error/ErrorList';
+import ServingErrorChart from '@src/components/RobotError/ServingErrorChart';
+import ErrorList from '@src/components/RobotError/ErrorList';
 import Modal from '@src/components/Common/Modal';
 import styled from '@emotion/styled';
 
@@ -32,7 +32,7 @@ interface IProps {
   };
 }
 
-const Error = ({ stores, errors }: IProps) => {
+const RobotError = ({ stores, errors }: IProps) => {
   const date = new Date();
 
   const year = date.getFullYear();
@@ -105,7 +105,7 @@ const Error = ({ stores, errors }: IProps) => {
   };
 
   return (
-    <StError isOpen={isOpen}>
+    <StRobotError isOpen={isOpen}>
       <StHeader>
         <StFilterBox>
           <DropDown selected={storeName} list={dropdownList} event={dropdownHandler} />
@@ -119,11 +119,11 @@ const Error = ({ stores, errors }: IProps) => {
         <ErrorList errorList={errorList} mutateLoading={mutateLoading} />
       </StBody>
       {isOpen && <Modal text="검색하실 매장을 선택해주세요" event={closeModalHandler} />}
-    </StError>
+    </StRobotError>
   );
 };
 
-const StError = styled.div<{ isOpen: boolean }>`
+const StRobotError = styled.div<{ isOpen: boolean }>`
   padding: 10vh 20px;
   width: 100%;
   background: ${({ theme }) => theme.color.background};
@@ -162,4 +162,4 @@ const StBody = styled.main`
   width: 100%;
 `;
 
-export default Error;
+export default RobotError;

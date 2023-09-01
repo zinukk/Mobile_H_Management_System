@@ -2,16 +2,16 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { MutationFunction, useMutation } from 'react-query';
 import { ParsedUrlQuery } from 'querystring';
-import { IErrorState } from '@src/types/error';
-import errorAPI from '@src/api/error';
+import { IErrorState } from '@src/types/robotError';
+import errorAPI from '@src/api/robotError';
 import DetailNav from '@src/components/Common/DetailNav';
-import ErrorInfo from '@src/components/Error/ErrorInfo';
-import Count from '@src/components/Error/Count';
-import SolutionList from '@src/components/Error/SolutionList';
-import RelatedErrors from '@src/components/Error/RelatedErrors';
+import ErrorInfo from '@src/components/RobotError/ErrorInfo';
+import Count from '@src/components/RobotError/Count';
+import SolutionList from '@src/components/RobotError/SolutionList';
+import RelatedErrors from '@src/components/RobotError/RelatedErrors';
 import styled from '@emotion/styled';
 
-const ErrorDetail = () => {
+const RobotErrorDetail = () => {
   const router = useRouter();
 
   const requestData = router.query as ParsedUrlQuery & IErrorState;
@@ -35,7 +35,7 @@ const ErrorDetail = () => {
   const solutionList = errorDetail && errorDetail.error_solve_list;
 
   return (
-    <StErrorDetail>
+    <StRobotErrorDetail>
       <StHeader>
         <DetailNav title={'Error id : ' + requestData.error_id} />
       </StHeader>
@@ -54,11 +54,11 @@ const ErrorDetail = () => {
         <RelatedErrors relatedErrors={relatedErrors && relatedErrors} />
         <SolutionList solutionList={solutionList && solutionList} />
       </StBody>
-    </StErrorDetail>
+    </StRobotErrorDetail>
   );
 };
 
-const StErrorDetail = styled.div`
+const StRobotErrorDetail = styled.div`
   padding: 10vh 20px;
   width: 100%;
   background: ${({ theme }) => theme.color.background};
@@ -72,4 +72,4 @@ const StBody = styled.main`
   width: 100%;
 `;
 
-export default ErrorDetail;
+export default RobotErrorDetail;

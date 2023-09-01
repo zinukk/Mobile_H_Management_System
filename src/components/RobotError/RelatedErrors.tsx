@@ -1,4 +1,4 @@
-import { IErrorState } from '@src/types/error';
+import { IErrorState } from '@src/types/robotError';
 import Title from '../Common/Title';
 import styled from '@emotion/styled';
 

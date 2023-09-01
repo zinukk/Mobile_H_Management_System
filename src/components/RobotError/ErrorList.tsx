@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { IErrorState } from '@src/types/error';
+import { IErrorState } from '@src/types/robotError';
 import Title from '../Common/Title';
 import useInfiniteScroll from '@src/hooks/useInfiniteScroll';
 import Error from '../Common/Error';

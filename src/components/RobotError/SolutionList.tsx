@@ -1,4 +1,4 @@
-import { ISolution } from '@src/types/error';
+import { ISolution } from '@src/types/robotError';
 import Title from '../Common/Title';
 import Null from '../Common/Null';
 import styled from '@emotion/styled';

@@ -1,5 +1,5 @@
 import { RefObject } from 'react';
-import { IErrorState } from '@src/types/error';
+import { IErrorState } from '@src/types/robotError';
 import Error from '@src/components/Common/Error';
 import Spinner from '@src/components/Common/Spinner';
 import styled from '@emotion/styled';
