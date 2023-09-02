@@ -13,14 +13,14 @@
 - 개발 라이브러리 : Next.js
 - 상태관리 : Recoil, react-query
 - 스타일링 : Emotion
-- 배포 환경 : AWS EC2, S3, CodeDeploy, Loadbalancer, Gihub Actions를 이용한 https 및 CI/CD 적용
+- 배포 환경 : Vercel
 - 협업 툴 : Git / Notion / Figma
 
 <br>
 
 # 프로젝트 아키텍쳐 🤖
 
-![Frame 944 (3)](https://github.com/zinukk/Mobile_H_Management_System/assets/97172321/32e861dc-d29d-4e75-b5bf-44b8d36d74bf)
+![Frame 944 (4)](https://github.com/zinukk/Mobile_H_Management_System/assets/97172321/28540025-98ca-4539-ba1e-e0bf06b5d29f)
 
 <br>
 
