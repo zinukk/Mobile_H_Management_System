@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import Image from 'next/image';
+import NoriImg from 'public/assets/images/store/nori-image.webp';
 import styled from '@emotion/styled';
 
 interface IProps {
@@ -52,6 +53,8 @@ const Store = ({ store }: IProps) => {
     return (count / total) * 100;
   };
 
+  console.log(map_id);
+
   return (
     <StStore
       onClick={() => {
@@ -59,7 +62,7 @@ const Store = ({ store }: IProps) => {
       }}>
       <StBody>
         <StStoreInfo>
-          <Image src={img_src} width={60} height={40} alt="매장이미지" />
+          <Image src={map_id === '1' ? NoriImg : img_src} width={60} height={40} alt="매장이미지" />
           <StStoreName>{map_name}</StStoreName>
         </StStoreInfo>
         <StStatisticsBox>
