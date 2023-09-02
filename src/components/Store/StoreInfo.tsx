@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { IStoreInfo } from '@src/types/store';
 import Title from '../Common/Title';
+import NoriImg from 'public/assets/images/store/nori-image.webp';
 import styled from '@emotion/styled';
 
 interface IProps {
@@ -29,7 +30,7 @@ const StoreInfo = ({ store }: IProps) => {
       </StHeader>
       <StBody>
         <StFlexBox>
-          <Image src={img_src} width={75} height={50} alt="매장 로고" />
+          <Image src={map_id === '1' ? NoriImg : img_src} width={75} height={50} alt="매장 로고" />
           <StColumnBox>
             <StStoreName>{map_name}</StStoreName>
             <StDescribe>{descirbe}</StDescribe>

@@ -8,6 +8,7 @@ import homeAPI from '@src/api/home';
 import DropDown from '@src/components/Common/DropDown';
 import Title from '@src/components/Common/Title';
 import KakaoMap from '@src/components/Store/KakaoMap';
+import NoriImg from 'public/assets/images/store/nori-image.webp';
 import styled from '@emotion/styled';
 
 export async function getServerSideProps() {
@@ -57,7 +58,7 @@ const Store = ({ stores }: IProps) => {
           <StStoreInfo key={storeId} onClick={() => pageHandler(storeName, storeId)}>
             <StInfoBox>
               <StFlexBox>
-                <Image src={img_src} width={75} height={50} alt="매장 로고" />
+                <Image src={storeId === '1' ? NoriImg : img_src} width={75} height={50} alt="매장 로고" />
                 <StColumnBox>
                   <StStoreName>{storeName}</StStoreName>
                   <StDescribe>{descirbe}</StDescribe>
