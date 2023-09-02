@@ -32,3 +32,8 @@ export type TRobotStateObj = {
 export type TErrorCodeObject = {
   [index: string]: string;
 };
+
+export type TStoreName = {
+  id: string;
+  option: string;
+};
