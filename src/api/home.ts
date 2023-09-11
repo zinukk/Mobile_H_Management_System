@@ -2,8 +2,8 @@ import client from './client';
 import API from './apis';
 
 const homeAPI = {
-  getServing: () => {
-    return client.get(`${API.getServing}`);
+  getRobotPerformance: () => {
+    return client.get(`${API.getRobotPerformance}`);
   },
   getStores: () => {
     return client.get(`${API.getStores}`);
