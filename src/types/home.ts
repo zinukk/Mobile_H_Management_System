@@ -1,40 +1,51 @@
-export type IServing = {
-  1: IServingByDate;
-  2: IServingByDate;
-  3: IServingByDate;
-  4: IServingByDate;
-  901: IServingByDate;
-  908: IServingByDate;
-  909: IServingByDate;
-  910: IServingByDate;
-  914: IServingByDate;
-  all: IServingByDate;
+export type TPerformance = {
+  [key: string | number]: TPerformanceByDate;
 };
 
-export type IServingByDate = {
-  day: IStatistics;
-  week: IStatistics;
-  month: IStatistics;
+export type TPerformanceByDate = {
+  day: TPerformanceData;
+  week: TPerformanceData;
+  month: TPerformanceData;
 };
 
-export type IDateTab = {
+export type TPerformanceData = {
+  avg_serving_time: string;
+  avg_serving_time_before: string;
+  created_at: string;
+  day_type: string;
+  map_id: string;
+  map_name: string;
+  move_distance: string;
+  move_distance_before: string;
+  performance: string;
+  performance_before: string;
+  serving_count: string;
+  serving_count_before: string;
+};
+
+export type TDateTab = {
   [key: string]: JSX.Element;
-  일간: JSX.Element;
-  주간: JSX.Element;
-  월간: JSX.Element;
 };
 
-export type IRecentErrors = {
-  error_notice: IErrorNotice[];
+export type TPerformanceInfo = {
+  id: number;
+  title: string;
+  unit: string;
+  currentValue: string;
+  prevValue: string;
 };
 
-export type IRiskDegreeList = {
+export type TRecentErrors = {
+  error_notice: TErrorNotice[];
+};
+
+export type TRiskDegreeList = {
   id: number;
   degree: string;
   count: number;
 };
 
-export type IRiskDegree = {
+export type TRiskDegree = {
   [key: string]: number;
   all: number;
   minor: number;
@@ -42,19 +53,31 @@ export type IRiskDegree = {
   critical: number;
 };
 
-export type IErrorStatus = {
+export type TRobotState = {
   id: number;
-  status: string;
+  state: string;
   color: string;
 };
 
-export type IMap = {
+export type TStatistics = {
+  id: number;
+  title: string;
+  count: number | string;
+};
+
+export type TStatus = {
+  id: number;
+  color: string;
+  count: number;
+};
+
+export type TMap = {
   map_id: string;
   map_name: string;
   store_lat: string;
   store_lng: string;
 };
 
-export type ITimeMap = {
+export type TTimeMap = {
   [index: number]: number;
 };

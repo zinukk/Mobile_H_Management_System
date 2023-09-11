@@ -1,11 +1,12 @@
 import { RiArrowDownSFill, RiArrowUpSFill } from 'react-icons/ri';
+import { TPerformanceData, TPerformanceInfo } from '@src/types/home';
 import styled from '@emotion/styled';
 
 interface IProps {
-  data: IStatistics;
+  date: TPerformanceData;
 }
 
-const StatisticsInfo = ({ data }: IProps) => {
+const PerformanceInfo = ({ date }: IProps) => {
   const {
     serving_count,
     serving_count_before,
@@ -15,9 +16,15 @@ const StatisticsInfo = ({ data }: IProps) => {
     avg_serving_time_before,
     performance,
     performance_before,
-  } = data;
+  } = date;
 
-  const createStatisticsInfo = (id: number, title: string, unit: string, currentValue: string, prevValue: string) => {
+  const createPerformanceInfo = (
+    id: number,
+    title: string,
+    unit: string,
+    currentValue: string,
+    prevValue: string,
+  ): TPerformanceInfo => {
     return {
       id,
       title,
@@ -27,11 +34,11 @@ const StatisticsInfo = ({ data }: IProps) => {
     };
   };
 
-  const STATISTICS_INFO = [
-    createStatisticsInfo(1, '서빙횟수', '', serving_count, serving_count_before),
-    createStatisticsInfo(2, '이동거리', 'km', move_distance, move_distance_before),
-    createStatisticsInfo(3, '서빙평균시간', 'm', avg_serving_time, avg_serving_time_before),
-    createStatisticsInfo(4, '주행효율', '%', performance, performance_before),
+  const PERFORMANCE_INFO: TPerformanceInfo[] = [
+    createPerformanceInfo(1, '서빙횟수', '번', serving_count, serving_count_before),
+    createPerformanceInfo(2, '이동거리', 'km', move_distance, move_distance_before),
+    createPerformanceInfo(3, '서빙평균시간', 'm', avg_serving_time, avg_serving_time_before),
+    createPerformanceInfo(4, '주행효율', '', performance, performance_before),
   ];
 
   const calcComparedPrev = (cur: string, prev: string) => {
@@ -39,9 +46,9 @@ const StatisticsInfo = ({ data }: IProps) => {
   };
 
   return (
-    <StStatisticsInfo>
+    <StPerformanceInfo>
       <StBody>
-        {STATISTICS_INFO.map(({ id, title, unit, currentValue, prevValue }) => (
+        {PERFORMANCE_INFO.map(({ id, title, unit, currentValue, prevValue }) => (
           <StInfoBox key={id}>
             <StCurrentBox>
               <StCurrent>
@@ -57,11 +64,11 @@ const StatisticsInfo = ({ data }: IProps) => {
           </StInfoBox>
         ))}
       </StBody>
-    </StStatisticsInfo>
+    </StPerformanceInfo>
   );
 };
 
-const StStatisticsInfo = styled.div`
+const StPerformanceInfo = styled.div`
   width: 100%;
 `;
 
@@ -117,4 +124,4 @@ const StPercentage = styled.p`
   font-size: 14px;
 `;
 
-export default StatisticsInfo;
+export default PerformanceInfo;

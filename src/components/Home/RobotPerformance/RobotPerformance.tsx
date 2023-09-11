@@ -1,32 +1,32 @@
 import { useState } from 'react';
-import { IDateTab, IServingByDate } from '@src/types/home';
+import { TDateTab, TPerformanceByDate } from '@src/types/home';
 import Title from '@src/components/Common/Title';
-import StatisticsInfo from './StatisticsInfo';
+import PerformanceInfo from './PerformanceInfo';
 import styled from '@emotion/styled';
 
 interface IProps {
-  serving: IServingByDate;
+  performance: TPerformanceByDate;
 }
 
-const Statistics = ({ serving }: IProps) => {
+const RobotPerformance = ({ performance }: IProps) => {
   const [tab, setTab] = useState<string>('일간');
 
-  const { day, week, month } = serving;
+  const { day, week, month } = performance;
 
   const tabHandler = (tab: string) => {
     setTab(tab);
   };
 
-  const DATE_TAB: IDateTab = {
-    일간: <StatisticsInfo data={day} />,
-    주간: <StatisticsInfo data={week} />,
-    월간: <StatisticsInfo data={month} />,
+  const DATE_TAB: TDateTab = {
+    일간: <PerformanceInfo date={day} />,
+    주간: <PerformanceInfo date={week} />,
+    월간: <PerformanceInfo date={month} />,
   };
 
   return (
-    <StStatistics>
+    <StRobotPerformance>
       <StHeader>
-        <Title title="통계 자료" />
+        <Title title="로봇 성능" />
         <StTabBox>
           {Object.keys(DATE_TAB).map((tabName, idx) => (
             <StTabBtn
@@ -41,11 +41,11 @@ const Statistics = ({ serving }: IProps) => {
         </StTabBox>
       </StHeader>
       <StBody>{DATE_TAB[tab]}</StBody>
-    </StStatistics>
+    </StRobotPerformance>
   );
 };
 
-const StStatistics = styled.div`
+const StRobotPerformance = styled.div`
   width: 100%;
 `;
 
@@ -82,4 +82,4 @@ const StBody = styled.div`
   width: 100%;
 `;
 
-export default Statistics;
+export default RobotPerformance;

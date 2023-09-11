@@ -9,16 +9,16 @@ const client = axios.create({
   headers: { 'Content-Type': 'application/json;charset=utf-8' },
 });
 
-client.interceptors.response.use((res: AxiosResponse) => {
+client.interceptors.response.use((response: AxiosResponse) => {
   try {
-    if (res.status === 200) {
-      return res.data;
+    if (response.status === 200) {
+      return response;
     }
 
-    if (res.status === 400) {
+    if (response.status === 400) {
       const router = useRouter();
 
-      const errorCode: string = res?.data.code;
+      const errorCode: string = response?.data.code;
 
       const errorCodeObject: IErrorCodeObject = {
         '-1': '서버 내부에서 오류가 발생했습니다.',

@@ -37,16 +37,15 @@ interface IResponse {
   stores: IStore[];
 }
 
-interface IErrorNotice {
+interface TErrorNotice {
   created_at: string;
   error_id: string;
+  error_msg: string;
   format_date: string;
   k_map_name: string;
-  error_msg: string;
-  log_id: string;
   map_id: string;
-  map_name: string;
   risk_degree: string;
+  robot_id: string;
 }
 
 interface IErrorRisk {

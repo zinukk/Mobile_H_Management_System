@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import NoriImg from 'public/assets/images/store/nori-image.webp';
 import styled from '@emotion/styled';
+import { TStatistics, TStatus } from '@src/types/home';
 
 interface IProps {
   store: IStore;
@@ -10,40 +11,15 @@ interface IProps {
 const Store = ({ store }: IProps) => {
   const router = useRouter();
 
-  const { img_src, map_name, map_id, stay, refair, total, serving_count, error_count, performance } = store;
+  const { img_src, map_name, map_id, stay, refair, total, serving_count, error_count } = store;
 
-  const createStatus = (id: number, color: string, count: number) => {
-    return {
-      id,
-      color,
-      count,
-    };
-  };
+  const servingCount: number = parseInt(serving_count);
 
-  const STATUS = [
-    createStatus(0, 'main', parseInt(error_count)),
-    createStatus(1, 'sub', parseInt(serving_count)),
-    createStatus(2, 'stroke', parseInt(refair)),
-    createStatus(3, 'light', parseInt(stay)),
-  ];
+  const errorCount: number = parseInt(error_count);
 
-  const isValid = (data: null | string) => {
-    return data ? data : '측정불가';
-  };
+  const refairCount: number = parseInt(refair);
 
-  const createStatistics = (id: number, title: string, count: string) => {
-    return {
-      id,
-      title,
-      count,
-    };
-  };
-
-  const STATISTICS = [
-    createStatistics(0, '서빙횟수', isValid(serving_count)),
-    createStatistics(1, '에러횟수', isValid(error_count)),
-    createStatistics(2, '주행효율', isValid(performance)),
-  ];
+  const stayCount: number = parseInt(stay);
 
   const pageHandler = (storeId: string) => {
     router.push(`/store/${storeId}`);
@@ -53,7 +29,40 @@ const Store = ({ store }: IProps) => {
     return (count / total) * 100;
   };
 
-  console.log(map_id);
+  const performanceCalculator = (servingCount: number, errorCount: number) => {
+    if (servingCount === 0 && errorCount === 0) return 0;
+
+    return (servingCount / (servingCount + errorCount)).toFixed(2);
+  };
+
+  const createStatus = (id: number, color: string, count: number): TStatus => {
+    return {
+      id,
+      color,
+      count,
+    };
+  };
+
+  const STATUS: TStatus[] = [
+    createStatus(0, 'main', errorCount),
+    createStatus(1, 'sub', servingCount),
+    createStatus(2, 'stroke', refairCount),
+    createStatus(3, 'light', stayCount),
+  ];
+
+  const createStatistics = (id: number, title: string, count: string | number): TStatistics => {
+    return {
+      id,
+      title,
+      count,
+    };
+  };
+
+  const STATISTICS: TStatistics[] = [
+    createStatistics(0, '서빙횟수', servingCount),
+    createStatistics(1, '에러횟수', errorCount),
+    createStatistics(2, '주행효율', performanceCalculator(servingCount, errorCount)),
+  ];
 
   return (
     <StStore

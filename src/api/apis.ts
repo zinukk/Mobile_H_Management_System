@@ -1,5 +1,5 @@
 const API = {
-  getServing: '/api/monitoring-system/statistic',
+  getRobotPerformance: '/api/monitoring-system/statistic',
   getStores: '/api/monitoring-system/store',
   getRecentErrors: '/api/monitoring-system/error-notice/all',
   postDates: '/api/monitoring-system/error-notice/by-time',

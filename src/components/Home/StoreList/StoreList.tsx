@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { IErrorStatus } from '@src/types/home';
+import { TRobotState } from '@src/types/home';
 import Title from '@src/components/Common/Title';
 import Store from './Store';
 import styled from '@emotion/styled';
@@ -11,9 +11,9 @@ interface IProps {
 const StoreList = ({ stores }: IProps) => {
   const [isOpen, setisOpen] = useState<boolean>(false);
 
-  const end = isOpen ? 6 : 3;
+  const end: number = isOpen ? 6 : 3;
 
-  const buttonText = isOpen ? '접기' : '더 보기 ';
+  const buttonText: string = isOpen ? '접기' : '더 보기 ';
 
   const organizedStores = stores.slice(0, end).map((store: IStore) => ({
     ...store,
@@ -24,19 +24,19 @@ const StoreList = ({ stores }: IProps) => {
     setisOpen(!isOpen);
   };
 
-  const createErrorStatus = (id: number, status: string, color: string) => {
+  const createRobotState = (id: number, state: string, color: string): TRobotState => {
     return {
       id,
-      status,
+      state,
       color,
     };
   };
 
-  const ERROR_STATUS: IErrorStatus[] = [
-    createErrorStatus(0, '에러', 'main'),
-    createErrorStatus(1, '서빙', 'sub'),
-    createErrorStatus(2, '대기', 'stroke'),
-    createErrorStatus(3, '수리', 'light'),
+  const ERROR_STATUS: TRobotState[] = [
+    createRobotState(0, '에러', 'main'),
+    createRobotState(1, '서빙', 'sub'),
+    createRobotState(2, '대기', 'stroke'),
+    createRobotState(3, '수리', 'light'),
   ];
 
   return (
@@ -44,10 +44,10 @@ const StoreList = ({ stores }: IProps) => {
       <StHeader>
         <Title title="전체 매장" />
         <StStatusBox>
-          {ERROR_STATUS.map(({ id, status, color }: IErrorStatus) => (
+          {ERROR_STATUS.map(({ id, state, color }: TRobotState) => (
             <StFlexBox key={id}>
-              <StColor status={status} color={color} />
-              <StStatus>{status}</StStatus>
+              <StColor status={state} color={color} />
+              <StStatus>{state}</StStatus>
             </StFlexBox>
           ))}
         </StStatusBox>
