@@ -1,9 +1,9 @@
-import { IRobotStateObj } from '@src/types/common';
+import { TRobotStateObj } from '@src/types/common';
 
 export const convertRobotState = (robotState: string) => {
   if (robotState === null) return '정보없음';
 
-  const robotStateObj: IRobotStateObj = {
+  const robotStateObj: TRobotStateObj = {
     '1': '에러',
     '2': '이동중',
     '3': '대기중',

@@ -1,8 +1,8 @@
-import { IRiskDegreeList } from '@src/types/home';
+import { TRiskDegreeList } from '@src/types/home';
 import styled from '@emotion/styled';
 
 interface IProps {
-  riskDegreeList: IRiskDegreeList[];
+  riskDegreeList: TRiskDegreeList[];
 }
 
 const RiskDegree = ({ riskDegreeList }: IProps) => {

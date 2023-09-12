@@ -1,5 +1,6 @@
 import { RiArrowDownSFill, RiArrowUpSFill } from 'react-icons/ri';
-import { TPerformanceData, TPerformanceInfo } from '@src/types/home';
+import { TPerformanceInfo } from '@src/types/home';
+import { TPerformanceData } from '@src/types/robot';
 import styled from '@emotion/styled';
 
 interface IProps {

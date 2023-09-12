@@ -1,9 +1,9 @@
-import { IStoreNameObj } from '@src/types/common';
+import { TStoreNameObj } from '@src/types/common';
 
 export const convertStoreName = (storeName: string) => {
   if (storeName === null) return '정보없음';
 
-  const storeNameObj: IStoreNameObj = {
+  const storeNameObj: TStoreNameObj = {
     '노리배달쿡 항동점': '항동 노리 배달쿡',
     '더피플버거 연신내점': '연신내 더피플버거',
     '배달쿡공유주방 오산점': '오산 공유주방',

@@ -1,11 +1,11 @@
 import Image from 'next/image';
-import { IStoreInfo } from '@src/types/store';
 import Title from '../Common/Title';
 import NoriImg from 'public/assets/images/store/nori-image.webp';
+import { TStoreDescription, TStoreInfo } from '@src/types/store';
 import styled from '@emotion/styled';
 
 interface IProps {
-  store: IStore;
+  store: TStoreInfo;
 }
 
 const StoreInfo = ({ store }: IProps) => {
@@ -17,7 +17,7 @@ const StoreInfo = ({ store }: IProps) => {
     return value ? value : 'No data';
   };
 
-  const STORE_INFO: IStoreInfo[] = Object.entries(storeInfo).map(([key, value], index) => ({
+  const STORE_INFO: TStoreDescription[] = Object.entries(storeInfo).map(([key, value], index) => ({
     id: index,
     title: key.charAt(0).toUpperCase() + key.slice(1).replace('_', ' '),
     description: isValid(value),

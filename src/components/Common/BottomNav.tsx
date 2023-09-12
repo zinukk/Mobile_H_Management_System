@@ -5,7 +5,7 @@ import { AiOutlineHome, AiFillHome } from 'react-icons/ai';
 import { MdErrorOutline, MdError } from 'react-icons/md';
 import { AiOutlineRobot, AiFillRobot } from 'react-icons/ai';
 import { IoStorefrontOutline, IoStorefrontSharp } from 'react-icons/io5';
-import { INav } from '@src/types/common';
+import { TNav } from '@src/types/common';
 import { navState } from '@src/store/navState';
 import styled from '@emotion/styled';
 
@@ -28,7 +28,7 @@ const BottomNav = () => {
     navHandler();
   }, [currentPath]);
 
-  const NAV: INav[] = [
+  const NAV: TNav[] = [
     {
       id: 0,
       name: '홈',

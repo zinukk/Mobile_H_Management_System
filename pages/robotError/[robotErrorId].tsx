@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { MutationFunction, useMutation } from 'react-query';
 import { ParsedUrlQuery } from 'querystring';
-import { IErrorState } from '@src/types/robotError';
+import { TErrorState } from '@src/types/robotError';
 import errorAPI from '@src/api/robotError';
 import DetailNav from '@src/components/Common/DetailNav';
 import ErrorInfo from '@src/components/RobotError/ErrorInfo';
@@ -14,11 +14,11 @@ import styled from '@emotion/styled';
 const RobotErrorDetail = () => {
   const router = useRouter();
 
-  const requestData = router.query as ParsedUrlQuery & IErrorState;
+  const requestData = router.query as ParsedUrlQuery & TErrorState;
 
-  const mutationFn: MutationFunction<any, IErrorState> = async (data: IErrorState) => {
-    const response = await errorAPI.getErrorDetail(data);
-    return response;
+  const mutationFn: MutationFunction<any, TErrorState> = async (data: TErrorState) => {
+    const { data: errorDetail } = await errorAPI.getErrorDetail(data);
+    return errorDetail;
   };
 
   const { mutate: postErrorState, data: errorDetail } = useMutation(mutationFn, { mutationKey: 'errorDetail' });

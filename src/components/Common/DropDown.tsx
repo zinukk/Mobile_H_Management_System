@@ -1,10 +1,11 @@
 import { useRef, useState } from 'react';
 import useOnClickOutside from '@src/hooks/useOnClickOutside';
+import { TDropDown } from '@src/types/common';
 import styled from '@emotion/styled';
 
 interface IProps {
   selected: string;
-  list: IDropDownList[];
+  list: TDropDown[];
   event: (arg1: string, arg2: string) => void;
 }
 
@@ -29,7 +30,7 @@ const DropDown = ({ selected, list, event }: IProps) => {
         {selected}
       </StSelected>
       <StSelect isOpen={isOpen}>
-        {filteredList.map(({ id, option }: IDropDownList) => (
+        {filteredList.map(({ id, option }: TDropDown) => (
           <StOption
             key={id}
             onClick={() => {

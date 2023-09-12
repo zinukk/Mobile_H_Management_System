@@ -1,7 +1,8 @@
 import { useRef, useState } from 'react';
-import { IRobotState, IRobotType } from '@src/types/robot';
+import { TRobot, TRobotType } from '@src/types/robot';
 import { convertRobotState } from '@src/utils/convertRobotState';
 import { convertStoreName } from '@src/utils/convertStoreName';
+import { TStore } from '@src/types/store';
 import homeAPI from '@src/api/home';
 import robotAPI from '@src/api/robot';
 import DropDown from '@src/components/Common/DropDown';
@@ -11,13 +12,19 @@ import Title from '@src/components/Common/Title';
 import RobotCard from '@src/components/Robot/RobotCard';
 import useInfiniteScroll from '@src/hooks/useInfiniteScroll';
 import styled from '@emotion/styled';
+import { TDropDown } from '@src/types/common';
+
+interface IProps {
+  stores: TStore;
+  robots: TRobot[];
+}
 
 export async function getServerSideProps() {
-  const stores = await homeAPI.getStores();
+  const { data: stores } = await homeAPI.getStores();
 
-  const robots: any = await robotAPI.getRobots();
+  const { data: robots } = await robotAPI.getRobots();
 
-  const organizedRobots = robots.robot.map((robot: IRobotState) => ({
+  const organizedRobots: TRobot[] = robots.robot.map((robot: TRobot) => ({
     ...robot,
     k_map_name: convertStoreName(robot.k_map_name) || null,
     robot_state: convertRobotState(robot.robot_state) || null,
@@ -25,19 +32,14 @@ export async function getServerSideProps() {
 
   return {
     props: {
-      stores: stores,
+      stores,
       robots: organizedRobots,
     },
   };
 }
 
-interface IProps {
-  stores: IResponse;
-  robots: IRobotState[];
-}
-
 const Robot = ({ robots, stores }: IProps) => {
-  const [robotList, setRobotList] = useState<IRobotState[]>(robots);
+  const [robotList, setRobotList] = useState<TRobot[]>(robots);
 
   const [storeName, setStoreName] = useState<string>('전체매장');
 
@@ -47,9 +49,9 @@ const Robot = ({ robots, stores }: IProps) => {
 
   const { data, isLoading } = useInfiniteScroll(robotList, observerRef);
 
-  const copiedRobotList = [...robots];
+  const copiedRobotList: TRobot[] = [...robots];
 
-  const storeNameList: IDropDownList[] = [
+  const storeNameList: TDropDown[] = [
     { id: '0', option: '전체매장' },
     ...stores.stores.map(({ map_name, map_id }) => ({
       id: map_id,
@@ -65,7 +67,7 @@ const Robot = ({ robots, stores }: IProps) => {
     };
   };
 
-  const ROBOT_TYPE: IRobotType[] = [
+  const ROBOT_TYPE: TRobotType[] = [
     createRobotType('0', '전체로봇'),
     createRobotType('1', '에러', '#c82d34'),
     createRobotType('2', '이동중', '#6ed449'),
@@ -83,7 +85,7 @@ const Robot = ({ robots, stores }: IProps) => {
     setRobotState(robotState);
   };
 
-  const robotListHandler = (robotList: IRobotState[]) => {
+  const robotListHandler = (robotList: TRobot[]) => {
     setRobotList(robotList);
   };
 
@@ -125,7 +127,7 @@ const Robot = ({ robots, stores }: IProps) => {
       </StHeader>
       <StBody>
         {data.length !== 0 ? (
-          data.map((cur: IRobotState, idx: number) => <RobotCard key={idx} {...cur} ROBOT_TYPE={ROBOT_TYPE} />)
+          data.map((cur: TRobot, idx: number) => <RobotCard key={idx} {...cur} ROBOT_TYPE={ROBOT_TYPE} />)
         ) : (
           <Null />
         )}

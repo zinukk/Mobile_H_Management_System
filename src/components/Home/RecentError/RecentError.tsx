@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { useQuery } from 'react-query';
 import { useRecoilState } from 'recoil';
-import { TRecentErrors, TRiskDegree, TRiskDegreeList, TTimeMap } from '@src/types/home';
+import { TRiskDegree, TRiskDegreeList, TTimeMap } from '@src/types/home';
 import { recentErrorsState } from '@src/store/recentErrors';
 import homeAPI from '@src/api/home';
 import Title from '@src/components/Common/Title';
@@ -73,8 +73,8 @@ const RecentError = () => {
       return errorList;
     },
     {
-      onSuccess: ({ error_notice }: TRecentErrors) => {
-        return setRecentErrors(error_notice);
+      onSuccess: ({ error_notice: recentErrors }) => {
+        return setRecentErrors(recentErrors);
       },
       refetchInterval: refetchTime(),
     },
@@ -95,7 +95,7 @@ const RecentError = () => {
       </StHeader>
       <StBody>
         <RiskDegree riskDegreeList={riskDegreeList} />
-        <RecentErrorList data={recentErrorList} isLoading={scrollLoading} observerRef={observerRef} />
+        <RecentErrorList recentErrorList={recentErrorList} isLoading={scrollLoading} observerRef={observerRef} />
       </StBody>
     </StRecentError>
   );

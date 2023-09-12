@@ -1,4 +1,4 @@
-import { IServedCounts } from '@src/types/store';
+import { TServingCounts } from '@src/types/store';
 import { Line } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Tooltip } from 'chart.js';
 import Title from '../Common/Title';
@@ -8,7 +8,7 @@ import styled from '@emotion/styled';
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip);
 
 interface IProps {
-  servingCount: IServedCounts[];
+  servingCount: TServingCounts[];
 }
 
 const PeakTime = ({ servingCount }: IProps) => {

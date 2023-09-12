@@ -1,6 +1,7 @@
 import type { GetServerSideProps } from 'next';
 import dynamic from 'next/dynamic';
 import { TPerformance } from '@src/types/home';
+import { TStore } from '@src/types/store';
 import homeAPI from '@src/api/home';
 import RobotPerformance from '@src/components/Home/RobotPerformance/RobotPerformance';
 import StoreList from '@src/components/Home/StoreList/StoreList';
@@ -9,7 +10,7 @@ import styled from '@emotion/styled';
 
 interface IProps {
   performance: TPerformance;
-  stores: IResponse;
+  stores: TStore;
 }
 
 export const getServerSideProps: GetServerSideProps<IProps> = async () => {
@@ -30,11 +31,12 @@ const RecentError = dynamic(() => import('@src/components/Home/RecentError/Recen
 });
 
 const Home = ({ performance, stores }: IProps) => {
+  console.log(stores);
   return (
     <StHome>
       <StBody>
         <RobotPerformance performance={performance.all} />
-        <StoreList stores={stores.stores} />
+        <StoreList storeInfo={stores.stores} />
         <RecentError />
       </StBody>
     </StHome>

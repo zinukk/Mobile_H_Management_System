@@ -1,11 +1,12 @@
-import { useRouter } from 'next/router';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { TStatistics, TStatus } from '@src/types/home';
+import { TStoreInfo } from '@src/types/store';
 import NoriImg from 'public/assets/images/store/nori-image.webp';
 import styled from '@emotion/styled';
-import { TStatistics, TStatus } from '@src/types/home';
 
 interface IProps {
-  store: IStore;
+  store: TStoreInfo;
 }
 
 const Store = ({ store }: IProps) => {
