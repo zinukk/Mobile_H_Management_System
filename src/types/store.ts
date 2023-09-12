@@ -1,3 +1,4 @@
+import { ParsedUrlQuery } from 'querystring';
 import { TPerformanceData, TRobot, TRobotState } from './robot';
 import { TErrorNotice, TErrorRiskCounts } from './robotError';
 
@@ -49,4 +50,8 @@ export type TStoreDescription = {
   id: number;
   title: string;
   description: string;
+};
+
+export type TStoreParams = ParsedUrlQuery & {
+  storeId: string;
 };

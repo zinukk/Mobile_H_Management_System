@@ -1,15 +1,19 @@
+import { GetStaticPaths, GetStaticPropsContext } from 'next';
+import { ParsedUrlQuery } from 'querystring';
+import { TStoreDetail, TStoreInfo, TStoreParams } from '@src/types/store';
 import storeAPI from '@src/api/store';
 import DetailNav from '@src/components/Common/DetailNav';
 import AvailableRobot from '@src/components/Store/AvailableRobot';
 import PeakTime from '@src/components/Store/PeakTime';
 import StoreInfo from '@src/components/Store/StoreInfo';
-import { TStoreDetail, TStoreInfo } from '@src/types/store';
 import styled from '@emotion/styled';
 
-export async function getStaticPaths() {
-  const { data: stores } = await storeAPI.getStores();
+interface IProps {
+  storeDetail: TStoreDetail;
+}
 
-  console.log(stores);
+export const getStaticPaths: GetStaticPaths<ParsedUrlQuery> = async () => {
+  const { data: stores } = await storeAPI.getStores();
 
   const paths = stores.stores.map((store: TStoreInfo) => ({
     params: {
@@ -19,23 +23,27 @@ export async function getStaticPaths() {
 
   return {
     paths,
-    fallback: false,
+    fallback: true,
   };
-}
+};
 
-export async function getStaticProps({ params }: any) {
-  const { data: storeDetail } = await storeAPI.getStores(params.storeId);
+export const getStaticProps = async ({ params }: GetStaticPropsContext<TStoreParams>) => {
+  if (!params) {
+    return {
+      notFound: true,
+    };
+  }
+
+  const { storeId } = params;
+
+  const { data: storeDetail } = await storeAPI.getStores(storeId);
 
   return {
     props: {
       storeDetail,
     },
   };
-}
-
-interface IProps {
-  storeDetail: TStoreDetail;
-}
+};
 
 const StoreDetail = ({ storeDetail }: IProps) => {
   const store = storeDetail.stores[0];

@@ -11,13 +11,20 @@ interface IProps {
 const StoreInfo = ({ store }: IProps) => {
   const { img_src, map_name, descirbe, map_id, login, start_node, start_dir, wifi_id, wifi_pw, home } = store;
 
-  const storeInfo = { map_id, login: login.split(',').join(', '), start_node, start_dir, wifi_id, wifi_pw, home };
-
+  const storeInfo = {
+    map_id,
+    login: login.split(', ').join(', '),
+    start_node,
+    start_dir,
+    wifi_id,
+    wifi_pw,
+    home,
+  };
   const isValid = (value: string) => {
     return value ? value : 'No data';
   };
 
-  const STORE_INFO: TStoreDescription[] = Object.entries(storeInfo).map(([key, value], index) => ({
+  const STORE_DESCRIPTION: TStoreDescription[] = Object.entries(storeInfo).map(([key, value], index) => ({
     id: index,
     title: key.charAt(0).toUpperCase() + key.slice(1).replace('_', ' '),
     description: isValid(value),
@@ -37,7 +44,7 @@ const StoreInfo = ({ store }: IProps) => {
           </StColumnBox>
         </StFlexBox>
         <StDevider />
-        {STORE_INFO.map(({ id, title, description }) => (
+        {STORE_DESCRIPTION.map(({ id, title, description }: TStoreDescription) => (
           <StDetailInfo key={id}>
             <StTitle>{title}</StTitle>
             <StDescription>{description}</StDescription>

@@ -3,8 +3,10 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { MdArrowForwardIos } from 'react-icons/md';
 import { useRecoilState, useResetRecoilState } from 'recoil';
+import { GetServerSideProps } from 'next';
 import { storeNameState } from '@src/store/storeNameState';
 import { TStore } from '@src/types/store';
+import { TMap } from '@src/types/home';
 import { TDropDown } from '@src/types/common';
 import homeAPI from '@src/api/home';
 import DropDown from '@src/components/Common/DropDown';
@@ -13,7 +15,11 @@ import KakaoMap from '@src/components/Store/KakaoMap';
 import NoriImg from 'public/assets/images/store/nori-image.webp';
 import styled from '@emotion/styled';
 
-export async function getServerSideProps() {
+interface IProps {
+  stores: TStore;
+}
+
+export const getServerSideProps: GetServerSideProps<IProps> = async () => {
   const { data: stores } = await homeAPI.getStores();
 
   return {
@@ -21,37 +27,35 @@ export async function getServerSideProps() {
       stores,
     },
   };
-}
-
-interface IProps {
-  stores: TStore;
-}
+};
 
 const Store = ({ stores }: IProps) => {
   const router = useRouter();
 
-  const [storeName, setStoreName] = useRecoilState(storeNameState);
+  const [storeName, setStoreName] = useRecoilState<string>(storeNameState);
 
   const resetStoreName = useResetRecoilState(storeNameState);
 
-  useEffect(() => {
-    resetStoreName();
-  }, []);
-
-  const dropdownList: TDropDown[] = stores.stores.map(({ map_name: storeName, map_id: storeId }) => ({
-    id: storeId,
-    option: storeName,
-  }));
+  const dropdownList: TDropDown[] = stores.stores.map(
+    ({ map_name: storeName, map_id: storeId }: Pick<TMap, 'map_name' | 'map_id'>) => ({
+      id: storeId,
+      option: storeName,
+    }),
+  );
 
   const pageHandler = (option: string, id: string) => {
     setStoreName(option);
     router.push(`/store/${id}`);
   };
 
+  useEffect(() => {
+    resetStoreName();
+  }, []);
+
   return (
     <StStore>
       <StHeader>
-        <Title title="전체 매장" />
+        <Title title="매장 리스트" />
         <DropDown selected={storeName} list={dropdownList} event={pageHandler} />
       </StHeader>
       <StBody>
