@@ -1,3 +1,6 @@
+import { TPerformanceData } from './robot';
+import { TErrorNotice } from './robotError';
+
 export type TPerformance = {
   [key: string | number]: TPerformanceByDate;
 };
@@ -6,21 +9,6 @@ export type TPerformanceByDate = {
   day: TPerformanceData;
   week: TPerformanceData;
   month: TPerformanceData;
-};
-
-export type TPerformanceData = {
-  avg_serving_time: string;
-  avg_serving_time_before: string;
-  created_at: string;
-  day_type: string;
-  map_id: string;
-  map_name: string;
-  move_distance: string;
-  move_distance_before: string;
-  performance: string;
-  performance_before: string;
-  serving_count: string;
-  serving_count_before: string;
 };
 
 export type TDateTab = {
@@ -35,8 +23,9 @@ export type TPerformanceInfo = {
   prevValue: string;
 };
 
-export type TRecentErrors = {
-  error_notice: TErrorNotice[];
+export type TRecentErrors = TErrorNotice & {
+  current_node: string;
+  error_type: string;
 };
 
 export type TRiskDegreeList = {

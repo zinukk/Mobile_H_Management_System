@@ -1,7 +1,7 @@
-import { ILayout } from '@src/types/common';
+import { TLayout } from '@src/types/common';
 import styled from '@emotion/styled';
 
-const Layout = ({ children }: ILayout) => {
+const Layout = ({ children }: TLayout) => {
   return <LayoutWrapStyle>{children}</LayoutWrapStyle>;
 };
 

@@ -1,20 +1,20 @@
 import { RefObject } from 'react';
-import { IErrorState } from '@src/types/robotError';
+import { TRecentErrors } from '@src/types/home';
 import Error from '@src/components/Common/Error';
 import Spinner from '@src/components/Common/Spinner';
 import styled from '@emotion/styled';
 
 interface IProps {
-  data: IErrorState[];
+  recentErrorList: TRecentErrors[];
   isLoading: boolean;
   observerRef: RefObject<HTMLDivElement>;
 }
 
-const RecentErrorList = ({ data, isLoading, observerRef }: IProps) => {
+const RecentErrorList = ({ recentErrorList, isLoading, observerRef }: IProps) => {
   return (
     <StRecentErrorList>
       <StBody>
-        {data.map((cur: IErrorState, idx) => (
+        {recentErrorList.map((cur: TRecentErrors, idx) => (
           <Error key={idx} {...cur} />
         ))}
         {isLoading && (

@@ -1,17 +1,13 @@
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
-import styled from '@emotion/styled';
+import { TRobotState } from '@src/types/robot';
 import Title from '../Common/Title';
+import styled from '@emotion/styled';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 interface IProps {
-  robots: {
-    error: string;
-    refair: string;
-    serving: string;
-    stay: string;
-  };
+  robots: Omit<TRobotState, 'map_id' | 'map_name'>;
 }
 
 const AvailableRobot = ({ robots }: IProps) => {

@@ -1,19 +1,19 @@
 import Title from '../Common/Title';
-import { IConstantData, IErrorInfo } from '@src/types/robotError';
+import { TCountInfo, TErrorSubInfo } from '@src/types/robotError';
 import styled from '@emotion/styled';
 
 interface IProps {
-  errorInfo: IErrorInfo;
+  errorInfo: TErrorSubInfo;
 }
 
 const ErrorInfo = ({ errorInfo }: IProps) => {
   const finalTarget: string = errorInfo && errorInfo.robot_path.split(',')[0].split('!').join(' , ');
 
-  const createErrorInfo = (id: number, title: string, description: string) => {
+  const createErrorInfo = (id: number, title: string, description: string): TCountInfo => {
     return { id, title, description };
   };
 
-  const ERROR_INFO: IConstantData[] = [
+  const ERROR_INFO: TCountInfo[] = [
     createErrorInfo(0, '에러가 발생한 Map Node', errorInfo && errorInfo.map_existence),
     createErrorInfo(1, '최근 목적지', errorInfo && errorInfo.recent_table + '번 테이블'),
     createErrorInfo(2, '현재 배터리', errorInfo && errorInfo.battery + '%'),

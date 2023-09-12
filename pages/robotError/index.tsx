@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { useMutation } from 'react-query';
 import { convertDate } from '@src/utils/convertDate';
-import { IDates, IServeErrorCount } from '@src/types/robotError';
+import { TDates, TError, TErrorState, TServeErrorCount } from '@src/types/robotError';
+import { TStore } from '@src/types/store';
+import { TDropDown } from '@src/types/common';
 import errorAPI from '@src/api/robotError';
 import homeAPI from '@src/api/home';
 import Calendar from '@src/components/Common/Calendar';
@@ -12,24 +14,21 @@ import Modal from '@src/components/Common/Modal';
 import styled from '@emotion/styled';
 
 export async function getServerSideProps() {
-  const stores = await homeAPI.getStores();
+  const { data: stores } = await homeAPI.getStores();
 
-  const errors = await errorAPI.getErrorList();
+  const { data: errors } = await errorAPI.getErrorList();
 
   return {
     props: {
-      stores: stores,
-      errors: errors,
+      stores,
+      errors,
     },
   };
 }
 
 interface IProps {
-  stores: IResponse;
-  errors: {
-    error_notice: IErrorNotice[];
-    serve_error_count: IServeErrorCount;
-  };
+  stores: TStore;
+  errors: TError;
 }
 
 const RobotError = ({ stores, errors }: IProps) => {
@@ -41,9 +40,9 @@ const RobotError = ({ stores, errors }: IProps) => {
 
   const day = date.getDate();
 
-  const [errorList, setErrorList] = useState<IErrorNotice[]>(errors.error_notice);
+  const [errorList, setErrorList] = useState<TErrorState[]>(errors.error_notice);
 
-  const [serveErrorCount, setServeErrorCount] = useState<IServeErrorCount>(errors.serve_error_count);
+  const [serveErrorCount, setServeErrorCount] = useState<TServeErrorCount>(errors.serve_error_count);
 
   const [startDate, setStartDate] = useState<Date>(new Date(year, month, day - 6));
 
@@ -55,16 +54,16 @@ const RobotError = ({ stores, errors }: IProps) => {
 
   const [isOpen, setisOpen] = useState<boolean>(false);
 
-  const dropdownList: IDropDownList[] = stores.stores.map(({ map_name: storeName, map_id: storeId }) => ({
+  const dropdownList: TDropDown[] = stores.stores.map(({ map_name: storeName, map_id: storeId }) => ({
     id: storeId,
     option: storeName,
   }));
 
-  const errorListHandler = (errorLists: IErrorNotice[]) => {
+  const errorListHandler = (errorLists: TErrorState[]) => {
     setErrorList(errorLists);
   };
 
-  const serveErrorCountHandler = (serveErrorCount: IServeErrorCount) => {
+  const serveErrorCountHandler = (serveErrorCount: TServeErrorCount) => {
     setServeErrorCount(serveErrorCount);
   };
 
@@ -85,7 +84,7 @@ const RobotError = ({ stores, errors }: IProps) => {
     setisOpen(false);
   };
 
-  const { mutate: postDates, isLoading: mutateLoading } = useMutation((data: IDates) => errorAPI.postErrorDates(data), {
+  const { mutate: postDates, isLoading: mutateLoading } = useMutation((data: TDates) => errorAPI.postErrorDates(data), {
     onSuccess: ({ error_notice, serve_error_count }: any) => {
       errorListHandler(error_notice);
       serveErrorCountHandler(serve_error_count);
@@ -95,7 +94,7 @@ const RobotError = ({ stores, errors }: IProps) => {
   const postDateHandler = () => {
     if (storeId === 0) return setisOpen(true);
 
-    const dateData: IDates = {
+    const dateData: TDates = {
       start_date: convertDate(startDate),
       end_date: convertDate(endDate),
       map_id: storeId,

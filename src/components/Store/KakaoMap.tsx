@@ -1,14 +1,15 @@
 import { useState } from 'react';
-import { Map, MapMarker, CustomOverlayMap } from 'react-kakao-maps-sdk';
-import { IMap } from '@src/types/home';
-import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
+import { Map, MapMarker, CustomOverlayMap } from 'react-kakao-maps-sdk';
+import { TMap } from '@src/types/home';
+import { TStoreInfo } from '@src/types/store';
+import styled from '@emotion/styled';
 
 interface IProps {
-  stores: IStore[];
+  storeInfo: TStoreInfo[];
 }
 
-const KakaoMap = ({ stores }: IProps) => {
+const KakaoMap = ({ storeInfo }: IProps) => {
   const router = useRouter();
 
   const [isOpen, setisOpen] = useState<boolean>(false);
@@ -17,7 +18,7 @@ const KakaoMap = ({ stores }: IProps) => {
     router.push(`/store/${mapId}`);
   };
 
-  const [info, setInfo] = useState<IMap>({
+  const [info, setInfo] = useState<TMap>({
     map_id: '',
     map_name: '',
     store_lat: '',
@@ -37,7 +38,7 @@ const KakaoMap = ({ stores }: IProps) => {
             borderRadius: '5px',
           }}
           level={12}>
-          {stores.map(({ map_id, map_name, store_lat, store_lng }) => (
+          {storeInfo.map(({ map_id, map_name, store_lat, store_lng }) => (
             <div key={map_id}>
               <MapMarker
                 key={map_id}

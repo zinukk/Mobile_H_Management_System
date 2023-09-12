@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { IRobotType } from '@src/types/robot';
+import { TRobotType } from '@src/types/robot';
 import Image from 'next/image';
 
 interface IProps {
@@ -10,7 +10,7 @@ interface IProps {
   battery: string;
   serial_number: string;
   robot_state: string;
-  ROBOT_TYPE: IRobotType[];
+  ROBOT_TYPE: TRobotType[];
 }
 
 const RobotCard = ({

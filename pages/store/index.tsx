@@ -4,6 +4,8 @@ import { useRouter } from 'next/router';
 import { MdArrowForwardIos } from 'react-icons/md';
 import { useRecoilState, useResetRecoilState } from 'recoil';
 import { storeNameState } from '@src/store/storeNameState';
+import { TStore } from '@src/types/store';
+import { TDropDown } from '@src/types/common';
 import homeAPI from '@src/api/home';
 import DropDown from '@src/components/Common/DropDown';
 import Title from '@src/components/Common/Title';
@@ -12,17 +14,17 @@ import NoriImg from 'public/assets/images/store/nori-image.webp';
 import styled from '@emotion/styled';
 
 export async function getServerSideProps() {
-  const stores = await homeAPI.getStores();
+  const { data: stores } = await homeAPI.getStores();
 
   return {
     props: {
-      stores: stores,
+      stores,
     },
   };
 }
 
 interface IProps {
-  stores: IResponse;
+  stores: TStore;
 }
 
 const Store = ({ stores }: IProps) => {
@@ -36,7 +38,7 @@ const Store = ({ stores }: IProps) => {
     resetStoreName();
   }, []);
 
-  const dropdownList: IDropDownList[] = stores.stores.map(({ map_name: storeName, map_id: storeId }) => ({
+  const dropdownList: TDropDown[] = stores.stores.map(({ map_name: storeName, map_id: storeId }) => ({
     id: storeId,
     option: storeName,
   }));
@@ -53,7 +55,7 @@ const Store = ({ stores }: IProps) => {
         <DropDown selected={storeName} list={dropdownList} event={pageHandler} />
       </StHeader>
       <StBody>
-        <KakaoMap stores={stores.stores} />
+        <KakaoMap storeInfo={stores.stores} />
         {stores.stores.map(({ map_id: storeId, map_name: storeName, descirbe, img_src }) => (
           <StStoreInfo key={storeId} onClick={() => pageHandler(storeName, storeId)}>
             <StInfoBox>

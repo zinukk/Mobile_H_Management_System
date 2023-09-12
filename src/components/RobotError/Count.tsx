@@ -1,5 +1,5 @@
 import Title from '../Common/Title';
-import { IConstantData } from '@src/types/robotError';
+import { TCountInfo } from '@src/types/robotError';
 import styled from '@emotion/styled';
 
 interface IProps {
@@ -9,11 +9,11 @@ interface IProps {
 }
 
 const Count = ({ type, week, month }: IProps) => {
-  const createCountInfo = (id: number, title: string, description: string) => {
+  const createCountInfo = (id: number, title: string, description: string): TCountInfo => {
     return { id, title, description };
   };
 
-  const COUNT_INFO: IConstantData[] = [createCountInfo(0, '일주일', week), createCountInfo(1, '한 달', month)];
+  const COUNT_INFO: TCountInfo[] = [createCountInfo(0, '일주일', week), createCountInfo(1, '한 달', month)];
 
   return (
     <StCount>

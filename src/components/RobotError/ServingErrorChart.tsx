@@ -1,4 +1,3 @@
-import { IServeErrorCount } from '@src/types/robotError';
 import {
   Chart as ChartJS,
   LinearScale,
@@ -12,6 +11,7 @@ import {
   BarController,
 } from 'chart.js';
 import { Chart } from 'react-chartjs-2';
+import { TServeErrorCount } from '@src/types/robotError';
 import Title from '../Common/Title';
 import Spinner from '../Common/Spinner';
 import styled from '@emotion/styled';
@@ -29,7 +29,7 @@ ChartJS.register(
 );
 
 interface IProps {
-  serveErrorCount: IServeErrorCount;
+  serveErrorCount: TServeErrorCount;
   mutateLoading: boolean;
 }
 

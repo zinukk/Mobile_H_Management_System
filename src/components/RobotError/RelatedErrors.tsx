@@ -1,9 +1,9 @@
-import { IErrorState } from '@src/types/robotError';
+import { TErrorState } from '@src/types/robotError';
 import Title from '../Common/Title';
 import styled from '@emotion/styled';
 
 interface IProps {
-  relatedErrors: IErrorState[];
+  relatedErrors: TErrorState[];
 }
 
 const RelatedErrors = ({ relatedErrors }: IProps) => {

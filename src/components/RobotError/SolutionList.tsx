@@ -1,10 +1,10 @@
-import { ISolution } from '@src/types/robotError';
+import { TErrorSolution } from '@src/types/robotError';
 import Title from '../Common/Title';
 import Null from '../Common/Null';
 import styled from '@emotion/styled';
 
 interface IProps {
-  solutionList: ISolution[];
+  solutionList: TErrorSolution[];
 }
 
 const SolutionList = ({ solutionList }: IProps) => {

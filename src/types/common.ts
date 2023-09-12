@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-export type INav = {
+export type TNav = {
   id: number;
   name: string;
   path: string;
@@ -8,18 +8,23 @@ export type INav = {
   disabled: JSX.Element;
 };
 
-export type ILayout = {
+export type TDropDown = {
+  id: string;
+  option: string;
+};
+
+export type TLayout = {
   children: ReactNode;
 };
 
-export type IStoreNameObj = {
+export type TStoreNameObj = {
   [index: string]: string;
 };
 
-export type IRobotStateObj = {
+export type TRobotStateObj = {
   [index: string]: string;
 };
 
-export type IErrorCodeObject = {
+export type TErrorCodeObject = {
   [index: string]: string;
 };

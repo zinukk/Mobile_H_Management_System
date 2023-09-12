@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { IErrorState } from '@src/types/robotError';
+import { TErrorState } from '@src/types/robotError';
 import Title from '../Common/Title';
 import useInfiniteScroll from '@src/hooks/useInfiniteScroll';
 import Error from '../Common/Error';
@@ -7,7 +7,7 @@ import Spinner from '../Common/Spinner';
 import styled from '@emotion/styled';
 
 interface IProps {
-  errorList: IErrorNotice[];
+  errorList: TErrorState[];
   mutateLoading: boolean;
 }
 
@@ -25,7 +25,7 @@ const ErrorList = ({ errorList, mutateLoading }: IProps) => {
         {mutateLoading ? (
           <Spinner />
         ) : data.length !== 0 ? (
-          data.map((cur: IErrorState, idx: number) => <Error key={idx} {...cur} />)
+          data.map((cur: TErrorState, idx: number) => <Error key={idx} {...cur} />)
         ) : (
           <StNull>조건에 맞는 에러가 존재하지 않습니다</StNull>
         )}

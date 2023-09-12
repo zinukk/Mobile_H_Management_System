@@ -1,21 +1,22 @@
 import { useState } from 'react';
 import { TRobotState } from '@src/types/home';
+import { TStoreInfo } from '@src/types/store';
 import Title from '@src/components/Common/Title';
 import Store from './Store';
 import styled from '@emotion/styled';
 
 interface IProps {
-  stores: IStore[];
+  storeInfo: TStoreInfo[];
 }
 
-const StoreList = ({ stores }: IProps) => {
+const StoreList = ({ storeInfo }: IProps) => {
   const [isOpen, setisOpen] = useState<boolean>(false);
 
   const end: number = isOpen ? 6 : 3;
 
   const buttonText: string = isOpen ? '접기' : '더 보기 ';
 
-  const organizedStores = stores.slice(0, end).map((store: IStore) => ({
+  const organizedStores: TStoreInfo[] = storeInfo.slice(0, end).map((store: TStoreInfo) => ({
     ...store,
     total: parseInt(store.error) + parseInt(store.serving) + parseInt(store.stay) + parseInt(store.refair),
   }));
@@ -32,7 +33,7 @@ const StoreList = ({ stores }: IProps) => {
     };
   };
 
-  const ERROR_STATUS: TRobotState[] = [
+  const ERROR_STATE: TRobotState[] = [
     createRobotState(0, '에러', 'main'),
     createRobotState(1, '서빙', 'sub'),
     createRobotState(2, '대기', 'stroke'),
@@ -44,7 +45,7 @@ const StoreList = ({ stores }: IProps) => {
       <StHeader>
         <Title title="전체 매장" />
         <StStatusBox>
-          {ERROR_STATUS.map(({ id, state, color }: TRobotState) => (
+          {ERROR_STATE.map(({ id, state, color }: TRobotState) => (
             <StFlexBox key={id}>
               <StColor status={state} color={color} />
               <StStatus>{state}</StStatus>
@@ -53,7 +54,7 @@ const StoreList = ({ stores }: IProps) => {
         </StStatusBox>
       </StHeader>
       <StBody>
-        {organizedStores.map((store: IStore, idx: number) => (
+        {organizedStores.map((store: TStoreInfo, idx: number) => (
           <Store key={idx} store={store} />
         ))}
       </StBody>

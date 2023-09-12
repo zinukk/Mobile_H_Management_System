@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { MdArrowForwardIos } from 'react-icons/md';
-import { IErrorState } from '@src/types/robotError';
+import { TErrorState } from '@src/types/robotError';
 import styled from '@emotion/styled';
 
 const Error = ({
@@ -12,7 +12,7 @@ const Error = ({
   error_type,
   map_id,
   robot_id,
-}: IErrorState) => {
+}: TErrorState) => {
   const router = useRouter();
 
   const requestData = { created_at, error_id, error_type, map_id, robot_id };

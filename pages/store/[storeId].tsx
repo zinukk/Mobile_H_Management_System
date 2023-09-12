@@ -3,13 +3,15 @@ import DetailNav from '@src/components/Common/DetailNav';
 import AvailableRobot from '@src/components/Store/AvailableRobot';
 import PeakTime from '@src/components/Store/PeakTime';
 import StoreInfo from '@src/components/Store/StoreInfo';
-import { IStoreDetail } from '@src/types/store';
+import { TStoreDetail, TStoreInfo } from '@src/types/store';
 import styled from '@emotion/styled';
 
 export async function getStaticPaths() {
-  const response: any = await storeAPI.getStores();
+  const { data: stores } = await storeAPI.getStores();
 
-  const paths = response.stores.map((store: IStore) => ({
+  console.log(stores);
+
+  const paths = stores.stores.map((store: TStoreInfo) => ({
     params: {
       storeId: store.map_id,
     },
@@ -22,25 +24,25 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }: any) {
-  const stores = await storeAPI.getStores(params.storeId);
+  const { data: storeDetail } = await storeAPI.getStores(params.storeId);
 
   return {
     props: {
-      stores: stores,
+      storeDetail,
     },
   };
 }
 
 interface IProps {
-  stores: IStoreDetail;
+  storeDetail: TStoreDetail;
 }
 
-const StoreDetail = ({ stores }: IProps) => {
-  const store = stores.stores[0];
+const StoreDetail = ({ storeDetail }: IProps) => {
+  const store = storeDetail.stores[0];
 
-  const servingCount = stores.week;
+  const servingCount = storeDetail.week;
 
-  const robots = stores.robot_counts[0];
+  const robots = storeDetail.robot_counts[0];
 
   return (
     <StStoreDetail>
