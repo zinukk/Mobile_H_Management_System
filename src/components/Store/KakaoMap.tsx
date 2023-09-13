@@ -45,7 +45,6 @@ const KakaoMap = ({ storeInfo }: IProps) => {
                 clickable={true}
                 onMouseOver={() => {
                   setisOpen(true);
-                  console.log('호버');
                   setInfo({ map_id, map_name, store_lat, store_lng });
                 }}
                 onMouseOut={() => {

@@ -1,6 +1,7 @@
-import { TServingCounts } from '@src/types/store';
 import { Line } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Tooltip } from 'chart.js';
+import { TServingCounts } from '@src/types/store';
+import { TArrayOfString } from '@src/types/common';
 import Title from '../Common/Title';
 import Null from '../Common/Null';
 import styled from '@emotion/styled';
@@ -14,9 +15,9 @@ interface IProps {
 const PeakTime = ({ servingCount }: IProps) => {
   const isValid: boolean = servingCount.length !== 0;
 
-  const times: Array<string> = servingCount.map(({ hours }) => `${hours}시`);
+  const times: TArrayOfString = servingCount.map(({ hours }) => `${hours}시`);
 
-  const counts: Array<string> = servingCount.map(({ avg_cnt }) => avg_cnt);
+  const counts: TArrayOfString = servingCount.map(({ avg_cnt }) => avg_cnt);
 
   const options = {
     responsive: true,

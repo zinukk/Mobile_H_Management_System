@@ -13,6 +13,10 @@ export type TDropDown = {
   option: string;
 };
 
+export type TArrayOfString = Array<string>;
+
+export type TArrayOfNumber = Array<number>;
+
 export type TLayout = {
   children: ReactNode;
 };

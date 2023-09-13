@@ -31,7 +31,6 @@ const RecentError = dynamic(() => import('@src/components/Home/RecentError/Recen
 });
 
 const Home = ({ performance, stores }: IProps) => {
-  console.log(stores);
   return (
     <StHome>
       <StBody>
