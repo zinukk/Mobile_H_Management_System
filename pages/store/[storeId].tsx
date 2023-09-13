@@ -21,16 +21,18 @@ export const getStaticPaths: GetStaticPaths<ParsedUrlQuery> = async () => {
     },
   }));
 
+  console.log(paths);
+
   return {
     paths,
-    fallback: true,
+    fallback: false,
   };
 };
 
 export const getStaticProps = async ({ params }: GetStaticPropsContext<TStoreParams>) => {
   if (!params) {
     return {
-      notFound: true,
+      notFound: false,
     };
   }
 
