@@ -1,28 +1,15 @@
 import styled from '@emotion/styled';
-import { TRobotType } from '@src/types/robot';
+import { TRobot, TRobotType } from '@src/types/robot';
 import Image from 'next/image';
 
 interface IProps {
-  k_map_name: string;
-  serving_count: string;
-  distance: string;
-  state: string;
-  battery: string;
-  serial_number: string;
-  robot_state: string;
+  robotInfo: TRobot;
   ROBOT_TYPE: TRobotType[];
 }
 
-const RobotCard = ({
-  k_map_name,
-  serving_count,
-  distance,
-  state,
-  battery,
-  serial_number,
-  ROBOT_TYPE,
-  robot_state,
-}: IProps) => {
+const RobotCard = ({ robotInfo, ROBOT_TYPE }: IProps) => {
+  const { k_map_name, serving_count, distance, state, battery, serial_number, robot_state } = robotInfo;
+
   const getColorById = (id: string) => {
     if (id === null) return '#000';
 
