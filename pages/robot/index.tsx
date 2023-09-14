@@ -1,9 +1,9 @@
+import { GetServerSideProps } from 'next';
 import { useRef, useState } from 'react';
 import { TRobot, TRobotType } from '@src/types/robot';
 import { convertRobotState } from '@src/utils/convertRobotState';
 import { convertStoreName } from '@src/utils/convertStoreName';
-import { TStore } from '@src/types/store';
-import homeAPI from '@src/api/home';
+import { TStoreName } from '@src/types/common';
 import robotAPI from '@src/api/robot';
 import DropDown from '@src/components/Common/DropDown';
 import Null from '@src/components/Common/Null';
@@ -12,16 +12,12 @@ import Title from '@src/components/Common/Title';
 import RobotCard from '@src/components/Robot/RobotCard';
 import useInfiniteScroll from '@src/hooks/useInfiniteScroll';
 import styled from '@emotion/styled';
-import { TDropDown } from '@src/types/common';
 
 interface IProps {
-  stores: TStore;
   robots: TRobot[];
 }
 
-export async function getServerSideProps() {
-  const { data: stores } = await homeAPI.getStores();
-
+export const getServerSideProps: GetServerSideProps<IProps> = async () => {
   const { data: robots } = await robotAPI.getRobots();
 
   const organizedRobots: TRobot[] = robots.robot.map((robot: TRobot) => ({
@@ -32,13 +28,12 @@ export async function getServerSideProps() {
 
   return {
     props: {
-      stores,
       robots: organizedRobots,
     },
   };
-}
+};
 
-const Robot = ({ robots, stores }: IProps) => {
+const Robot = ({ robots }: IProps) => {
   const [robotList, setRobotList] = useState<TRobot[]>(robots);
 
   const [storeName, setStoreName] = useState<string>('전체매장');
@@ -47,19 +42,65 @@ const Robot = ({ robots, stores }: IProps) => {
 
   const observerRef = useRef<HTMLDivElement>(null);
 
-  const { data, isLoading } = useInfiniteScroll(robotList, observerRef);
+  const { data: filteredRobotList, isLoading: scrollLoading } = useInfiniteScroll(robotList, observerRef);
 
-  const copiedRobotList: TRobot[] = [...robots];
+  const isValid: boolean = filteredRobotList.length !== 0;
 
-  const storeNameList: TDropDown[] = [
-    { id: '0', option: '전체매장' },
-    ...stores.stores.map(({ map_name, map_id }) => ({
-      id: map_id,
-      option: map_name,
-    })),
+  const storeNameHandler = (storeName: string) => {
+    setStoreName(storeName);
+  };
+
+  const robotStateHandler = (robotState: string) => {
+    setRobotState(robotState);
+  };
+
+  const robotListHandler = (robotList: TRobot[]) => {
+    setRobotList(robotList);
+  };
+
+  const filterByStoreName = (storeName: string) => {
+    storeNameHandler(storeName);
+
+    robotStateHandler('전체로봇');
+
+    const filteredByStoreName: TRobot[] =
+      storeName === '전체매장'
+        ? robots
+        : robots.filter(({ k_map_name }: Pick<TRobot, 'k_map_name'>) => k_map_name === storeName);
+
+    robotListHandler(filteredByStoreName);
+  };
+
+  const filterByRobotState = (robotState: string) => {
+    robotStateHandler(robotState);
+
+    const filteredByStoreName: TRobot[] = robots.filter(
+      ({ k_map_name: store_name }: Pick<TRobot, 'k_map_name'>) => storeName === '전체매장' || store_name === storeName,
+    );
+
+    const filteredByRobotState: TRobot[] =
+      robotState === '전체로봇'
+        ? robots
+        : filteredByStoreName.filter(({ robot_state }: Pick<TRobot, 'robot_state'>) => robot_state === robotState);
+
+    robotListHandler(filteredByRobotState);
+  };
+
+  const createStoreName = (id: string, option: string): TStoreName => {
+    return { id, option };
+  };
+
+  const STORE_NAME: TStoreName[] = [
+    createStoreName('0', '전체매장'),
+    createStoreName('1', '향동 노리 배달쿡'),
+    createStoreName('2', '연신내 더피플버거'),
+    createStoreName('3', '오산 공유주방'),
+    createStoreName('4', '차세대 융합 기술 연구원'),
+    createStoreName('5', '더티프라이'),
+    createStoreName('6', '노원 발란'),
   ];
 
-  const createRobotType = (id: string, option: string, color?: string) => {
+  const createRobotType = (id: string, option: string, color?: string): TRobotType => {
     return {
       id,
       option,
@@ -77,61 +118,24 @@ const Robot = ({ robots, stores }: IProps) => {
     createRobotType('6', '정보없음', '#000'),
   ];
 
-  const storeNameHandler = (storeName: string) => {
-    setStoreName(storeName);
-  };
-
-  const robotStateHandler = (robotState: string) => {
-    setRobotState(robotState);
-  };
-
-  const robotListHandler = (robotList: TRobot[]) => {
-    setRobotList(robotList);
-  };
-
-  const filterByStoreName = (option: string) => {
-    storeNameHandler(option);
-
-    robotStateHandler('전체로봇');
-
-    if (option === '전체매장') return robotListHandler(copiedRobotList);
-
-    robotListHandler(copiedRobotList.filter((robot) => robot.k_map_name === option));
-  };
-
-  const filterByRobotState = (option: string) => {
-    robotStateHandler(option);
-
-    if (storeName === '전체매장' && option === '전체로봇') {
-      return robotListHandler(copiedRobotList);
-    }
-
-    if (storeName !== '전체매장' && option === '전체로봇')
-      return robotListHandler(copiedRobotList.filter((robot) => robot.k_map_name === storeName));
-
-    storeName === '전체매장'
-      ? robotListHandler(copiedRobotList.filter((robot) => robot.robot_state === option))
-      : robotListHandler(
-          copiedRobotList.filter((robot) => robot.k_map_name === storeName && robot.robot_state === option),
-        );
-  };
-
   return (
     <StRobot>
       <StHeader>
         <Title title="로봇 현황" />
         <StDropDownBox>
-          <DropDown selected={storeName} list={storeNameList} event={filterByStoreName} />
+          <DropDown selected={storeName} list={STORE_NAME} event={filterByStoreName} />
           <DropDown selected={robotState} list={ROBOT_TYPE} event={filterByRobotState} />
         </StDropDownBox>
       </StHeader>
       <StBody>
-        {data.length !== 0 ? (
-          data.map((cur: TRobot, idx: number) => <RobotCard key={idx} {...cur} ROBOT_TYPE={ROBOT_TYPE} />)
+        {isValid ? (
+          filteredRobotList.map((robotInfo: TRobot, idx: number) => (
+            <RobotCard key={idx} robotInfo={robotInfo} ROBOT_TYPE={ROBOT_TYPE} />
+          ))
         ) : (
           <Null />
         )}
-        {isLoading && (
+        {scrollLoading && (
           <StSpinnerBox>
             <Spinner />
           </StSpinnerBox>
@@ -164,6 +168,7 @@ const StDropDownBox = styled.div`
 `;
 
 const StBody = styled.main`
+  position: relative;
   margin-top: 20px;
   display: flex;
   justify-content: center;

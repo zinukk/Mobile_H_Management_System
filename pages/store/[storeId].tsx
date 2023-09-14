@@ -21,8 +21,6 @@ export const getStaticPaths: GetStaticPaths<ParsedUrlQuery> = async () => {
     },
   }));
 
-  console.log(paths);
-
   return {
     paths,
     fallback: false,
