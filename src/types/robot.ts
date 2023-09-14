@@ -73,5 +73,5 @@ export type TRobotRiskDegree = {
 export type TRobotType = {
   id: string;
   option: string;
-  color: string | undefined;
+  color?: string;
 };
