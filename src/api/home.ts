@@ -11,9 +11,6 @@ const homeAPI = {
   getRecentErrors: () => {
     return client.get(`${API.getRecentErrors}`);
   },
-  postDates: (data: any) => {
-    return client.post(`${API.postDates}`, data);
-  },
 };
 
 export default homeAPI;

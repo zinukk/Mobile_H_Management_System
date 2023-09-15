@@ -1,9 +1,8 @@
 import axios from 'axios';
 
-export const BASE_URL = process.env.REACT_APP_SERVER_URL;
+const BASE_URL: string = process.env.NEXT_PUBLIC_BASE_URL as string;
 
-export const basicApi = axios.create({
+export const client = axios.create({
   baseURL: `${BASE_URL}`,
-  timeout: 3000,
   headers: { 'Content-Type': 'application/json;charset=utf-8' },
 });

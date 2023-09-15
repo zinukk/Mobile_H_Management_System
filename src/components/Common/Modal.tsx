@@ -6,7 +6,7 @@ interface IProps {
 }
 
 const Modal = ({ text, event }: IProps) => {
-  const confirmHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleConfirmClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     event();
   };
@@ -16,7 +16,7 @@ const Modal = ({ text, event }: IProps) => {
       <StContent>
         <StBody>{text}</StBody>
         <StFooter>
-          <StConfirmBtn onClick={confirmHandler}>확인</StConfirmBtn>
+          <StConfirmBtn onClick={handleConfirmClick}>확인</StConfirmBtn>
         </StFooter>
       </StContent>
     </StModal>
