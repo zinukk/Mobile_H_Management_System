@@ -14,7 +14,7 @@ const RelatedErrors = ({ relatedErrors }: IProps) => {
       </StHeader>
       <StBody>
         {relatedErrors &&
-          relatedErrors.map(({ created_at, error_id, error_type }) => (
+          relatedErrors.map(({ created_at, error_id, error_type }: TErrorState) => (
             <StErrorBox key={error_id}>
               <StFlexBox>
                 <StTitle>Error type : </StTitle>

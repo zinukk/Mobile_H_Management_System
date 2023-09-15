@@ -14,7 +14,9 @@ interface IProps {
 const ErrorList = ({ errorList, mutateLoading }: IProps) => {
   const observerRef = useRef<HTMLDivElement>(null);
 
-  const { data, isLoading: scrollLoading } = useInfiniteScroll(errorList, observerRef);
+  const { data: filteredErrorList, isLoading: scrollLoading } = useInfiniteScroll(errorList, observerRef);
+
+  const isValid: boolean = filteredErrorList.length !== 0;
 
   return (
     <StErrorList>
@@ -24,17 +26,22 @@ const ErrorList = ({ errorList, mutateLoading }: IProps) => {
       <StBody>
         {mutateLoading ? (
           <Spinner />
-        ) : data.length !== 0 ? (
-          data.map((cur: TErrorState, idx: number) => <Error key={idx} {...cur} />)
         ) : (
-          <StNull>조건에 맞는 에러가 존재하지 않습니다</StNull>
+          <>
+            {isValid ? (
+              filteredErrorList.map((error: TErrorState, idx: number) => <Error key={idx} {...error} />)
+            ) : (
+              <StNull>조건에 맞는 에러가 존재하지 않습니다</StNull>
+            )}
+
+            {scrollLoading && (
+              <StSpinnerBox>
+                <Spinner />
+              </StSpinnerBox>
+            )}
+            <div ref={observerRef} />
+          </>
         )}
-        {scrollLoading && (
-          <StSpinnerBox>
-            <Spinner />
-          </StSpinnerBox>
-        )}
-        <div ref={observerRef} />
       </StBody>
     </StErrorList>
   );

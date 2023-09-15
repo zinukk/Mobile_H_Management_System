@@ -1,11 +1,13 @@
+import { GetServerSideProps } from 'next';
 import { useState } from 'react';
 import { useMutation } from 'react-query';
 import { convertDate } from '@src/utils/convertDate';
-import { TDates, TError, TErrorState, TServeErrorCount } from '@src/types/robotError';
-import { TStore } from '@src/types/store';
-import { TDropDown } from '@src/types/common';
+import { getYear } from '@src/utils/getYear';
+import { getMonth } from '@src/utils/getMonth';
+import { getDay } from '@src/utils/getDay';
+import { TDateData, TError, TErrorState, TServeErrorCount } from '@src/types/robotError';
+import { TStoreName } from '@src/types/common';
 import errorAPI from '@src/api/robotError';
-import homeAPI from '@src/api/home';
 import Calendar from '@src/components/Common/Calendar';
 import DropDown from '@src/components/Common/DropDown';
 import ServingErrorChart from '@src/components/RobotError/ServingErrorChart';
@@ -13,38 +15,26 @@ import ErrorList from '@src/components/RobotError/ErrorList';
 import Modal from '@src/components/Common/Modal';
 import styled from '@emotion/styled';
 
-export async function getServerSideProps() {
-  const { data: stores } = await homeAPI.getStores();
+interface IProps {
+  errors: TError;
+}
 
+export const getServerSideProps: GetServerSideProps<IProps> = async () => {
   const { data: errors } = await errorAPI.getErrorList();
 
   return {
     props: {
-      stores,
       errors,
     },
   };
-}
+};
 
-interface IProps {
-  stores: TStore;
-  errors: TError;
-}
-
-const RobotError = ({ stores, errors }: IProps) => {
-  const date = new Date();
-
-  const year = date.getFullYear();
-
-  const month = date.getMonth();
-
-  const day = date.getDate();
-
+const RobotError = ({ errors }: IProps) => {
   const [errorList, setErrorList] = useState<TErrorState[]>(errors.error_notice);
 
   const [serveErrorCount, setServeErrorCount] = useState<TServeErrorCount>(errors.serve_error_count);
 
-  const [startDate, setStartDate] = useState<Date>(new Date(year, month, day - 6));
+  const [startDate, setStartDate] = useState<Date>(new Date(getYear, getMonth, getDay - 6));
 
   const [endDate, setEndDate] = useState<Date>(new Date());
 
@@ -54,13 +44,14 @@ const RobotError = ({ stores, errors }: IProps) => {
 
   const [isOpen, setisOpen] = useState<boolean>(false);
 
-  const dropdownList: TDropDown[] = stores.stores.map(({ map_name: storeName, map_id: storeId }) => ({
-    id: storeId,
-    option: storeName,
-  }));
+  const dateData: TDateData = {
+    start_date: convertDate(startDate),
+    end_date: convertDate(endDate),
+    map_id: storeId,
+  };
 
-  const errorListHandler = (errorLists: TErrorState[]) => {
-    setErrorList(errorLists);
+  const errorListHandler = (errorList: TErrorState[]) => {
+    setErrorList(errorList);
   };
 
   const serveErrorCountHandler = (serveErrorCount: TServeErrorCount) => {
@@ -84,30 +75,44 @@ const RobotError = ({ stores, errors }: IProps) => {
     setisOpen(false);
   };
 
-  const { mutate: postDates, isLoading: mutateLoading } = useMutation((data: TDates) => errorAPI.postErrorDates(data), {
-    onSuccess: ({ error_notice, serve_error_count }: any) => {
-      errorListHandler(error_notice);
-      serveErrorCountHandler(serve_error_count);
+  const { mutate: postDates, isLoading: mutateLoading } = useMutation(
+    async (dateData: TDateData) => {
+      const { data: error } = await errorAPI.postErrorDates(dateData);
+      return error;
     },
-  });
+    {
+      onSuccess: ({ error_notice, serve_error_count }: Pick<TError, 'error_notice' | 'serve_error_count'>) => {
+        errorListHandler(error_notice);
+        serveErrorCountHandler(serve_error_count);
+      },
+    },
+  );
 
   const postDateHandler = () => {
     if (storeId === 0) return setisOpen(true);
 
-    const dateData: TDates = {
-      start_date: convertDate(startDate),
-      end_date: convertDate(endDate),
-      map_id: storeId,
-    };
-
     postDates(dateData);
   };
+
+  const createStoreName = (id: string, option: string): TStoreName => {
+    return { id, option };
+  };
+
+  const STORE_NAME: TStoreName[] = [
+    createStoreName('0', '전체매장'),
+    createStoreName('1', '향동 노리 배달쿡'),
+    createStoreName('2', '연신내 더피플버거'),
+    createStoreName('3', '오산 공유주방'),
+    createStoreName('4', '차세대 융합 기술 연구원'),
+    createStoreName('5', '더티프라이'),
+    createStoreName('6', '노원 발란'),
+  ];
 
   return (
     <StRobotError isOpen={isOpen}>
       <StHeader>
         <StFilterBox>
-          <DropDown selected={storeName} list={dropdownList} event={dropdownHandler} />
+          <DropDown selected={storeName} list={STORE_NAME} event={dropdownHandler} />
           <Calendar type="start" startDate={startDate} setDate={setStartDate} endDate={endDate} />
           <Calendar type="end" startDate={startDate} setDate={setEndDate} endDate={endDate} />
         </StFilterBox>

@@ -27,7 +27,7 @@ const ErrorInfo = ({ errorInfo }: IProps) => {
         <Title title="에러 정보" />
       </StHeader>
       <StBody>
-        {ERROR_INFO.map(({ id, title, description }) => (
+        {ERROR_INFO.map(({ id, title, description }: TCountInfo) => (
           <StFlexBox key={id}>
             <StTitle>{title} : </StTitle>
             <StDescription>{description ? description : '등록되지 않은 데이터입니다'}</StDescription>
