@@ -12,9 +12,9 @@ import styled from '@emotion/styled';
 const BottomNav = () => {
   const router = useRouter();
 
-  const [nav, setNav] = useRecoilState(navState);
+  const [nav, setNav] = useRecoilState<string>(navState);
 
-  const currentPath = router.pathname.split('/')[1];
+  const currentPath: string = router.pathname.split('/')[1];
 
   const navHandler = () => {
     currentPath === '' ? setNav('/') : setNav(`/${currentPath}`);
@@ -62,7 +62,7 @@ const BottomNav = () => {
   return (
     <StBottomNav>
       <StBody>
-        {NAV.map(({ id, name, path, active, disabled }) => (
+        {NAV.map(({ id, name, path, active, disabled }: TNav) => (
           <StFlexBox key={id} onClick={() => pageHandler(path)}>
             {nav === path ? active : disabled}
             <StName isSame={nav === path}>{name}</StName>

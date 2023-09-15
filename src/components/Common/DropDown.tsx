@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
-import useOnClickOutside from '@src/hooks/useOnClickOutside';
 import { TDropDown } from '@src/types/common';
+import useOnClickOutside from '@src/hooks/useOnClickOutside';
 import styled from '@emotion/styled';
 
 interface IProps {
@@ -22,7 +22,7 @@ const DropDown = ({ selected, list, event }: IProps) => {
     setisOpen(false);
   });
 
-  const filteredList = list.filter((cur) => cur.option !== selected);
+  const filteredList = list.filter(({ option }: TDropDown) => option !== selected);
 
   return (
     <StDropdown ref={ref}>

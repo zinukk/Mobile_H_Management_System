@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import DatePicker from 'react-datepicker';
 import ko from 'date-fns/locale/ko';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -12,6 +12,12 @@ interface IProps {
 }
 
 const Calendar = ({ type, startDate, endDate, setDate }: IProps) => {
+  const selected: Date = type === 'start' ? startDate : endDate;
+
+  const minDate: Date | null = type === 'end' ? startDate : null;
+
+  const maxDate: Date = new Date();
+
   const dateHandler = (date: Date) => {
     setDate(date);
   };
@@ -22,9 +28,9 @@ const Calendar = ({ type, startDate, endDate, setDate }: IProps) => {
         locale={ko}
         dateFormat="yyyy.MM.dd (eee)"
         showPopperArrow={false}
-        selected={type === 'start' ? startDate : endDate}
-        minDate={type === 'end' ? startDate : null}
-        maxDate={new Date()}
+        selected={selected}
+        minDate={minDate}
+        maxDate={maxDate}
         onChange={(date: Date) => {
           dateHandler(date);
         }}

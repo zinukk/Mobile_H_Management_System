@@ -1,13 +1,7 @@
 import { useRouter } from 'next/router';
-import axios, { AxiosResponse } from 'axios';
+import { AxiosResponse } from 'axios';
 import { TErrorCodeObject } from '@src/types/common';
-
-export const baseURL: string = process.env.NEXT_PUBLIC_BASE_URL as string;
-
-const client = axios.create({
-  baseURL: `${baseURL}`,
-  headers: { 'Content-Type': 'application/json;charset=utf-8' },
-});
+import { client } from '@src/lib/axiosConfig';
 
 client.interceptors.response.use((response: AxiosResponse) => {
   try {
