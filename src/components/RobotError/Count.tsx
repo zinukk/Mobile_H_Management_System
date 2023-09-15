@@ -22,7 +22,7 @@ const Count = ({ type, week, month }: IProps) => {
       </StHeader>
       <StBody>
         <StFlexBox>
-          {COUNT_INFO.map(({ id, title, description }) => (
+          {COUNT_INFO.map(({ id, title, description }: TCountInfo) => (
             <StCountBox key={id}>
               <StDescription>{description}</StDescription>
               <StPeriod>{title}</StPeriod>

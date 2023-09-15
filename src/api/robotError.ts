@@ -1,12 +1,12 @@
 import client from './client';
 import API from './apis';
-import { TDates, TErrorState } from '@src/types/robotError';
+import { TDateData, TErrorState } from '@src/types/robotError';
 
 const robotErrorAPI = {
   getErrorList: () => {
     return client.get(`${API.getErrorList}`);
   },
-  postErrorDates: (data: TDates) => {
+  postErrorDates: (data: TDateData) => {
     return client.post(`${API.postErrorDates}`, data);
   },
   getErrorDetail: (data: TErrorState) => {

@@ -48,7 +48,7 @@ export type TErrorRiskCounts = {
   minor: string;
 };
 
-export type TDates = {
+export type TDateData = {
   start_date: string;
   end_date: string;
   map_id: number;
