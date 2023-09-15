@@ -8,17 +8,19 @@ interface IProps {
 }
 
 const SolutionList = ({ solutionList }: IProps) => {
+  const isValid: boolean = solutionList && solutionList.length === 0;
+
   return (
     <StSolutionList>
       <StHeader>
         <Title title="해당 에러와 관련된 해결 방법" />
       </StHeader>
       <StBody>
-        {solutionList && solutionList.length === 0 ? (
+        {solutionList && isValid ? (
           <Null />
         ) : (
           solutionList &&
-          solutionList.map(({ error_id, manager, content }) => (
+          solutionList.map(({ error_id, manager, content }: TErrorSolution) => (
             <StSolution key={error_id}>
               <StFlexBox>
                 <StTitle>담당자 : </StTitle>

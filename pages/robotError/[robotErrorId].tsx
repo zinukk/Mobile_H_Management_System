@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { MutationFunction, useMutation } from 'react-query';
+import { useMutation } from 'react-query';
 import { ParsedUrlQuery } from 'querystring';
 import { TErrorState } from '@src/types/robotError';
 import errorAPI from '@src/api/robotError';
@@ -16,12 +16,13 @@ const RobotErrorDetail = () => {
 
   const requestData = router.query as ParsedUrlQuery & TErrorState;
 
-  const mutationFn: MutationFunction<any, TErrorState> = async (data: TErrorState) => {
-    const { data: errorDetail } = await errorAPI.getErrorDetail(data);
-    return errorDetail;
-  };
-
-  const { mutate: postErrorState, data: errorDetail } = useMutation(mutationFn, { mutationKey: 'errorDetail' });
+  const { mutate: postErrorState, data: errorDetail } = useMutation(
+    async (data: TErrorState) => {
+      const { data: errorDetail } = await errorAPI.getErrorDetail(data);
+      return errorDetail;
+    },
+    { mutationKey: 'errorDetail' },
+  );
 
   useEffect(() => {
     if (Object.keys(requestData).length !== 0) {
