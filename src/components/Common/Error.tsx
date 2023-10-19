@@ -28,7 +28,7 @@ const Error = ({
     <StError onClick={pageHandler}>
       <StHeader color={risk_degree} />
       <StBody>
-        <StErrorMessage>{error_msg ? error_msg.split(',').join(', ') : '확인되지 않은 에러입니다.'}</StErrorMessage>
+        <StErrorMessage>{error_msg ? error_msg : '확인되지 않은 에러입니다.'}</StErrorMessage>
         <StFlexBox>
           <StStoreName>{k_map_name ? k_map_name : error_type}</StStoreName>
           <StTime>{created_at}</StTime>
@@ -65,7 +65,7 @@ const StError = styled.div`
 const StHeader = styled.header<{ color: string }>`
   width: 5%;
   height: 70px;
-  background: ${({ theme, color }) => (color ? theme.color[color] : theme.color.stroke)};
+  background: ${({ theme, color }) => (color ? theme.color[color.toLowerCase()] : theme.color.stroke)};
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
 `;
@@ -79,6 +79,11 @@ const StBody = styled.main`
 `;
 
 const StErrorMessage = styled.p`
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 270px;
+  height: 20px;
   font-size: 14px;
 `;
 

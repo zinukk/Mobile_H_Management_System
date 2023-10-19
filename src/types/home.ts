@@ -36,10 +36,10 @@ export type TRiskDegreeList = {
 
 export type TRiskDegree = {
   [key: string]: number;
-  all: number;
-  minor: number;
-  major: number;
-  critical: number;
+  ALL: number;
+  MINOR: number;
+  MAJOR: number;
+  CRITICAL: number;
 };
 
 export type TRobotState = {

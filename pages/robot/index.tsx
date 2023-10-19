@@ -168,7 +168,6 @@ const StDropDownBox = styled.div`
 `;
 
 const StBody = styled.main`
-  position: relative;
   margin-top: 20px;
   display: flex;
   justify-content: center;
