@@ -19,11 +19,11 @@ const RecentError = () => {
 
   const riskDegree: TRiskDegree = recentErrorList.reduce(
     (acc: TRiskDegree, { risk_degree }) => {
-      acc['all'] = acc['all'] + 1;
+      acc['ALL'] = acc['ALL'] + 1;
       acc[risk_degree] = acc[risk_degree] + 1;
       return acc;
     },
-    { all: 0, minor: 0, major: 0, critical: 0 },
+    { ALL: 0, MINOR: 0, MAJOR: 0, CRITICAL: 0 },
   );
 
   const riskDegreeList: TRiskDegreeList[] = Object.entries(riskDegree).map(([degree, count], id) => ({
@@ -74,6 +74,7 @@ const RecentError = () => {
     },
     {
       onSuccess: ({ error_notice: recentErrors }) => {
+        console.log(recentErrors);
         return setRecentErrors(recentErrors);
       },
       refetchInterval: refetchTime(),
@@ -88,7 +89,7 @@ const RecentError = () => {
           {riskDegreeList.map(({ id, degree }: TRiskDegreeList) => (
             <StFlexBox key={id}>
               <StColor color={degree} />
-              <StDegree>{degree[0].toUpperCase() + degree.slice(1)}</StDegree>
+              <StDegree>{degree}</StDegree>
             </StFlexBox>
           ))}
         </StDegreeBox>
@@ -130,8 +131,8 @@ const StFlexBox = styled.div`
 const StColor = styled.div<{ color: string }>`
   width: 10px;
   height: 10px;
-  background: ${({ theme, color }) => theme.color[color]};
-  border: ${({ color }) => color === 'all' && '1px solid black'};
+  background: ${({ theme, color }) => theme.color[color.toLowerCase()]};
+  border: ${({ color }) => color === 'ALL' && '1px solid black'};
   border-radius: 10px;
 `;
 
