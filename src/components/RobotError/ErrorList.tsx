@@ -1,3 +1,4 @@
+import React from 'react';
 import { useRef } from 'react';
 import { TErrorState } from '@src/types/robotError';
 import Title from '../Common/Title';
@@ -86,4 +87,4 @@ const StSpinnerBox = styled.div`
   width: 100%;
 `;
 
-export default ErrorList;
+export default React.memo(ErrorList);
