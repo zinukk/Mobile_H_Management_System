@@ -82,7 +82,7 @@ const StErrorMessage = styled.p`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  width: 270px;
+  width: 230px;
   height: 20px;
   font-size: 14px;
 `;

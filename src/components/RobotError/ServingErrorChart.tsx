@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   Chart as ChartJS,
   LinearScale,
@@ -88,4 +89,4 @@ const StBody = styled.main`
   }
 `;
 
-export default ServingErrorChart;
+export default React.memo(ServingErrorChart);
