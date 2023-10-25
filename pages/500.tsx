@@ -1,19 +1,15 @@
-import { useRouter } from 'next/router';
 import styled from '@emotion/styled';
+import Link from 'next/link';
 
 const Custom500 = () => {
-  const router = useRouter();
-
-  const pageHandler = () => {
-    router.push('/');
-  };
-
   return (
     <StCustom500>
       <StHeader>서버에 오류가 발생했습니다 :(</StHeader>
       <StBody>500 ERROR</StBody>
       <StFooter>
-        <StBack onClick={pageHandler}>홈으로 돌아가기</StBack>
+        <Link href={'/'}>
+          <StBack>홈으로 돌아가기</StBack>
+        </Link>
       </StFooter>
     </StCustom500>
   );

@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useRecoilState } from 'recoil';
@@ -10,18 +11,14 @@ import { navState } from '@src/store/navState';
 import styled from '@emotion/styled';
 
 const BottomNav = () => {
-  const router = useRouter();
+  const { pathname } = useRouter();
 
   const [nav, setNav] = useRecoilState<string>(navState);
 
-  const currentPath: string = router.pathname.split('/')[1];
+  const currentPath: string = pathname.split('/')[1];
 
   const navHandler = () => {
     currentPath === '' ? setNav('/') : setNav(`/${currentPath}`);
-  };
-
-  const pageHandler = (path: string) => {
-    router.push(path);
   };
 
   useEffect(() => {
@@ -63,8 +60,8 @@ const BottomNav = () => {
     <StBottomNav>
       <StBody>
         {NAV.map(({ id, name, path, active, disabled }: TNav) => (
-          <StFlexBox key={id} onClick={() => pageHandler(path)}>
-            {nav === path ? active : disabled}
+          <StFlexBox key={id}>
+            <Link href={path}>{nav === path ? active : disabled}</Link>
             <StName isSame={nav === path}>{name}</StName>
           </StFlexBox>
         ))}

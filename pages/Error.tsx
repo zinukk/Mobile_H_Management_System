@@ -1,22 +1,21 @@
+import Link from 'next/link';
 import { useRouter } from 'next/router';
-import styled from '@emotion/styled';
 import { ParsedUrlQuery } from 'querystring';
+import styled from '@emotion/styled';
 
 const Error = () => {
-  const router = useRouter();
+  const { query } = useRouter();
 
-  const pageHandler = () => {
-    router.push('/');
-  };
-
-  const { errorDescription, errorCode } = router.query as ParsedUrlQuery;
+  const { errorDescription, errorCode } = query as ParsedUrlQuery;
 
   return (
     <StError>
       <StHeader>{errorDescription}</StHeader>
       <StBody>Error Code {errorCode}</StBody>
       <StFooter>
-        <StBack onClick={pageHandler}>홈으로 돌아가기</StBack>
+        <Link href={'/'}>
+          <StBack>홈으로 돌아가기</StBack>
+        </Link>
       </StFooter>
     </StError>
   );

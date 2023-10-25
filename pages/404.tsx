@@ -1,19 +1,15 @@
-import { useRouter } from 'next/router';
 import styled from '@emotion/styled';
+import Link from 'next/link';
 
 const Custom404 = () => {
-  const router = useRouter();
-
-  const pageHandler = () => {
-    router.push('/');
-  };
-
   return (
     <StCustom404>
       <StHeader>요청하신 페이지를 찾을 수 없습니다 :(</StHeader>
       <StBody>404 ERROR</StBody>
       <StFooter>
-        <StBack onClick={pageHandler}>홈으로 돌아가기</StBack>
+        <Link href={'/'}>
+          <StBack>홈으로 돌아가기</StBack>
+        </Link>
       </StFooter>
     </StCustom404>
   );
