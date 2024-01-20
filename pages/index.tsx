@@ -1,11 +1,10 @@
 import type { GetServerSideProps } from 'next';
-import dynamic from 'next/dynamic';
 import { TPerformance } from '@src/types/home';
 import { TStore } from '@src/types/store';
 import homeAPI from '@src/api/home';
 import RobotPerformance from '@src/components/Home/RobotPerformance/RobotPerformance';
 import StoreList from '@src/components/Home/StoreList/StoreList';
-import Spinner from '@src/components/Common/Spinner';
+import RecentError from '@src/components/Home/RecentError/RecentError';
 import styled from '@emotion/styled';
 
 interface IProps {
@@ -25,10 +24,6 @@ export const getServerSideProps: GetServerSideProps<IProps> = async () => {
     },
   };
 };
-
-const RecentError = dynamic(() => import('@src/components/Home/RecentError/RecentError'), {
-  loading: () => <Spinner />,
-});
 
 const Home = ({ performance, stores }: IProps) => {
   return (
